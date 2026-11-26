@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="curiosity-recursion">
+  <rect width="256" height="256" rx="56" fill="#14110e"/>
+  <g transform="translate(-20 2)">
+  <!-- A question mark drawn as a chain of leads: each finding sparks the next question, and some spark side branches. -->
+  <g fill="none" stroke="#f6f0e8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M86 104 C86 66 108 50 132 50 C160 50 178 68 178 94 C178 116 162 126 148 136 C136 145 130 152 130 172"/>
+  </g>
+  <g fill="none" stroke="#a89886" stroke-width="5" stroke-linecap="round">
+    <path d="M154 54 L184 30"/>
+    <path d="M178 96 L212 96"/>
+    <path d="M150 134 L184 156"/>
+  </g>
+  <g fill="#14110e" stroke="#a89886" stroke-width="5">
+    <circle cx="190" cy="26" r="9"/>
+    <circle cx="218" cy="96" r="9"/>
+    <circle cx="190" cy="160" r="9"/>
+  </g>
+  <g fill="#e08a66">
+    <circle cx="86" cy="104" r="14"/>
+    <circle cx="154" cy="54" r="12"/>
+    <circle cx="178" cy="96" r="12"/>
+    <circle cx="150" cy="134" r="12"/>
+  </g>
+  <circle cx="130" cy="210" r="18" fill="#e08a66"/>
+  </g>
+</svg>
