@@ -1,0 +1,192 @@
+steps:
+- id: wikidata_identity
+  title: Wikidata people search
+  stage: 1
+  source_slug: wikidata
+  mode: live
+  handler: wikidata
+  topic: identity
+- id: vital_birth
+  title: Birth record
+  stage: 2
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: birth
+  fixture_fields:
+  - birth
+  why_stub: State vital records are not in the live catalog (letter or paid). No free, keyless API for this record set; this
+    step reads the eval fixture in demo mode only (STUB).
+- id: vital_marriage
+  title: Marriage record
+  stage: 2
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: marriage
+  fixture_fields:
+  - marriage
+  why_stub: Marriage registers are county-held. No free, keyless API for this record set; in demo mode this step reads the
+    fixture only.
+- id: vital_death
+  title: Death record
+  stage: 2
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: death
+  fixture_fields:
+  - death
+  why_stub: Death registers are state-held. No free, keyless API for this record set; in demo mode this step reads the eval fixture
+    only.
+- id: findagrave_link
+  title: Find a Grave memorial (link only)
+  stage: 2
+  source_slug: none
+  mode: stub
+  handler: findagrave
+  topic: burial
+  why_stub: Find a Grave is not in the catalog and its terms prohibit automated access. The system keeps ids and links only.
+- id: census_households
+  title: Census households
+  stage: 2
+  source_slug: us-census-1950
+  mode: stub
+  handler: fixture
+  topic: census
+  fixture_fields:
+  - residence
+  why_stub: The live catalog has the 1950 census only. Earlier enumerations come from the eval fixture.
+  flaky: true
+- id: chronam_obituary
+  title: 'Newspapers: obituary and notices'
+  stage: 2
+  source_slug: loc-chronicling-america
+  mode: live
+  handler: chronam
+  topic: burial
+  query: '{name}'
+- id: passenger_manifests
+  title: Passenger manifests
+  stage: 3
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: passage
+  fixture_fields:
+  - immigration
+  - arrival
+  why_stub: Arrival manifests sit behind FamilySearch login or Ancestry; not in the keyless catalog.
+- id: naturalization
+  title: Naturalization papers
+  stage: 3
+  source_slug: us-national-archives
+  mode: stub
+  handler: fixture
+  topic: naturalization
+  fixture_fields:
+  - naturalization
+  why_stub: The NARA catalog API now needs a key. Not called here.
+- id: ia_place_history
+  title: Town and county histories
+  stage: 3
+  source_slug: internet-archive
+  mode: live
+  handler: ia
+  topic: place
+  query: title:(history) AND ("{town}")
+- id: photos
+  title: Photographs in local collections
+  stage: 6
+  source_slug: none
+  mode: stub
+  handler: relatives_photos
+  topic: photos
+  why_stub: Wood Memorial PastPerfect pages are out of reach for automated fetch; titles come from the relatives fixture.
+- id: kin_parents
+  title: Parents (birth and census records)
+  stage: 4
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: parents
+  fixture_fields:
+  - parent
+  - father
+  - mother
+  why_stub: No free, keyless API for this record set; in demo mode this step reads the eval fixture only (STUB).
+- id: wikitree_kin
+  title: WikiTree / Wikidata relatives
+  stage: 4
+  source_slug: wikidata
+  mode: live
+  handler: wikidata_kin
+  topic: parents
+- id: kin_children
+  title: Children
+  stage: 4
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: children
+  fixture_fields:
+  - child
+  why_stub: No free, keyless API for this record set; in demo mode this step reads the eval fixture only (STUB).
+- id: service_roster
+  title: 'State roster: Record of Service'
+  stage: 5
+  source_slug: internet-archive
+  mode: stub
+  handler: fixture
+  topic: unit
+  fixture_fields:
+  - military
+  why_stub: The roster volumes are on Internet Archive, but reading the right page needs a page-level read that is not built yet. Claims come from
+    the eval fixture.
+- id: ia_regimental
+  title: Regimental histories
+  stage: 5
+  source_slug: internet-archive
+  mode: live
+  handler: ia
+  topic: unit
+  query: title:(regiment) AND title:("{state}") AND title:(volunteer OR rebellion)
+- id: nps_soldiers
+  title: NPS Soldiers and Sailors database
+  stage: 5
+  source_slug: none
+  mode: stub
+  handler: relatives_sources
+  topic: unit
+  query: NPS Soldiers and Sailors
+  why_stub: NPS has no public API; ids come from the relatives fixture.
+- id: pension_index
+  title: Pension index (NARA T288)
+  stage: 5
+  source_slug: familysearch
+  mode: stub
+  handler: fixture
+  topic: pension
+  fixture_fields:
+  - pension
+  why_stub: 'FamilySearch is user_oauth in the catalog: needs the user''s own login. Not called.'
+- id: chronam_name
+  title: 'Newspapers: name search'
+  stage: 6
+  source_slug: loc-chronicling-america
+  mode: live
+  handler: chronam
+  topic: newspapers
+  query: '{name}'
+- id: occupation_records
+  title: Work, school and directories
+  stage: 6
+  source_slug: none
+  mode: stub
+  handler: fixture
+  topic: work
+  fixture_fields:
+  - occupation
+  - education
+  - membership
+  why_stub: No free, keyless API for this record set; in demo mode this step reads the eval fixture only (STUB).

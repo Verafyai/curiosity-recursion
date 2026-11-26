@@ -1,0 +1,87 @@
+id: vital_records
+title: Vital records life story
+template: book-of-daniel
+blurb: Birth, marriage, death and burial, census decades, work and family, told in order.
+opening:
+- wikidata_identity
+- chronam_name
+topics:
+- id: birth
+  label: Birth
+  fields:
+  - birth
+  keywords:
+  - born
+  - birth
+  steps:
+  - vital_birth
+- id: marriage
+  label: Marriage
+  fields:
+  - marriage
+  keywords:
+  - married
+  - wife
+  - husband
+  steps:
+  - vital_marriage
+- id: work
+  label: Work and schooling
+  fields:
+  - occupation
+  - education
+  - membership
+  keywords:
+  - work
+  - job
+  - school
+  - occupation
+  steps:
+  - occupation_records
+- id: census
+  label: Census and addresses
+  fields:
+  - residence
+  keywords:
+  - census
+  - lived
+  - address
+  steps:
+  - census_households
+  - ia_place_history
+- id: children
+  label: Children
+  fields:
+  - child
+  keywords:
+  - children
+  - son
+  - daughter
+  steps:
+  - kin_children
+- id: burial
+  label: Death and burial
+  fields:
+  - death
+  - burial
+  keywords:
+  - died
+  - buried
+  - death
+  steps:
+  - vital_death
+  - findagrave_link
+  - chronam_obituary
+- id: parents
+  label: Parents
+  fields:
+  - parent
+  - father
+  - mother
+  keywords:
+  - parents
+  - father
+  - mother
+  steps:
+  - kin_parents
+  - wikitree_kin

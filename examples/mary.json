@@ -1,0 +1,4 @@
+{"person": {"full_name": "Mary Devine", "name_variants": ["Mary G. Devine", "Mary Graham Devine", "Mary Devine Burnham", "Mary G. Burnham"],
+  "birth_year": 1830, "birth_place": "Glasgow, Scotland", "death_year": 1911, "death_place": "South Windsor, Connecticut"},
+ "question": "When did she come over from Scotland, and where did she settle?",
+ "circuit_id": "the_crossing", "depth": 2, "breadth": 3, "max_nodes": 24, "max_run_minutes": 20, "level_pause_seconds": 3}

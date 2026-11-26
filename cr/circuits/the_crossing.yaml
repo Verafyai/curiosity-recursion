@@ -1,0 +1,97 @@
+id: the_crossing
+title: The crossing (immigration)
+template: the-crossing
+blurb: Where they came from, the passage, naturalisation, and the household they settled into.
+opening:
+- wikidata_identity
+- chronam_name
+topics:
+- id: origin
+  label: Birthplace abroad
+  fields:
+  - birth
+  keywords:
+  - born
+  - from
+  - origin
+  - came
+  steps:
+  - vital_birth
+- id: passage
+  label: Passage and arrival
+  fields:
+  - immigration
+  - arrival
+  keywords:
+  - arriv
+  - ship
+  - crossing
+  - emigrat
+  - immigrat
+  steps:
+  - passenger_manifests
+- id: naturalization
+  label: Naturalisation
+  fields:
+  - naturalization
+  keywords:
+  - natural
+  - citizen
+  steps:
+  - naturalization
+- id: marriage
+  label: Marriage
+  fields:
+  - marriage
+  keywords:
+  - married
+  - husband
+  - wife
+  steps:
+  - vital_marriage
+- id: settling
+  label: Where they settled
+  fields:
+  - residence
+  keywords:
+  - settle
+  - lived
+  - census
+  steps:
+  - census_households
+  - ia_place_history
+- id: photos
+  label: Photographs
+  fields:
+  - photo
+  keywords:
+  - photo
+  - picture
+  steps:
+  - photos
+- id: burial
+  label: Death and burial
+  fields:
+  - death
+  - burial
+  keywords:
+  - died
+  - buried
+  - death
+  steps:
+  - vital_death
+  - findagrave_link
+  - chronam_obituary
+- id: parents
+  label: Parents
+  fields:
+  - parent
+  - father
+  - mother
+  keywords:
+  - parents
+  - father
+  - mother
+  steps:
+  - kin_parents
+  - wikitree_kin

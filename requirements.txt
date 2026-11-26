@@ -1,0 +1,11 @@
+temporalio==1.37.0
+pydantic==2.14.4
+fastapi==0.165.0
+starlette==1.10.0
+uvicorn==0.54.0
+httpx==0.29.0
+pyyaml>=6.0
+scipy>=1.13
+numpy>=2.0
+matplotlib>=3.9
+pytest>=8

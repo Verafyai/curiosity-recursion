@@ -1,0 +1,5 @@
+{"person": {"full_name": "Erastus W. Burnham", "name_variants": ["Erastus Burnham", "Erastus Williams Burnham", "E. W. Burnham"],
+  "birth_year": 1834, "birth_place": "South Windsor, Connecticut", "death_year": 1921, "death_place": "South Windsor, Connecticut",
+  "family_notes": "Whaler out of New London. Civil War surgeon for four years."},
+ "question": "Who were his parents, what Civil War unit did he serve in, was he on a ship, and where is he buried?",
+ "circuit_id": "civil_war_veteran", "depth": 3, "breadth": 3, "max_nodes": 40, "max_run_minutes": 30, "level_pause_seconds": 5}

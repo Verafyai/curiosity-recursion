@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "darkkin-bench/result.schema.json",
+  "title": "One logged agent run (one line of results/*.jsonl)",
+  "type": "object",
+  "required": ["run_id", "agent", "subject_id", "budget", "seed", "commit", "started_at", "completed", "stop_reason",
+               "tool_calls", "citations", "drafts"],
+  "properties": {
+    "run_id": {"type": "string"}, "agent": {"enum": ["B0", "B1", "B3", "B4", "B5", "B6"]},
+    "config": {"type": "object"}, "subject_id": {"type": "string"}, "budget": {"type": "integer"},
+    "seed": {"type": "integer"}, "commit": {"type": "string"}, "started_at": {"type": "string"},
+    "wall_seconds": {"type": "number"}, "completed": {"type": "boolean"}, "stop_reason": {"type": "string"},
+    "tool_calls": {"type": "integer"}, "llm_tokens": {"type": "integer"}, "usd": {"type": "number"},
+    "history_events": {"type": ["integer", "null"]}, "repeated_activities": {"type": ["integer", "null"]},
+    "citations": {"type": "array", "items": {"type": "object",
+                  "properties": {"url": {}, "title": {}, "item_id": {}, "node": {}, "depth": {"type": "integer"}, "tier_claim": {}}}},
+    "documented_claims": {"type": "array"}, "leads": {"type": "array"},
+    "drafts": {"type": "array", "description": "Outreach drafts: holder and record asked for"},
+    "questions": {"type": "array", "description": "Every question node: id, parent, depth, template, key, grounded"}
+  }
+}

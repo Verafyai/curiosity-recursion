@@ -1,0 +1,24 @@
+[project]
+name = "curiosity-recursion"
+version = "0.1.0"
+description = "Durable, grounded question graphs for long-running archival research, on Temporal"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Rex St. John" }]
+requires-python = ">=3.11"
+dependencies = [
+  "temporalio==1.37.0",
+  "pydantic==2.14.4",
+  "fastapi==0.165.0",
+  "starlette==1.10.0",
+  "uvicorn==0.54.0",
+  "httpx==0.29.0",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+bench = ["scipy>=1.13", "numpy>=2.0", "matplotlib>=3.9"]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

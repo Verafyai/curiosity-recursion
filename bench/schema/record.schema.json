@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "darkkin-bench/record.schema.json",
+  "title": "DarkKin-Bench hidden record",
+  "type": "object",
+  "required": ["key", "host", "tier", "tier_basis", "confirmed", "private", "hidden"],
+  "properties": {
+    "key": {"type": "string", "description": "Canonical key: url:<normalised url>, ia:<identifier>, or a private id"},
+    "id": {"type": "string"},
+    "host": {"type": "string", "description": "'private' for family-held items"},
+    "url": {"type": ["string", "null"]},
+    "title": {"type": ["string", "null"], "description": "Null for family dossiers and private items"},
+    "kind": {"type": ["string", "null"]},
+    "tier": {"enum": ["T0", "T1", "T2", "T3"],
+             "description": "T0 online indexed; T1 online full text or images only; T2 online gated; T3 offline only"},
+    "tier_basis": {"enum": ["heuristic", "confirmed"]},
+    "confirmed": {"type": "boolean"},
+    "kin_reach": {"type": ["string", "null"]},
+    "private": {"type": "boolean"},
+    "hidden": {"type": "boolean"},
+    "about_subject": {"type": ["boolean", "null"]}
+  }
+}

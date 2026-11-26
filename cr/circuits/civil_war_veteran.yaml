@@ -1,0 +1,104 @@
+id: civil_war_veteran
+title: Civil War veteran
+template: service-record
+blurb: Unit, enlistment and discharge, pension, burial, and the household before and after.
+opening:
+- wikidata_identity
+- ia_regimental
+topics:
+- id: unit
+  label: Unit and service dates
+  fields:
+  - military
+  keywords:
+  - unit
+  - regiment
+  - serve
+  - service
+  - enlist
+  - war
+  steps:
+  - service_roster
+  - nps_soldiers
+  - ia_regimental
+- id: burial
+  label: Burial
+  fields:
+  - burial
+  - death
+  keywords:
+  - buried
+  - burial
+  - grave
+  - cemetery
+  - died
+  - death
+  steps:
+  - vital_death
+  - findagrave_link
+  - chronam_obituary
+- id: pension
+  label: Pension file
+  fields:
+  - pension
+  keywords:
+  - pension
+  steps:
+  - pension_index
+- id: census
+  label: Census households
+  fields:
+  - residence
+  keywords:
+  - census
+  - lived
+  - household
+  steps:
+  - census_households
+  - ia_place_history
+- id: birth
+  label: Birth
+  fields:
+  - birth
+  keywords:
+  - born
+  - birth
+  steps:
+  - vital_birth
+- id: marriage
+  label: Marriage
+  fields:
+  - marriage
+  keywords:
+  - married
+  - wife
+  - spouse
+  steps:
+  - vital_marriage
+- id: parents
+  label: Parents
+  fields:
+  - parent
+  - father
+  - mother
+  keywords:
+  - parents
+  - father
+  - mother
+  steps:
+  - kin_parents
+  - wikitree_kin
+- id: work
+  label: Work before and after the war
+  fields:
+  - occupation
+  - education
+  - membership
+  keywords:
+  - work
+  - job
+  - occupation
+  - whal
+  steps:
+  - occupation_records
+  - chronam_name

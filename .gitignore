@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+logs/
+results/*
+!results/smoke-2026-11-26.jsonl
+!results/smoke-2026-11-26.scores.jsonl
+.env

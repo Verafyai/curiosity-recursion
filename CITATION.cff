@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software or DarkKin-Bench, please cite it as below."
+title: "Curiosity Recursion: Durable, Grounded Question Graphs for Genealogical Dark Data"
+authors:
+  - family-names: "St. John"
+    given-names: "Rex"
+    affiliation: "Lineage / independent researcher"
+version: "0.1.0"
+date-released: "2026-11-26"
+license: Apache-2.0
+type: software
+keywords: [genealogy, research agents, durable execution, Temporal, benchmark, dark data]

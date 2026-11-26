@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "darkkin-bench/subject.schema.json",
+  "title": "DarkKin-Bench subject",
+  "type": "object",
+  "required": ["subject_id", "source", "group", "circuit", "split", "input", "gate", "records"],
+  "properties": {
+    "subject_id": {"type": "string"},
+    "source": {"type": "string"},
+    "group": {"type": "string"},
+    "circuit": {"type": "string", "description": "Circuit id in cr/circuits/*.yaml"},
+    "split": {"enum": ["dev", "test", "holdout"]},
+    "input": {
+      "type": "object", "description": "Seed facts only. This is all the agent sees.",
+      "required": ["full_name"],
+      "properties": {
+        "full_name": {"type": "string"}, "name_variants": {"type": "array", "items": {"type": "string"}},
+        "birth_year": {"type": ["integer", "null"]}, "death_year": {"type": ["integer", "null"]},
+        "birth_place": {"type": ["string", "null"]}, "death_place": {"type": ["string", "null"]}
+      }
+    },
+    "gate": {"type": "object", "required": ["allowed"], "properties": {"allowed": {"const": true}}},
+    "records": {"type": "array", "items": {"$ref": "record.schema.json"}},
+    "notes": {"type": "string"}
+  }
+}

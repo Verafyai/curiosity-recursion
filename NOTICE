@@ -1,0 +1,7 @@
+curiosity-recursion
+Copyright 2026 Rex St. John
+
+Includes Cytoscape.js 3.30.2 (MIT license) in web/static/cytoscape.min.js, and the Fraunces and
+Public Sans fonts (SIL Open Font License 1.1) in web/static/fonts/.
+fixtures/burnham-erastus.json is a curated golden file from the kin project, about a person who died
+in 1921; every claim in it carries its public source URL.
