@@ -26,7 +26,9 @@ if [ "$SCORE_ONLY" = 0 ]; then
   run_one() {
     c=$1; p=$2; b=$3; s=$4; n=$c-$p-b$b-s$s
     [ -s "$OUT/runs/$n.jsonl" ] && return 0
-    CR_TOOL_LOG="$OUT/logs/$n.tools.jsonl" CR_BLOCK_LOG="$OUT/logs/$n.blocked.jsonl" \
+    # spend guard: only the model baselines see a model API key; every other strategy must cost $0
+    case $c in B0|B1|B5-llm) NOKEY=();; *) NOKEY=(-u XAI_API_KEY -u OPENAI_API_KEY -u OPENROUTER_API_KEY -u NEW_OPENROUTER_API_KEY -u ANTHROPIC_API_KEY);; esac
+    env "${NOKEY[@]}" CR_TOOL_LOG="$OUT/logs/$n.tools.jsonl" CR_BLOCK_LOG="$OUT/logs/$n.blocked.jsonl" \
       .venv/bin/python bench/harness.py --agents "$c" --budgets "$b" --subjects "corpus-$p" --subjects-file eval/corpus/subjects.jsonl \
       --seed-list "$s" --concurrency 1 --tag "_corpus_${n}_$(date +%s)" --workdir "$OUT/work" --out "$OUT/runs/$n.jsonl" --ledger-dir "$OUT/ledgers" --ledger-stem "$n" > "$OUT/logs/$n.out" 2>&1 \
       || echo "FAILED $n" >> "$OUT/failed.txt"
