@@ -1,7 +1,9 @@
 # Lineage Studio Builder (local, on Temporal)
 
 A local version of Lineage Studio that runs on the open-source Temporal dev server.
-You put in one name, pick **Brainstorm**, and hit **Search**. The run works through the
+You put in one name and pick a mode. **Explore** (the default) is interactive: every node in the
+graph offers brainstormed questions and nothing is searched until you press **Research this**.
+**Brainstorm** runs on its own: you hit **Search**. The run works through the
 circuit's baseline checklist, then keeps asking new questions from what it found
 ("he served in the 12th Connecticut, which books cover that regiment, does any of them
 name him, on which page?"). It shows the brainstorm as a live node graph, keeps going
@@ -42,13 +44,66 @@ kill -9 $(cat data/worker.pid)          # the run page turns red: "Worker is dow
 nohup .venv/bin/python worker.py > logs/worker.log 2>&1 & echo $! > data/worker.pid   # it carries on from the same node
 ```
 
-## What you see
+## Explore mode (interactive)
+
+Pick **Explore** on the start screen (or `POST /api/explore`). The person node appears with its
+questions in well under a second: the rules brainstorm's openers plus every step of the circuit's
+checklist, each labelled with the generator that wrote it (`rules brainstorm`, `circuit checklist`,
+`dig deeper`, `you`, `chat suggestion`). Nothing runs until you click.
+
+- **Research this** shows what it will cost ("about 2 tool calls, 97 of 100 left") and asks you to
+  confirm. A pass over `STUDIO_CONFIRM_OVER_CALLS` (default 2) asks a second time. Each pass is a
+  `ResearchPassWorkflow` child of the run, so it has its own history in the Temporal UI. What it
+  finds becomes child nodes (claims first, then citations), each with its own questions.
+- **Skip**, **Edit** (saved as a new question, linked to the old one), **Retry** on a failed pass, and
+  **Draft outreach** on offline sources (pension files, clerks, small archives). Drafts wait for
+  your approval; approving writes a text file. Nothing is ever sent.
+- **Dig deeper** and **Add question** sit on every node and are the main action on a leaf. Dig
+  deeper tries other spellings, initials, a wider date window, the place's own histories, the given
+  name inside the same book, and Wikidata, and never repeats a question already asked on that path.
+- **Progress**: the header shows state, calls used, budget left, running and queued passes. Running
+  questions have a spinner and running nodes pulse. The Activity panel is a live event stream
+  (`GET /api/explore/<id>/events`, server-sent events): "Searching Chronicling America for ...",
+  "Found 5 hit(s); 5 new node(s) with 8 question(s)", and "Retrying ... (attempt 3)" read from Temporal's
+  pending activities. Node badges: queued, running, done, failed (with the error and Retry), and
+  waiting for approval.
+- **Chat** (docked right, Hide to collapse) answers only from the graph, cites node ids as links
+  (`[n7]`), says when the graph does not show something, and offers suggested questions as buttons
+  that add them to the right node. Set `ANTHROPIC_API_KEY` (model `CR_CHAT_MODEL`, default
+  `claude-opus-5-5`) or `XAI_API_KEY` (model `XAI_MODEL`) in the web app's environment. With no key
+  the panel says so and falls back to a keyword match over the graph, labelled as such.
+  Citations to node ids that are not in the graph are dropped and the answer says so.
+- **Graph**: breadth-first layout with the person at the root, border colour by node type (book, book
+  page, newspaper, Wikidata, documented fact, other link), dashed border and the word "Possible" on
+  every node that is a search hit rather than a documented fact. Click for the node panel,
+  double-click to center, hover for a summary, scroll to zoom, drag to pan, Fit, and export as
+  `graph.json`, GraphML or Mermaid (`GET /api/explore/<id>/export?fmt=json|graphml|mermaid`).
+- The living-person gate runs before anything starts: the start screen shows the reason and no run
+  is created. The workflow checks again.
+
+Settings (web app environment): `STUDIO_CALL_BUDGET` (default 100 tool calls per run),
+`STUDIO_CONFIRM_OVER_CALLS` (default 2). Worker: `STUDIO_FAKE_SOURCES=1` swaps the two network
+activities for fixture records titled `[TEST FIXTURE]`, for offline demos and the UI test.
+`TEMPORAL_ADDRESS` and `STUDIO_TASK_QUEUE` point the worker and web app at another server or queue.
+
+Explore API (all `POST` take JSON and return 400 with the reason when the workflow refuses, 409 when
+a second confirm is needed): `/api/explore`, `/api/explore/<id>` (GET state), `research`, `retry`,
+`skip`, `edit`, `questions` (add), `dig`, `outreach-draft`, `compose`, `chat`, `events` (GET, SSE),
+`export` (GET). Outreach approval and the final approve/reject reuse `/api/runs/<id>/outreach`,
+`approve` and `reject`.
+
+![Explore: the person node and its questions](docs/screenshots/explore-1-person.png)
+![Explore: two live Internet Archive passes on real records](docs/screenshots/explore-live.png)
+
+## What you see (Brainstorm mode)
 
 - **Start screen**: one name field, optional born, died, place and other spellings, a question,
   mode (Brainstorm or Checklist only), circuit, depth, breadth, max total nodes, max run time,
   pause between levels, outreach mode, and "simulate flaky archives".
 - **Brainstorm graph** (Cytoscape.js, left to right): the person, the checklist node, then every
-  question. Node colours are read from the Lineage tokens in `web/static/studio.css`: frontier
+  question. While the checklist child workflow is still running, its steps are drawn under the
+  checklist node with their live state (read from `ChecklistPassWorkflow.steps`), so the first 30 to
+  45 seconds no longer show a single node. Node colours are read from the Lineage tokens in `web/static/studio.css`: frontier
   outline queued, terracotta running, amber **retrying 3/8** (read live from Temporal's pending
   activities), green answered with data, muted fill no lead, dashed lore outline STUB, red failed.
   Every state is also written on the node, so colour never carries the meaning alone.
@@ -99,6 +154,10 @@ and POSSIBLE. No progress bars, no completion percentages, no celebration.
 ```bash
 .venv/bin/python tests/test_evidence.py   # evidence model and validator, no server needed
 .venv/bin/python tests/test_replay.py     # replays every run in the local Temporal against current code
+# these start their own throwaway Temporal dev server (needs the temporal CLI):
+.venv/bin/python -m pytest -q tests/test_one_node.py      # repro of the one-node bug
+.venv/bin/python -m pytest -q tests/test_explore.py       # Explore workflow: three levels, dig deeper, add, outreach, replay
+.venv/bin/python -m pytest -q tests/test_ui_playwright.py # browser: questions within seconds, three levels, dig deeper, add, chat
 ```
 
 ## Outreach

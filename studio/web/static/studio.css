@@ -137,3 +137,10 @@ details summary:hover{color:var(--ink)}
 .banner{padding:14px 18px;border-radius:14px;border:1px solid var(--told-border);background:var(--told-wash);color:var(--ink);margin-bottom:16px}
 .banner.down{border-color:color-mix(in srgb,var(--live) 45%,var(--line));background:color-mix(in srgb,var(--live) 9%,var(--paper))}
 .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px;border:1.5px solid}
+
+/* activity: a running state pulses; .spinner is the inline busy mark */
+@keyframes lineage-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes lineage-spin{to{transform:rotate(360deg)}}
+.state.running::before,.state.checklist::before,.state.brainstorming::before,.state.researching::before,.state.starting::before,.state.queued::before{animation:lineage-pulse 1.1s ease-in-out infinite}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--rule-strong);border-top-color:var(--accent);border-radius:50%;animation:lineage-spin .8s linear infinite;vertical-align:-2px}
+@media (prefers-reduced-motion:reduce){.spinner,.state::before{animation:none!important}}

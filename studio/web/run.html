@@ -141,7 +141,14 @@ function renderGraph(){
  const p=state.progress;if(!p)return;const req=p.request||{};const P=req.person||{};const pa=pend();
  const els=[{data:{id:'root',label:`${P.full_name||WID}\n${P.birth_year||'?'} to ${P.death_year||'?'}`},classes:'root'}];
  const fs=p.findings||[];const found=fs.filter(f=>f.status==='found').length;
- if(p.levels&&p.levels.length){els.push({data:{id:'checklist',label:`Checklist: ${words(req.circuit_id)}\n${fs.length} steps, ${found} found records`},classes:'checklist'});els.push({data:{id:'e-checklist',source:'root',target:'checklist'}})}
+ const cs=state.checklist_steps||[];
+ if(cs.length&&!fs.length){ // checklist still running: show every step with its live state (the one-node fix)
+  const done=cs.filter(s=>!['queued','running'].includes(s.state)).length;
+  els.push({data:{id:'checklist',label:`Checklist: ${words(req.circuit_id)}\n${done} of ${cs.length} steps done, running...`},classes:'checklist running'});els.push({data:{id:'e-checklist',source:'root',target:'checklist'}});
+  const SC={queued:'pending',running:'running',found:'answered',nothing:'no_lead',error:'error'};
+  for(const s of cs){els.push({data:{id:'step-'+s.id,label:`${short(s.title,46)}\n${s.state}${s.found?`, ${s.found} found`:''}`},classes:SC[s.state]||'pending'});els.push({data:{id:'e-step-'+s.id,source:'checklist',target:'step-'+s.id}})}
+ }
+ else if(p.levels&&p.levels.length){els.push({data:{id:'checklist',label:`Checklist: ${words(req.circuit_id)}\n${fs.length} steps, ${found} found records`},classes:'checklist'});els.push({data:{id:'e-checklist',source:'root',target:'checklist'}})}
  for(const q of p.questions||[]){const a=pa['node-'+q.id];let cls=q.status;if(a&&a.attempt>1)cls='retrying';if(q.template==='reviewer->look-here')cls+=' reviewer';
   els.push({data:{id:q.id,label:nodeLabel(q,a)},classes:cls});els.push({data:{id:'e-'+q.id,source:(q.parent_id&&q.parent_id!=='root')?q.parent_id:'root',target:q.id}})}
  const ids=els.map(e=>e.data.id).join(',');
@@ -161,6 +168,7 @@ function select(id){selected=id;renderDetail();cy.$('node').unselect();cy.$id(id
 function renderDetail(){
  if(!selected||!state?.progress)return;const p=state.progress;const d=$('detail');
  if(selected==='root'){const r=p.request||{};d.innerHTML=`<div class="eyebrow">Person</div><h3>${esc(r.person?.full_name)}</h3><p class="muted">${esc(r.question||'')}</p><p class="small faint">${esc(p.gate?.reason||'')}</p><dl><dt>Depth</dt><dd>${r.depth}</dd><dt>Breadth</dt><dd>${r.breadth}</dd><dt>Max nodes</dt><dd>${r.max_nodes}</dd><dt>Max run</dt><dd>${r.max_run_minutes} minutes</dd><dt>Outreach</dt><dd>Ask me before sending</dd><dt>Reused</dt><dd>${p.seeded||0} question(s) from earlier runs</dd></dl>${r.person?.family_notes?`<div class="eyebrow">What the family says</div><div class="family">${esc(r.person.family_notes)}</div>`:''}`;return}
+ if(selected==='checklist'&&(state.checklist_steps||[]).length&&!(p.findings||[]).length){d.innerHTML=`<div class="eyebrow">Circuit checklist, running</div><h3>${esc(words(p.request?.circuit_id))}</h3><ul class="clean">`+state.checklist_steps.map(s=>`<li><div class="row" style="gap:8px">${stateLabel(s.state==='queued'?'pending':s.state)}${s.mode==='stub'?stateLabel('stub','STUB'):stateLabel('live','live')}</div><div style="margin-top:4px"><b>${esc(s.title)}</b></div>${s.error?`<div class="small retries">${esc(s.error)}</div>`:''}</li>`).join('')+'</ul>';return}
  if(selected==='checklist'){d.innerHTML=`<div class="eyebrow">Circuit checklist</div><h3>${esc(words(p.request?.circuit_id))}</h3><ul class="clean">`+(p.findings||[]).map(f=>`<li><div class="row" style="gap:8px">${stateLabel(f.status)}${f.mode==='stub'?stateLabel('stub','STUB'):stateLabel('live','live')}</div><div style="margin-top:4px"><b>${esc(f.step_title)}</b></div><div class="small muted">${esc(f.notes)}</div>${f.claims.length?'<ul class="clean">'+f.claims.map(c=>`<li class="small">${tier(c.tier)} ${esc(c.text)} <span class="faint tiny">${esc(c.id)}</span></li>`).join('')+'</ul>':''}${f.citations.length&&!f.claims.length?'<ul class="clean small">'+cites(f.citations.slice(0,3))+'</ul>':''}</li>`).join('')+'</ul>';return}
  const q=qById(selected);if(!q)return;const a=pend()['node-'+q.id];const parent=q.parent_id&&q.parent_id!=='root'?qById(q.parent_id):null;
  const retrying=a&&a.attempt>1;const ls=leadsFor(q.id);
