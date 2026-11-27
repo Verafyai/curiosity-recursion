@@ -76,7 +76,7 @@ class ResearchRequest(BaseModel):
         default=None, description="Studio template. Defaults from the circuit."
     )
     output_kind: StudioKind = "chapter"
-    mode: Literal["brainstorm", "checklist"] = "brainstorm"
+    mode: Literal["brainstorm", "checklist", "explore"] = "brainstorm"
     depth: int = Field(default=2, ge=1, le=4, description="Follow-up levels under each first question")
     breadth: int = Field(default=3, ge=1, le=8, description="Brainstorm questions per node")
     max_nodes: int = Field(default=30, ge=1, le=80, description="Total question nodes in the graph")

@@ -15,7 +15,8 @@
 .examples{margin:14px 0 4px}
 .examples button{font:500 15px var(--body);color:var(--ink-2);background:var(--paper);border:1px dashed var(--rule-strong);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:36px}
 .examples button:hover{color:var(--ink);border-color:var(--accent)}
-.mode{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.formerr{border:1px solid color-mix(in srgb,var(--live) 45%,var(--line));border-radius:14px;padding:12px 16px;color:var(--ink)}
 .mode label,.choice{display:flex;gap:12px;align-items:flex-start;margin:0;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--ink);font-size:17px}
 .mode label.on{border-color:var(--accent)}
 .mode small,.choice small{display:block;color:var(--ink-2);font-size:15px;font-weight:400;margin-top:2px;line-height:1.45}
@@ -41,6 +42,7 @@ legend{padding:0;margin-bottom:12px}
   <p class="lead">Type a name and research agents search census pages, muster rolls, parish registers and small archives to map the family. Every fact links to the source it came from.</p>
   <p class="muted small">The run is durable. It keeps asking new questions from what it finds for as long as you allow, survives a crash, and records every question it asks. Nothing is sent anywhere without your approval.</p>
   <form id="f" class="grid" style="gap:18px">
+    <div id="err" class="formerr" role="alert" hidden></div>
     <div class="namebox"><label for="full_name" class="sr" style="position:absolute;left:-9999px">Full name</label><input type="text" id="full_name" placeholder="Erastus W. Burnham" required autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></div>
     <div class="examples row small muted">Try <button type="button" data-ex="erastus">Erastus W. Burnham, Civil War</button><button type="button" data-ex="mary">Mary Devine, Glasgow to Connecticut</button><button type="button" data-ex="living">A living person (gate test)</button></div>
     <div class="f4">
@@ -52,7 +54,8 @@ legend{padding:0;margin-bottom:12px}
     <div><label for="question">What do you want to know?</label><input type="text" id="question" placeholder="What unit did he serve in, was he on a ship, where is he buried?"></div>
     <div><label for="notes">What the family says</label><input type="text" id="notes" placeholder="He was a whaler out of New London"></div>
     <fieldset><legend class="eyebrow">Mode</legend><div class="mode">
-      <label class="on"><input type="radio" name="mode" value="brainstorm" checked><span><b>Brainstorm</b><small>The checklist first, then new questions from every finding.</small></span></label>
+      <label class="on"><input type="radio" name="mode" value="explore" checked><span><b>Explore</b><small>You choose. Every node offers questions; nothing is searched until you press Research this.</small></span></label>
+      <label><input type="radio" name="mode" value="brainstorm"><span><b>Brainstorm</b><small>The checklist first, then new questions from every finding, on its own.</small></span></label>
       <label><input type="radio" name="mode" value="checklist"><span><b>Checklist only</b><small>Just the circuit's baseline sources.</small></span></label></div></fieldset>
   </form>
 </section>
@@ -89,12 +92,14 @@ document.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>fill(EX[b.datase
 document.querySelectorAll('.mode input').forEach(i=>i.onchange=()=>document.querySelectorAll('.mode label').forEach(l=>l.classList.toggle('on',l.querySelector('input').checked)));
 const pt=s=>s?new Date(s).toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'';
 const LABEL={COMPLETED:'completed',RUNNING:'running',FAILED:'failed',TERMINATED:'stopped',CANCELED:'cancelled',TIMED_OUT:'timed out'};
-fetch('/api/runs').then(r=>r.json()).then(rs=>{$('runs').innerHTML='<tr><th>Run</th><th>Status</th><th>Started</th></tr>'+(rs.map(r=>`<tr><td><a href="/run/${esc(r.workflow_id)}">${esc(r.workflow_id.replace('studio-',''))}</a></td><td><span class="state ${esc(r.status)}">${esc(LABEL[r.status]||r.status.toLowerCase())}</span></td><td class="small faint">${pt(r.start_time)}</td></tr>`).join('')||'<tr><td class="muted" colspan="3">No runs yet.</td></tr>')});
+fetch('/api/runs').then(r=>r.json()).then(rs=>{$('runs').innerHTML='<tr><th>Run</th><th>Status</th><th>Started</th></tr>'+(rs.map(r=>`<tr><td><a href="/run/${esc(r.workflow_id)}">${esc(r.workflow_id.replace('studio-','').replace('explore-','explore: '))}</a></td><td><span class="state ${esc(r.status)}">${esc(LABEL[r.status]||r.status.toLowerCase())}</span></td><td class="small faint">${pt(r.start_time)}</td></tr>`).join('')||'<tr><td class="muted" colspan="3">No runs yet.</td></tr>')});
 $('f').onsubmit=async e=>{e.preventDefault();
  const place=$('place').value.trim(), num=v=>v===''?null:parseInt(v), notes=$('notes').value.trim();
  const body={person:{full_name:$('full_name').value.trim(),name_variants:$('variants').value.split(',').map(s=>s.trim()).filter(Boolean),birth_year:num($('birth_year').value),death_year:num($('death_year').value),birth_place:place||null,family_notes:notes||null},
   question:$('question').value,circuit_id:$('circuit_id').value,mode:document.querySelector('input[name=mode]:checked').value,depth:+$('depth').value,breadth:+$('breadth').value,
   max_nodes:+$('max_nodes').value,max_run_minutes:+$('max_run_minutes').value,level_pause_seconds:+$('level_pause_seconds').value,outreach:document.querySelector('input[name=outreach]:checked').value,simulate_flaky_archives:$('flaky').checked};
- const r=await fetch('/api/runs',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
- if(!r.ok){alert(await r.text());return} location.href=(await r.json()).url;};
+ const explore=body.mode==='explore';
+ const r=await fetch(explore?'/api/explore':'/api/runs',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(explore?{request:body}:body)});
+ if(!r.ok){let m=await r.text();try{m=JSON.parse(m).detail||m}catch(_){};$('err').hidden=false;$('err').innerHTML='<b>Not started.</b> '+esc(typeof m==='string'?m:JSON.stringify(m));$('err').scrollIntoView({block:'center'});return}
+ location.href=(await r.json()).url;};
 </script></body></html>

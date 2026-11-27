@@ -1,6 +1,7 @@
 """Shared Temporal client helpers for the web app and scripts."""
 from __future__ import annotations
 
+import os
 import re
 import time
 
@@ -9,14 +10,14 @@ from temporalio.contrib.pydantic import pydantic_data_converter
 
 from studio.models import ResearchRequest
 
-TASK_QUEUE = "lineage-studio-builder"
+TASK_QUEUE = os.environ.get("STUDIO_TASK_QUEUE", "lineage-studio-builder")
 _client: Client | None = None
 
 
 async def client() -> Client:
     global _client
     if _client is None:
-        _client = await Client.connect("localhost:7233", data_converter=pydantic_data_converter)
+        _client = await Client.connect(os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"), data_converter=pydantic_data_converter)
     return _client
 
 
@@ -30,4 +31,13 @@ async def start(req: ResearchRequest, wid: str | None = None) -> str:
     c = await client()
     wid = wid or new_id(req)
     await c.start_workflow(StudioRunWorkflow.run, req, id=wid, task_queue=TASK_QUEUE)
+    return wid
+
+
+async def start_explore(req: ResearchRequest, call_budget: int = 100, confirm_over_calls: int = 2, wid: str | None = None) -> str:
+    from studio.explore_workflows import ExploreInput, ExploreRunWorkflow
+    c = await client()
+    wid = wid or new_id(req).replace("studio-", "explore-", 1)
+    await c.start_workflow(ExploreRunWorkflow.run, ExploreInput(request=req, call_budget=call_budget, confirm_over_calls=confirm_over_calls),
+                           id=wid, task_queue=TASK_QUEUE)
     return wid

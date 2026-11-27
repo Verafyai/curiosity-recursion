@@ -49,18 +49,37 @@ def person_key(req: ResearchRequest) -> str:
 
 @workflow.defn
 class ChecklistPassWorkflow:
-    """The circuit's baseline checklist. A child workflow so its history is separate."""
+    """The circuit's baseline checklist. A child workflow so its history is separate.
+
+    The `steps` query reports each step's state while the pass runs (queued, running, found, nothing, error), so the
+    run page can show the checklist working instead of a single static node. It adds no workflow commands, so
+    histories recorded before it replay unchanged."""
+
+    def __init__(self) -> None:
+        self.step_state: dict[str, dict] = {}
+
+    @workflow.query
+    def steps(self) -> list[dict]:
+        return list(self.step_state.values())
 
     @workflow.run
     async def run(self, inp: PassInput) -> PassResult:
+        for s in inp.steps:
+            self.step_state[s.id] = {"id": s.id, "title": s.title, "mode": s.mode, "state": "queued", "found": 0}
+
         async def one(step):
+            self.step_state[step.id]["state"] = "running"
             try:
                 out = await workflow.execute_activity(
                     run_checklist_step, StepInput(request=inp.request, step=step, round=inp.round),
                     start_to_close_timeout=timedelta(seconds=90), retry_policy=LIVE_RETRY, activity_id=f"check-{step.id}",
                 )
+                f0 = out.findings[0] if out.findings else None
+                self.step_state[step.id].update(state=f0.status if f0 else "nothing",
+                                                found=sum(len(f.claims) + len(f.citations) for f in out.findings))
                 return out.findings
             except ActivityError as e:
+                self.step_state[step.id].update(state="error", error=str(e.cause or e)[:200])
                 return [Finding(step_id=step.id, step_title=step.title, stage=step.stage, source_slug=step.source_slug, mode=step.mode,
                                 status="error", confidence="none", notes=f"Gave up after retries: {e.cause or e}")]
         results = await asyncio.gather(*[one(s) for s in inp.steps])

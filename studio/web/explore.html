@@ -1,0 +1,259 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Explore, Lineage Studio</title>
+<link rel="icon" href="/static/lineage-logo.svg" type="image/svg+xml">
+<link rel="preload" href="/static/fonts/Fraunces-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/static/fonts/PublicSans-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/studio.css"><script src="/static/cytoscape.min.js"></script>
+<style>
+main{max-width:none}
+.sum{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px}
+.sum h1{margin:4px 0 0;font-size:32px}
+.facts{display:flex;flex-wrap:wrap;margin:0 0 16px;padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:9px 20px 9px 0;margin-right:20px;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.facts dd{margin:0;font-size:18px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 440px auto;gap:16px;align-items:start}
+.graphcard{padding:10px;position:relative}
+#cy{height:640px;border-radius:12px;background:var(--paper)}
+.tools{position:absolute;top:18px;right:18px;display:flex;gap:6px;z-index:2}
+.tools .btn{padding:6px 10px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:10px 4px 2px}
+#tip{position:fixed;pointer-events:none;z-index:9;max-width:340px;background:var(--paper);border:1px solid var(--rule-strong);border-radius:10px;padding:8px 12px;font-size:14px;color:var(--ink-2);display:none}
+#panel{height:706px;overflow:auto}
+#panel h3{font-size:21px;margin:4px 0 6px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.gen{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border:1px dashed var(--rule-strong);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.xq{padding:12px 0;border-bottom:1px solid var(--line)}
+.xq .t{font-size:16px;line-height:1.45;color:var(--ink)}
+.xq .why{font-size:13px;color:var(--ink-3);margin-top:2px}
+.xq .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.xq .ans{font-size:14px;color:var(--ink-2);margin-top:6px}
+.xq.done .t{color:var(--ink-2)}
+.confirm{margin-top:8px;padding:10px 12px;border:1px solid var(--told-border);background:var(--told-wash);border-radius:10px;font-size:14px}
+.confirm.over{border-color:color-mix(in srgb,var(--live) 45%,var(--line))}
+.leafbox{border:1px solid var(--accent);border-radius:14px;padding:12px 14px;margin:12px 0}
+.leafbox input{margin:8px 0}
+.err{color:var(--live);font-size:14px;margin-top:4px}
+#chat{width:380px;height:706px;display:flex;flex-direction:column;padding:16px}
+#chat.closed{width:auto;height:auto;padding:12px}
+#chat.closed .body{display:none}
+#chat .body{display:flex;flex-direction:column;flex:1;min-height:0}
+#msgs{flex:1;overflow:auto;font-size:15px;line-height:1.5}
+.msg{padding:8px 0;border-bottom:1px solid var(--line)}
+.msg.you{color:var(--ink-2)}
+.msg .note{font-size:13px;color:var(--ink-3);margin-top:4px}
+.msg a.cite{font-weight:600;color:var(--accent-ink);text-decoration:none}
+.sugg{display:block;text-align:left;margin-top:6px;width:100%}
+.bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;margin-top:16px}
+#stream{max-height:320px;overflow:auto;font-size:13px;white-space:pre-wrap;color:var(--ink-2);line-height:1.55;font-variant-numeric:tabular-nums}
+.letter{white-space:pre-wrap;font-family:var(--display);font-size:16px;line-height:1.5;color:var(--ink-2);border-left:2px solid var(--rule-strong);padding:6px 0 6px 14px;margin:8px 0}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:10}
+</style></head><body class="lineage">
+<header class="site-header"><div class="site-header-inner">
+<a class="brand" href="/"><img src="/static/lineage-logo.svg" alt=""><span class="brand-name">Lineage Studio</span></a>
+<span class="site-tag">Explore, running locally on Temporal</span>
+<nav class="site-nav"><a href="/">New search</a><a id="tlink" href="#" target="_blank" rel="noopener">Open this run in Temporal UI</a></nav>
+</div></header>
+<main>
+<div class="sum"><div><div class="eyebrow" id="eyebrow">Explore run</div><h1 id="who">Loading</h1></div><span class="state starting" id="status">starting</span><span id="busy"></span></div>
+<dl class="facts" id="facts"></dl>
+<div id="banner" role="status"></div>
+<div class="work">
+  <section class="card graphcard"><div class="tools"><button class="btn btn-secondary btn-sm" onclick="cy.fit(undefined,24)" title="Fit the graph">Fit</button><button class="btn btn-secondary btn-sm" onclick="zoom(1.25)" aria-label="Zoom in">+</button><button class="btn btn-secondary btn-sm" onclick="zoom(0.8)" aria-label="Zoom out">-</button></div>
+    <div id="cy" role="img" aria-label="Research graph: the person at the root, every record found, and the questions that found it"></div>
+    <div class="legend" id="legend"></div>
+    <div class="small faint" style="margin:4px">Click a node to see its questions. Double-click to center it. Hover for a summary. Scroll to zoom, drag to pan.
+      Export: <a href="#" id="xjson">graph.json</a>, <a href="#" id="xgml">GraphML</a>, <a href="#" id="xmmd">Mermaid</a></div></section>
+  <section class="card" id="panel" aria-live="polite"><div class="eyebrow">Node</div><h3>Loading the person node</h3><p class="muted"><span class="spinner"></span> Brainstorming the first questions.</p></section>
+  <section class="card" id="chat"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Ask about this graph</h3><button class="btn btn-secondary btn-sm" id="chattoggle" onclick="toggleChat()" aria-expanded="true">Hide</button></div>
+    <div class="body"><p class="small faint" id="chatmode" style="margin:6px 0 8px"></p><div id="msgs"></div>
+    <form id="chatf" class="row" style="margin-top:8px;flex-wrap:nowrap"><label for="chatq" style="position:absolute;left:-9999px">Question</label><input type="text" id="chatq" placeholder="Where is he buried?" autocomplete="off"><button class="btn btn-primary btn-sm" type="submit">Ask</button></form></div></section>
+</div>
+<div class="bottom">
+  <section class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Activity</h3><span class="tiny faint">Live, times in Pacific</span></div><div id="stream" aria-live="polite"></div></section>
+  <section class="card"><h3 style="margin-top:0">Research requests <span class="count" id="nOut">0</span></h3><p class="small faint" style="margin-top:0">Drafts for offline sources. Approving writes a text file for you to send yourself. This app never sends email or messages.</p><div id="outgoing"></div>
+    <div id="composebox" style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px"></div></section>
+</div>
+<div id="tip"></div><div id="toast" role="alert"></div>
+</main>
+<script>
+const WID="__WID__";const $=id=>document.getElementById(id);
+const esc=s=>(s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const snip=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const pt=s=>s?new Date(s).toLocaleTimeString('en-US',{timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit',second:'2-digit'}):'';
+const short=(t,n=50)=>(t||'').length>n?t.slice(0,n-1).trimEnd()+'...':(t||'');
+const TIER={documented:'Documented',told:'Told',possible:'Possible'};
+const tier=t=>`<span class="tier ${t}">${TIER[t]||t}</span>`;
+const QS={open:'open',queued:'queued',running:'running',answered:'answered',no_lead:'no lead',skipped:'skipped',failed:'failed',outreach_drafted:'draft waiting for you'};
+const NS={done:'done',queued:'queued',running:'running',failed:'failed',waiting_approval:'waiting for approval'};
+const badge=(cls,text)=>`<span class="state ${esc(cls)}">${esc(text)}</span>`;
+const qBadge=q=>badge(q.status==='open'?'plain':q.status==='outreach_drafted'?'awaiting_approval':q.status==='no_lead'?'no_lead':q.status,QS[q.status]||q.status);
+const GEN={'rules':'rules brainstorm','rules:checklist':'circuit checklist','rules:dig-deeper':'dig deeper','model':'model','user':'you','chat':'chat suggestion'};
+
+const css=getComputedStyle(document.body);const tok=n=>css.getPropertyValue('--'+n).trim();
+const T={paper:tok('paper'),ink:tok('ink'),ink2:tok('ink-2'),ink3:tok('ink-3'),rule:tok('rule'),ruleS:tok('rule-strong'),accent:tok('accent'),accentWash:tok('accent-wash'),
+ documented:tok('documented'),warn:tok('warn'),lore:tok('lore'),live:tok('live'),frontier:tok('frontier'),told:tok('told')};
+// node type colours (border), node state (fill)
+const KIND={person:T.accent,fact:T.documented,book:T.told,page:T.told,newspaper:T.frontier,wikidata:T.lore,record:T.documented,link:T.ink3};
+const KLAB={person:'person',fact:'documented fact',book:'book',page:'book page',newspaper:'newspaper',wikidata:'Wikidata',record:'record',link:'other link'};
+$('legend').innerHTML=Object.entries(KLAB).map(([k,w])=>`<span><i class="swatch" style="border-color:${KIND[k]};background:${T.paper}"></i>${w}</span>`).join('')+
+ `<span><i class="swatch" style="border-color:${T.ink3};border-style:dashed;background:${T.paper}"></i>Possible (unsourced)</span><span><i class="swatch" style="border-color:${T.accent};background:${T.accentWash}"></i>running</span><span><i class="swatch" style="border-color:${T.live};background:${T.paper}"></i>failed</span>`;
+
+let S=null, selected=new URLSearchParams(location.search).get('node')||'person', known='', CFG={}, pending=[], ui={confirm:null,edit:null,err:{}};
+const sty=(s,o)=>({selector:s,style:o});
+const cy=cytoscape({container:$('cy'),wheelSensitivity:.2,minZoom:.15,maxZoom:2.5,style:[
+ sty('node',{'shape':'round-rectangle','width':'label','height':'label','padding':'10px','label':'data(label)','text-wrap':'wrap','text-max-width':'190px','font-size':'13px','font-family':'Public Sans, system-ui, sans-serif','text-valign':'center','text-halign':'center','color':T.ink,'background-color':T.paper,'border-width':2,'border-color':T.frontier}),
+ ...Object.entries(KIND).map(([k,c])=>sty(`node.${k}`,{'border-color':c})),
+ sty('node.person',{'background-color':T.accentWash,'font-family':'Fraunces, Georgia, serif','font-size':'16px','font-weight':600,'padding':'14px','border-width':2.5}),
+ sty('node.possible',{'border-style':'dashed'}),
+ sty('node.running',{'background-color':T.accentWash,'border-width':3}),
+ sty('node.queued',{'border-width':3}),
+ sty('node.pulse',{'background-color':T.paper}),
+ sty('node.failed',{'border-color':T.live,'border-width':3}),
+ sty('node.waiting_approval',{'border-color':T.warn,'border-width':3,'border-style':'double'}),
+ sty('node:selected',{'border-color':T.ink,'border-width':3.5}),
+ sty('edge',{'width':1.2,'line-color':T.ruleS,'target-arrow-color':T.ruleS,'target-arrow-shape':'triangle','curve-style':'bezier','arrow-scale':.7})]});
+cy.on('tap','node',e=>select(e.target.id()));
+cy.on('dbltap','node',e=>cy.animate({center:{eles:e.target},zoom:Math.max(cy.zoom(),1)},{duration:250}));
+cy.on('mouseover','node',e=>{const n=nodeById(e.target.id());if(!n)return;const t=$('tip');t.innerHTML=`<b>${esc(short(n.label,90))}</b><br>${esc(KLAB[n.kind]||n.kind)}, ${TIER[n.tier]||n.tier}${n.summary?'<br>'+esc(short(n.summary,220)):''}`;t.style.display='block'});
+cy.on('mousemove',e=>{const t=$('tip');t.style.left=(e.originalEvent.clientX+14)+'px';t.style.top=(e.originalEvent.clientY+14)+'px'});
+cy.on('mouseout','node',()=>{$('tip').style.display='none'});
+cy.on('mouseover','edge',e=>{const q=qById(e.target.data('q'));if(!q)return;const t=$('tip');t.innerHTML=`Found by: ${esc(q.text)}`;t.style.display='block'});
+cy.on('mouseout','edge',()=>{$('tip').style.display='none'});
+const zoom=f=>cy.zoom({level:cy.zoom()*f,renderedPosition:{x:cy.width()/2,y:cy.height()/2}});
+setInterval(()=>cy.$('node.running').toggleClass('pulse'),600);
+
+const nodeById=id=>(S?.nodes||[]).find(n=>n.id===id);
+const qById=id=>(S?.questions||[]).find(q=>q.id===id);
+const qsOf=id=>(S?.questions||[]).filter(q=>q.node_id===id);
+const isLeaf=id=>!(S?.nodes||[]).some(n=>n.parent_id===id);
+function toast(msg){const t=$('toast');t.innerHTML=`<div class="banner down">${esc(msg)}</div>`;clearTimeout(t._h);t._h=setTimeout(()=>t.innerHTML='',6000)}
+
+function renderGraph(){
+ const els=[];
+ for(const n of S.nodes){const tag=n.tier==='possible'?'\nPossible':'';const st=n.state!=='done'?`\n${NS[n.state]||n.state}`:'';
+  const open=qsOf(n.id).filter(q=>q.status==='open').length;
+  els.push({data:{id:n.id,label:`${n.kind==='person'?n.label+'\n'+n.summary:short(n.label,60)}${tag}${st}${open?`\n${open} question${open>1?'s':''}`:''}`},classes:`${n.kind} ${n.tier} ${n.state}`});
+  if(n.parent_id)els.push({data:{id:'e-'+n.id,source:n.parent_id,target:n.id,q:n.via_question}})}
+ const ids=els.map(e=>e.data.id).join(',');
+ if(ids!==known){cy.elements().remove();cy.add(els);cy.layout({name:'breadthfirst',directed:true,roots:'#person',spacingFactor:1.05,padding:24,animate:false,fit:true}).run();
+  if(cy.zoom()>1.1){cy.zoom(1.1);cy.center()}known=ids;cy.$id(selected).select()}
+ else els.forEach(e=>{if(!e.data.source){const n=cy.$id(e.data.id);n.data('label',e.data.label);const p=n.hasClass('pulse');n.classes(e.classes+(p?' pulse':''))}});
+}
+function cites(cs){return (cs||[]).map(c=>`<li>${c.url?`<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title||c.url)}</a>`:esc(c.title)}${c.name_match?` ${badge(c.name_match==='strong'?'found':'no_lead',c.name_match==='strong'?'full name match':c.name_match==='surname_only'?'surname only':c.name_match)}`:''}${c.snippet?`<div class="snip">${snip(c.snippet)}</div>`:''}</li>`).join('')}
+function qActions(q){
+ const off=q.kind==='outreach'||(q.plan&&q.plan.handler==='stub');const a=[];
+ if(['open','no_lead'].includes(q.status)&&!off)a.push(`<button class="btn btn-primary btn-sm" onclick="askResearch('${q.id}')">Research this <span class="tiny">(about ${q.est_calls} call${q.est_calls===1?'':'s'})</span></button>`);
+ if(q.status==='failed')a.push(`<button class="btn btn-primary btn-sm" onclick="act('retry',{question_id:'${q.id}'})">Retry</button>`);
+ if(off&&!['outreach_drafted','skipped'].includes(q.status))a.push(`<button class="btn btn-primary btn-sm" onclick="act('outreach-draft',{question_id:'${q.id}'})">Draft outreach</button>`);
+ if(['open','no_lead','failed'].includes(q.status))a.push(`<button class="btn btn-secondary btn-sm" onclick="startEdit('${q.id}')">Edit</button><button class="btn btn-secondary btn-sm" onclick="act('skip',{question_id:'${q.id}'})">Skip</button>`);
+ return a.join('');
+}
+function qRow(q){
+ const running=['queued','running'].includes(q.status);
+ let extra='';
+ if(ui.confirm&&ui.confirm.id===q.id){const over=q.est_calls>(S.confirm_over_calls??3);const left=S.call_budget-S.calls_used;
+  extra=ui.confirm.stage===1?`<div class="confirm"><b>Research this question?</b> It will make about ${q.est_calls} tool call${q.est_calls===1?'':'s'} to public archives. ${left} of ${S.call_budget} calls are left in this run's budget.<div class="acts" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="confirmResearch('${q.id}')">Yes, research it</button><button class="btn btn-secondary btn-sm" onclick="ui.confirm=null;renderPanel()">Cancel</button></div></div>`
+  :`<div class="confirm over"><b>This one is over your ${S.confirm_over_calls} call threshold.</b> About ${q.est_calls} calls. Run it anyway?<div class="acts" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="confirmResearch('${q.id}',true)">Run it anyway</button><button class="btn btn-secondary btn-sm" onclick="ui.confirm=null;renderPanel()">Cancel</button></div></div>`}
+ if(ui.edit===q.id)extra=`<div class="confirm"><label for="edit-${q.id}" class="small">Rewrite the question</label><input type="text" id="edit-${q.id}" value="${esc(q.text)}"><div class="acts" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="saveEdit('${q.id}')">Save as a new question</button><button class="btn btn-secondary btn-sm" onclick="ui.edit=null;renderPanel()">Cancel</button></div></div>`;
+ const kids=(q.produced||[]).map(id=>`<a href="#" onclick="select('${id}');return false">${id}</a>`).join(', ');
+ return `<div class="xq ${['answered','no_lead','skipped'].includes(q.status)?'done':''}" id="q-${q.id}" data-qid="${q.id}">
+  <div class="chips">${running?'<span class="spinner" aria-label="running"></span> ':''}${qBadge(q)}<span class="gen" title="Which generator wrote this question">${esc(GEN[q.generator]||q.generator)}</span>${q.kind==='outreach'?badge('stub','offline source'):''}${q.edited_from?`<span class="gen">edited from ${esc(q.edited_from)}</span>`:''}</div>
+  <div class="t">${esc(q.text)}</div><div class="why">${esc(q.because)}${q.plan&&q.plan.query?`. Looks in ${esc(q.plan.handler.replace(/_/g,' '))}: ${esc(short(q.plan.query,70))}`:''}</div>
+  ${q.answer?`<div class="ans">${esc(q.answer)}${kids?` Found: ${kids}.`:''}</div>`:''}
+  ${q.error?`<div class="err">Failed: ${esc(q.error)}</div>`:''}${ui.err[q.id]?`<div class="err">${esc(ui.err[q.id])}</div>`:''}
+  <div class="acts">${qActions(q)}</div>${extra}</div>`;
+}
+function renderPanel(){
+ const n=nodeById(selected)||nodeById('person');if(!n)return;selected=n.id;const qs=qsOf(n.id);const leaf=isLeaf(n.id);
+ const parent=n.parent_id?nodeById(n.parent_id):null;const via=n.via_question?qById(n.via_question):null;
+ const order=['running','queued','failed','open','outreach_drafted','answered','no_lead','skipped'];
+ const sorted=qs.slice().sort((a,b)=>order.indexOf(a.status)-order.indexOf(b.status));
+ const leafbox=`<div class="${leaf?'leafbox':''}" style="${leaf?'':'margin:12px 0'}">${leaf?'<div class="eyebrow">This is a leaf. Keep going</div>':''}
+  <div class="acts row" style="gap:8px;margin-top:6px"><button class="btn ${leaf?'btn-primary':'btn-secondary'} btn-sm" id="dig" onclick="act('dig',{node_id:'${n.id}'})">Dig deeper</button><span class="small faint">New angles, nothing already asked on this path.</span></div>
+  <form onsubmit="addQ(event,'${n.id}')" class="row" style="flex-wrap:nowrap;margin-top:4px"><label for="addq" style="position:absolute;left:-9999px">Add a question</label><input type="text" id="addq" placeholder="Add your own question about this node"><button class="btn btn-secondary btn-sm" type="submit">Add question</button></form></div>`;
+ const p=$('panel');const keep=document.activeElement&&document.activeElement.id==='addq'?$('addq').value:null;
+ p.innerHTML=`<div class="eyebrow">${esc(KLAB[n.kind]||n.kind)}, level ${n.depth}, ${esc(n.id)}</div><h3>${esc(n.kind==='person'?n.label:short(n.label,140))}</h3>
+ <div class="chips">${tier(n.tier)}${badge(n.state==='waiting_approval'?'awaiting_approval':n.state==='done'?'plain':n.state,NS[n.state]||n.state)}</div>
+ ${n.error?`<div class="err">${esc(n.error)}</div>`:''}
+ ${n.kind==='person'?`<p class="muted">${esc(n.summary)}</p><p class="small faint">${esc(S.gate?.reason||'')}</p>`:`${n.summary?`<div class="snip">${snip(short(n.summary,600))}</div>`:''}`}
+ ${parent?`<p class="small">From <a href="#" onclick="select('${parent.id}');return false">${esc(short(parent.label,60))}</a>${via?`, found by: ${esc(via.text)}`:''}</p>`:''}
+ ${n.tier==='possible'&&n.kind!=='person'?'<p class="small faint">Possible: a search hit, not a documented fact. A shared surname alone is never a family link.</p>':''}
+ ${n.citations.length&&n.kind!=='person'?'<ul class="clean small">'+cites(n.citations)+'</ul>':''}
+ ${leafbox}
+ <div class="eyebrow" style="margin-top:8px">Questions for this node (${qs.length})</div>
+ ${S.status==='starting'&&n.kind==='person'?'<p class="muted"><span class="spinner"></span> Brainstorming...</p>':''}
+ ${sorted.map(qRow).join('')||'<p class="muted">No questions yet. Dig deeper or add one.</p>'}`;
+ if(keep!==null){$('addq').value=keep;$('addq').focus()}
+}
+function renderHeader(){
+ const P=S.request?.person||{};const running=S.passes.filter(x=>x.state==='running').length;const queued=S.questions.filter(q=>q.status==='queued').length;
+ $('who').textContent=P.full_name?`${P.full_name}, ${P.birth_year||'?'} to ${P.death_year||'?'}`:WID;
+ $('eyebrow').textContent=`Explore run, ${(S.request?.circuit_id||'').replace(/_/g,' ')}, started ${pt(S.started_at)} PT`;
+ const ST={starting:'starting',exploring:running||queued?'researching':'waiting for you',blocked_living:'blocked, may be living',writing:'writing the draft',awaiting_approval:'draft waiting for approval',approved:'approved',rejected:'rejected'};
+ const cls=S.status==='exploring'&&(running||queued)?'running':S.status==='exploring'?'plain':S.status;
+ $('status').outerHTML=`<span class="state ${esc(cls)}" id="status">${esc(ST[S.status]||S.status)}</span>`;
+ $('busy').innerHTML=running||queued||S.status==='starting'||S.status==='writing'?'<span class="spinner" aria-label="working"></span>':'';
+ const open=S.questions.filter(q=>q.status==='open').length;
+ $('facts').innerHTML=[['State',ST[S.status]||S.status],['Calls used',S.calls_used],['Budget left',`${S.call_budget-S.calls_used} of ${S.call_budget}`],['Nodes',S.nodes.length],['Open questions',open],['Running',running],['Queued',queued],['Confirm over',`${S.confirm_over_calls} call${S.confirm_over_calls===1?'':'s'}`]].map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+ $('banner').innerHTML=S.status==='blocked_living'?`<div class="banner down"><b>Not researched.</b> ${esc(S.gate?.reason)} ${esc(S.gate?.rule)}</div>`:'';
+}
+function renderOutreach(){
+ const os=S.outreach||[];$('nOut').textContent=os.length;
+ $('outgoing').innerHTML=os.map(o=>`<div class="xq"><div class="row" style="justify-content:space-between;gap:8px"><b>${esc(o.to)}</b>${badge(o.status==='approved'?'approved':o.status==='declined'?'declined':'awaiting_approval',o.status==='awaiting_approval'?'awaiting your approval':o.status==='approved'?'approved, not sent':'declined')}</div><div class="why">${esc(o.channel)}. ${esc(o.contact_hint)} From node <a href="#" onclick="select('${esc(o.node_id)}');return false">${esc(o.node_id)}</a>.</div><details><summary class="small">${esc(o.subject)}</summary><div class="letter">${esc(o.body)}</div></details>${o.status==='awaiting_approval'?`<div class="acts row" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="outDecide('${esc(o.id)}',true)">Approve and export</button><button class="btn btn-secondary btn-sm" onclick="outDecide('${esc(o.id)}',false)">Decline</button></div>`:''}${o.exported_to?`<div class="why">Written to ${esc(o.exported_to.split('/').pop())}. Not sent.</div>`:''}</div>`).join('')||'<p class="muted">None yet. Questions about offline sources (pension files, clerks, small archives) offer Draft outreach.</p>';
+ const r=S.report;
+ $('composebox').innerHTML=S.status==='exploring'?`<button class="btn btn-secondary btn-sm" onclick="act('compose')">Write the draft from what is found so far</button>`:
+  S.status==='awaiting_approval'&&r?`<div class="small">Draft ready: <b>${esc(r.title||'')}</b>. ${esc(r.lead||'')}</div><div class="acts row" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="decide(true)">Approve</button><button class="btn btn-secondary btn-sm" onclick="decide(false)">Reject</button></div>`:
+  S.status==='writing'?'<span class="spinner"></span> Writing the draft':r?`<div class="small">Draft ${esc(r.decision)}.</div>`:'';
+}
+function render(){if(!S)return;renderHeader();renderGraph();renderPanel();renderOutreach()}
+function select(id){selected=id;ui.confirm=null;ui.edit=null;cy.$('node').unselect();cy.$id(id).select();renderPanel();$('panel').scrollTop=0;history.replaceState(null,'',`?node=${encodeURIComponent(id)}`)}
+
+async function api(path,body){
+ const r=await fetch(`/api/explore/${WID}/${path}`,{method:'POST',headers:{'content-type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});
+ let j=null;try{j=await r.json()}catch(_){}
+ if(!r.ok){const e=new Error((j&&j.detail)||r.statusText);e.status=r.status;throw e}return j}
+async function act(path,body){try{const j=await api(path,body);if(path==='dig')streamLine('you: dig deeper on '+body.node_id);await refresh();return j}catch(e){if(body&&body.question_id){ui.err[body.question_id]=e.message;renderPanel()}else toast(e.message)}}
+function askResearch(id){ui.confirm={id,stage:1};ui.edit=null;renderPanel()}
+async function confirmResearch(id,second){
+ const q=qById(id);if(!second&&q.est_calls>(S.confirm_over_calls??3)){ui.confirm={id,stage:2};renderPanel();return}
+ ui.confirm=null;delete ui.err[id];try{await api('research',{question_id:id,confirmed:!!second});}catch(e){ui.err[id]=e.message}await refresh()}
+function startEdit(id){ui.edit=id;ui.confirm=null;renderPanel();const i=$('edit-'+id);if(i){i.focus();i.select()}}
+async function saveEdit(id){const v=$('edit-'+id).value.trim();if(!v)return;ui.edit=null;await act('edit',{question_id:id,text:v})}
+async function addQ(e,nid){e.preventDefault();const v=$('addq').value.trim();if(!v)return;$('addq').value='';await act('questions',{node_id:nid,text:v,generator:'user'})}
+async function outDecide(id,ok){const r=await fetch(`/api/runs/${WID}/outreach`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({draft_id:id,approve:ok})});if(!r.ok)toast(await r.text());setTimeout(refresh,400)}
+async function decide(ok){await fetch(`/api/runs/${WID}/${ok?'approve':'reject'}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({approve:ok,note:'',by:'you'})});setTimeout(refresh,400)}
+
+function streamLine(l){const i=l.indexOf('|');const s=$('stream');const line=(i>0&&/^\d{4}-/.test(l)?pt(l.slice(0,i))+'  '+l.slice(i+1):l);s.textContent=line+'\n'+s.textContent}
+async function refresh(){try{const r=await fetch('/api/explore/'+WID);if(!r.ok)throw new Error((await r.json()).detail);const j=await r.json();S=j.progress;pending=j.pending;$('tlink').href=j.temporal_url;render()}catch(e){toast(e.message)}}
+let es=null,polling=null;
+function connect(){
+ es=new EventSource(`/api/explore/${WID}/events`);
+ es.addEventListener('state',e=>{const j=JSON.parse(e.data);S=j.progress;render()});
+ es.addEventListener('log',e=>streamLine(JSON.parse(e.data).line));
+ es.addEventListener('activity',e=>streamLine(JSON.parse(e.data).line));
+ es.addEventListener('pending',e=>{pending=JSON.parse(e.data)});
+ es.addEventListener('offline',e=>{$('banner').innerHTML='<div class="banner down"><b>The Studio worker is not answering.</b> Temporal is holding this run; restart the worker and it carries on.</div>'});
+ es.addEventListener('end',()=>{es.close();refresh()});
+ es.onerror=()=>{if(!polling)polling=setInterval(refresh,2000)};
+ es.onopen=()=>{if(polling){clearInterval(polling);polling=null}};
+}
+['xjson','xgml','xmmd'].forEach((id,i)=>$(id).href=`/api/explore/${WID}/export?fmt=${['json','graphml','mermaid'][i]}`);
+
+// chat
+let chatHist=[];
+function toggleChat(){const c=$('chat');c.classList.toggle('closed');const open=!c.classList.contains('closed');$('chattoggle').textContent=open?'Hide':'Chat';$('chattoggle').setAttribute('aria-expanded',open);document.querySelector('.work').style.gridTemplateColumns=open?'':'minmax(0,1fr) 440px auto'}
+function citeLinks(s){return esc(s).replace(/\[([a-z]+\d*|person)\]/g,(m,id)=>nodeById(id)?`<a href="#" class="cite" onclick="select('${id}');return false">[${id}]</a>`:m)}
+function addMsg(html,cls){const d=document.createElement('div');d.className='msg '+(cls||'');d.innerHTML=html;$('msgs').appendChild(d);$('msgs').scrollTop=1e9;return d}
+$('chatf').onsubmit=async e=>{e.preventDefault();const q=$('chatq').value.trim();if(!q)return;$('chatq').value='';addMsg(esc(q),'you');const w=addMsg('<span class="spinner"></span> Reading the graph');
+ try{const r=await fetch(`/api/explore/${WID}/chat`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question:q,history:chatHist})});const j=await r.json();if(!r.ok)throw new Error(j.detail);
+  chatHist.push({role:'user',content:q},{role:'assistant',content:j.answer});
+  w.innerHTML=`${j.known?'':'<b>Not in the graph yet.</b> '}${citeLinks(j.answer)}${j.note?`<div class="note">${esc(j.note)}</div>`:''}<div class="note">${esc(j.model)}</div>`+
+   (j.suggestions||[]).map((s,i)=>`<button class="btn btn-secondary btn-sm sugg" data-n="${esc(s.node_id)}" data-t="${esc(s.text)}">Add to ${esc(s.node_id)}: ${esc(s.text)}</button>`).join('');
+  w.querySelectorAll('.sugg').forEach(b=>b.onclick=async()=>{b.disabled=true;const j2=await act('questions',{node_id:b.dataset.n,text:b.dataset.t,generator:'chat',because:'Suggested in chat'});b.textContent=j2&&j2.duplicate?'Already on the list':'Added. Research it from the node.';select(b.dataset.n)});
+ }catch(err){w.innerHTML=`<span class="err">${esc(err.message)}</span>`}};
+fetch('/api/config').then(r=>r.json()).then(c=>{CFG=c;$('chatmode').textContent=c.chat==='none'?c.message:`Answers come only from this graph and cite node ids. Model: ${c.model}.`});
+
+document.fonts.ready.then(()=>{refresh().then(()=>{if(!new URLSearchParams(location.search).get('snap'))connect()})});
+</script></body></html>

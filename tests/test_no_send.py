@@ -8,9 +8,9 @@ FORBIDDEN = re.compile(r"\b(smtplib|sendmail|send_message|SMTP|postmark|sendgrid
 
 
 def code_files():
-    for d in ("cr", "web", "bench", "eval", "scripts"):
+    for d in ("cr", "web", "bench", "eval", "scripts", "studio"):
         for f in (ROOT / d).rglob("*"):
-            if f.suffix in (".py", ".sh", ".js", ".html") and "static/cytoscape" not in str(f):
+            if f.suffix in (".py", ".sh", ".js", ".html") and "static/cytoscape" not in str(f) and ".venv" not in f.parts:
                 yield f
 
 
@@ -28,3 +28,8 @@ def test_export_only_writes_a_file():
 
 def test_server_forces_ask_first():
     assert 'req.outreach = "ask_first"' in (ROOT / "web" / "app.py").read_text()
+
+
+def test_studio_forces_ask_first():
+    src = (ROOT / "studio" / "web" / "app.py").read_text()
+    assert src.count('.outreach = "ask_first"') >= 2  # Brainstorm runs and Explore runs
