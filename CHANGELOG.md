@@ -1,5 +1,12 @@
 # Changelog
 
+## paper v0.1.1 (2026-11-26)
+
+Paper-only revision; code, benchmark and results unchanged (code v0.1.0).
+
+- Related work extended with verified citations: tree search over agent trajectories (LATS, RAP, UCT), self-consistency, sampling and voting, multiagent debate, multi-agent research systems (Anthropic, Co-STORM, AutoGen, MAST), deep-research agents (Search-o1, WebThinker, DeepResearcher, survey), query reformulation (Rewrite-Retrieve-Read, Query2doc, HyDE, FLARE), tabu search, Go-Explore, information foraging, generative-agent reflection and record linkage.
+- `paper/related-work.md` condenses each source and what CR v0.2 takes from it; `refs.bib` grows from 35 to 60 entries.
+
 ## v0.1.0 (2026-11-26)
 
 First public release of the code, the benchmark and the paper (paper v0.1.0).

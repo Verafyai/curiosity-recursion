@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://github.com/Verafyai/curiosity-recursion/releases/tag/v0.1.0"><img alt="version v0.1.0" src="https://img.shields.io/badge/version-v0.1.0-e08a66?style=flat-square&labelColor=14110e"></a>
   <a href="https://github.com/temporalio/sdk-python"><img alt="Temporal Python SDK 1.37" src="https://img.shields.io/badge/Temporal-Python%20SDK%201.37-e08a66?style=flat-square&labelColor=14110e"></a>
-  <a href="paper/main.pdf"><img alt="paper v0.1.0" src="https://img.shields.io/badge/paper-v0.1.0-d2c4b2?style=flat-square&labelColor=14110e"></a>
+  <a href="paper/main.pdf"><img alt="paper v0.1.1" src="https://img.shields.io/badge/paper-v0.1.1-d2c4b2?style=flat-square&labelColor=14110e"></a>
   <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-d2c4b2?style=flat-square&labelColor=14110e"></a>
   <img alt="Python 3.11+" src="https://img.shields.io/badge/python-3.11%2B-d2c4b2?style=flat-square&labelColor=14110e">
   <img alt="35 tests passing" src="https://img.shields.io/badge/tests-35%20passing-7dcea0?style=flat-square&labelColor=14110e">
