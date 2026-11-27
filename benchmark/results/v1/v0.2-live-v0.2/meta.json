@@ -1,0 +1,7 @@
+{
+ "commit": "3569177",
+ "runs_per_cell": 3,
+ "budget": 100,
+ "release": "v0.2 batch",
+ "preregistration": "bench/PREREGISTRATION-v0.2.md"
+}

@@ -1,0 +1,146 @@
+{
+ "recall": [
+  {
+   "a": "B5",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": -0.024535050981035877,
+   "wins": 0,
+   "losses": 3,
+   "p": 0.25,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B5-fix",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": 0.0007082270849458847,
+   "wins": 3,
+   "losses": 1,
+   "p": 1.0,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": -0.00834694555754317,
+   "wins": 2,
+   "losses": 3,
+   "p": 0.625,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B5-fix",
+   "n_people": 6,
+   "mean_diff": -0.009055172642489053,
+   "wins": 3,
+   "losses": 2,
+   "p": 1.0,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B5",
+   "n_people": 6,
+   "mean_diff": 0.016188105423492704,
+   "wins": 3,
+   "losses": 2,
+   "p": 0.5,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B6-no-ledger",
+   "n_people": 6,
+   "mean_diff": -0.002265463551473404,
+   "wins": 1,
+   "losses": 2,
+   "p": 0.5,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B6-no-parallel",
+   "n_people": 6,
+   "mean_diff": -0.0005446623093681917,
+   "wins": 0,
+   "losses": 1,
+   "p": 1.0,
+   "holm_p": 1.0
+  }
+ ],
+ "reachable_recall": [
+  {
+   "a": "B5",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": -0.0442357385475363,
+   "wins": 0,
+   "losses": 3,
+   "p": 0.25,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B5-fix",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": 0.005076278387431454,
+   "wins": 3,
+   "losses": 1,
+   "p": 0.875,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": -0.014195458121595544,
+   "wins": 2,
+   "losses": 2,
+   "p": 0.75,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B5-fix",
+   "n_people": 5,
+   "mean_diff": -0.019271736509027,
+   "wins": 2,
+   "losses": 2,
+   "p": 0.75,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B5",
+   "n_people": 5,
+   "mean_diff": 0.03004028042594075,
+   "wins": 2,
+   "losses": 2,
+   "p": 0.625,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B6-no-ledger",
+   "n_people": 5,
+   "mean_diff": -0.004330524344569287,
+   "wins": 0,
+   "losses": 2,
+   "p": 0.5,
+   "holm_p": 1.0
+  },
+  {
+   "a": "B6-swarm",
+   "b": "B6-no-parallel",
+   "n_people": 5,
+   "mean_diff": 0.0,
+   "wins": 0,
+   "losses": 0,
+   "p": 1.0,
+   "holm_p": 1.0
+  }
+ ]
+}

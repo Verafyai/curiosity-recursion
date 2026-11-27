@@ -38,7 +38,8 @@
 \makeatother
 \InputIfFileExists{results-values.tex}{}{}
 \InputIfFileExists{results-values-v02.tex}{}{}
-\newcommand{\paperversion}{0.1.1}% bumped by scripts/release.sh; 0.1.1 is a paper-only revision (related work and citations)
+\InputIfFileExists{results-values-v02s.tex}{}{}
+\newcommand{\paperversion}{0.2.0}% bumped by scripts/release.sh; 0.2.0 adds the preregistered v0.2 swarm results (paper only; code release still 0.1.0)
 \newcommand{\codeversion}{0.1.0}% code and benchmark release the results come from
 \newcommand{\CR}{Curiosity Recursion\xspace}
 \newcommand{\bench}{DarkKin-Bench\xspace}

@@ -1,0 +1,6 @@
+{"checked": "2026-11-26 18:15 PT (America/Los_Angeles)",
+ "archive.org advancedsearch": "5/5 HTTP 200, 0.41 to 0.75 s",
+ "be-api.us.archive.org ia-pub-fts-api": "HTTP 200, 1.0 s",
+ "www.loc.gov chronicling-america json": "5/5 no response within 30 s; retried with 60 s: HTTP 200 in 31.7 s; homepage HTTP 200 in 0.05 s. Slow, not throttled (no 429). The client timeout is 70 s.",
+ "www.wikidata.org wbsearchentities": "5/5 HTTP 200, 0.11 to 0.24 s",
+ "live smoke (synthetic subject mock-tester, B6-swarm, B=20, no model key)": "completed, 20 calls charged, 21 logged (1 chronam HTTP 503 retried), 0 HTTP 429"}

@@ -1,0 +1,183 @@
+{
+ "H6": {
+  "verdict": "NOT SUPPORTED",
+  "vs_B1": {
+   "a": "B6-swarm",
+   "c": "B1",
+   "metric": "recall",
+   "mean_diff": -0.00834694555754317,
+   "per_person_diff": {
+    "burnham": -0.024336283185840718,
+    "homer": 0.0,
+    "john": 0.006535947712418301,
+    "kingsley": 0.035919540229885055,
+    "bristol": -0.05747126436781608,
+    "alex": -0.010729613733905574
+   },
+   "reachable_wins": 1,
+   "worst_reachable_diff": -0.05747126436781608,
+   "a_seed_mean": 0.11532914241794065,
+   "a_seed_sd": 0.0005176082579928958,
+   "c_mean": 0.12367608797548382,
+   "cond_mean_diff_gt_0": false,
+   "cond_wins_and_no_big_loss": false,
+   "cond_sd_clear_of_c_mean": false,
+   "verdict": false
+  },
+  "vs_B5-fix": {
+   "a": "B6-swarm",
+   "c": "B5-fix",
+   "metric": "recall",
+   "mean_diff": -0.009055172642489053,
+   "per_person_diff": {
+    "burnham": -0.06489675516224189,
+    "homer": 0.0,
+    "john": 0.006535947712418301,
+    "kingsley": 0.002155172413793094,
+    "bristol": -0.06321839080459768,
+    "alex": 0.06509298998569385
+   },
+   "reachable_wins": 2,
+   "worst_reachable_diff": -0.06489675516224189,
+   "a_seed_mean": 0.11532914241794065,
+   "a_seed_sd": 0.0005176082579928958,
+   "c_mean": 0.12438431506042971,
+   "cond_mean_diff_gt_0": false,
+   "cond_wins_and_no_big_loss": false,
+   "cond_sd_clear_of_c_mean": false,
+   "verdict": false
+  }
+ },
+ "H6-prec": {
+  "verdict": "SUPPORTED",
+  "precision_B6": 0.763298435353852,
+  "precision_B5-fix": 0.6728931656641985,
+  "precision_B1": 0.5581990350010234,
+  "tolerance": 0.03
+ },
+ "H6-waste": {
+  "verdict": "SUPPORTED",
+  "exact_repeat_rate": 0.002824858757062147,
+  "exact_repeat_rate_incl_retries": 0.015254237288135594,
+  "share_of_B_used": 0.9444444444444444
+ },
+ "H6-ablation": {
+  "verdict": "NOT SUPPORTED",
+  "vs_B6-no-ledger": {
+   "a": "B6-swarm",
+   "c": "B6-no-ledger",
+   "metric": "recall",
+   "mean_diff": -0.002265463551473404,
+   "per_person_diff": {
+    "burnham": 0.0014749262536873087,
+    "homer": 0.0,
+    "john": 0.0,
+    "kingsley": -0.010775862068965511,
+    "bristol": 0.0,
+    "alex": -0.004291845493562221
+   },
+   "reachable_wins": 1,
+   "worst_reachable_diff": -0.010775862068965511,
+   "a_seed_mean": 0.11532914241794065,
+   "a_seed_sd": 0.0005176082579928958,
+   "c_mean": 0.11759460596941405,
+   "cond_mean_diff_gt_0": false,
+   "cond_wins_and_no_big_loss": false,
+   "cond_sd_clear_of_c_mean": false,
+   "verdict": false
+  },
+  "vs_B6-no-parallel": {
+   "a": "B6-swarm",
+   "c": "B6-no-parallel",
+   "metric": "recall",
+   "mean_diff": -0.0005446623093681917,
+   "per_person_diff": {
+    "burnham": 0.0,
+    "homer": 0.0,
+    "john": -0.00326797385620915,
+    "kingsley": 0.0,
+    "bristol": 0.0,
+    "alex": 0.0
+   },
+   "reachable_wins": 0,
+   "worst_reachable_diff": 0.0,
+   "a_seed_mean": 0.11532914241794065,
+   "a_seed_sd": 0.0005176082579928958,
+   "c_mean": 0.11587380472730884,
+   "cond_mean_diff_gt_0": false,
+   "cond_wins_and_no_big_loss": false,
+   "cond_sd_clear_of_c_mean": false,
+   "verdict": false
+  }
+ },
+ "H6-budget": {
+  "verdict": "NOT SUPPORTED",
+  "matched_calls": 22,
+  "vs_B1": {
+   "a": "B6-swarm",
+   "c": "B1",
+   "metric": "recall",
+   "mean_diff": -0.04224908672418454,
+   "per_person_diff": {
+    "burnham": -0.10545722713864307,
+    "homer": 0.0,
+    "john": 0.006535947712418301,
+    "kingsley": 0.02083333333333333,
+    "bristol": -0.1475095785440613,
+    "alex": -0.0278969957081545
+   },
+   "reachable_wins": 1,
+   "worst_reachable_diff": -0.1475095785440613,
+   "a_seed_mean": 0.08110771644925585,
+   "a_seed_sd": 0.0009433827927935108,
+   "c_mean": 0.12335680317344039,
+   "cond_mean_diff_gt_0": false,
+   "cond_wins_and_no_big_loss": false,
+   "cond_sd_clear_of_c_mean": false,
+   "verdict": false
+  }
+ },
+ "curves": {
+  "10": {
+   "B1": 0.09970622621007472,
+   "B5": 0.09190093972251218,
+   "B5-fix": 0.08771562456298279,
+   "B6-swarm": 0.07496324996568347,
+   "B6-no-ledger": 0.07388566375878693,
+   "B6-no-parallel": 0.07407729711053093
+  },
+  "25": {
+   "B1": 0.12335680317344039,
+   "B5": 0.09914103699444794,
+   "B5-fix": 0.12012518294998542,
+   "B6-swarm": 0.08170637545308727,
+   "B6-no-ledger": 0.08158664365232099,
+   "B6-no-parallel": 0.08225103776245546
+  },
+  "50": {
+   "B1": 0.12367608797548382,
+   "B5": 0.09914103699444794,
+   "B5-fix": 0.1243843150604297,
+   "B6-swarm": 0.11101205815745781,
+   "B6-no-ledger": 0.11172409152130686,
+   "B6-no-parallel": 0.11191437425795618
+  },
+  "75": {
+   "B1": 0.12367608797548382,
+   "B5": 0.09914103699444794,
+   "B5-fix": 0.1243843150604297,
+   "B6-swarm": 0.114591679291097,
+   "B6-no-ledger": 0.11256221412667083,
+   "B6-no-parallel": 0.11370572643594444
+  },
+  "100": {
+   "B1": 0.12367608797548382,
+   "B5": 0.09914103699444794,
+   "B5-fix": 0.1243843150604297,
+   "B6-swarm": 0.11532914241794065,
+   "B6-no-ledger": 0.11759460596941405,
+   "B6-no-parallel": 0.11587380472730884
+  }
+ },
+ "note": "n = 6 people is too small for statistical significance; the verdicts use the preregistered rule above."
+}

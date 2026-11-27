@@ -1,0 +1,7772 @@
+{
+ "aggregate": {
+  "answer_key": {
+   "version": "v1",
+   "frozen": "2026-11-26",
+   "sha256_public": {
+    "burnham": "2750397ec0d728b0faa9319f2afd4a43993156ad19cdf6ac161902b7ba8452e0",
+    "homer": "97246745c0a641986a5a3256f511b7e945bf459bcb2dd46259393fd993d8af8d",
+    "john": "e1fadcf36c92e7480f6c5440b8e6ea233b283636616e595e23a15d2e905ad9df",
+    "kingsley": "7176dc8c25ac6cd9f89a5626c8ce76570c469bd084d74919dad1c7600bc0ec1f",
+    "bristol": "53f9fde3972539560be3f4b18124c14fad94455db3785a9431ef24bb1fb03f79",
+    "alex": "95fd263256f3600ab33b91331bc6303765c755d5b2ed8fcab864ecbd794dbba8"
+   }
+  },
+  "conditions": {
+   "B1": {
+    "label": "ReAct LLM agent",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.1851032448377581,
+       0.01113544901957338
+      ],
+      "penalised": [
+       0.17772861356932154,
+       0.005109294417607315
+      ],
+      "reachable_recall": [
+       0.33783783783783783,
+       0.009009009009009
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.08112094395280237,
+       0.015539312319841795
+      ],
+      "source_recall": [
+       0.027777777777777776,
+       0.0
+      ],
+      "precision": [
+       0.7777777777777778,
+       0.2222222222222222
+      ],
+      "holdout_recall": [
+       0.22587719298245615,
+       0.007596714068284541
+      ],
+      "novel_candidates": [
+       2,
+       2.0
+      ],
+      "false_links": 1,
+      "tool_calls": [
+       21.666666666666668,
+       0.5773502691896257
+      ],
+      "by_tier": {
+       "web_open": [
+        0.15178571428571427,
+        0.013392857142857137
+       ],
+       "book": [
+        0.4017857142857143,
+        0.008928571428571425
+       ],
+       "web_gated": [
+        0.030303030303030304,
+        0.0
+       ],
+       "outreach": [
+        0.06060606060606061,
+        0.0262431940540739
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.32953063885267275,
+       0.365772577924397
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       4.333333333333333,
+       2.0816659994661326
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.24314574314574314,
+       0.029227459019522496
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       6.666666666666667,
+       1.1547005383792515
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       19.666666666666668,
+       4.041451884327381
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.08045977011494253,
+       0.0172862204245919
+      ],
+      "penalised": [
+       0.08045977011494253,
+       0.0172862204245919
+      ],
+      "reachable_recall": [
+       0.12731481481481483,
+       0.02785002179517584
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.01867816091954023,
+       0.017945396547121836
+      ],
+      "source_recall": [
+       0.18128654970760233,
+       0.04415107856883479
+      ],
+      "precision": [
+       0.3247863247863248,
+       0.3336619024947544
+      ],
+      "holdout_recall": [
+       0.07407407407407407,
+       0.004582144993568458
+      ],
+      "novel_candidates": [
+       1,
+       1.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       19.333333333333332,
+       3.0550504633038935
+      ],
+      "by_tier": {
+       "web_open": [
+        0.08333333333333334,
+        0.030274867105898676
+       ],
+       "book": [
+        0.10465116279069768,
+        0.026853500892540724
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.007407407407407408,
+        0.012830005981991684
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.3544061302681992,
+       0.003318104995342673
+      ],
+      "penalised": [
+       0.33524904214559387,
+       0.03649915494876943
+      ],
+      "reachable_recall": [
+       0.505464480874317,
+       0.004732379255652675
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.1685823754789272,
+       0.0066362099906853616
+      ],
+      "source_recall": [
+       0.16666666666666666,
+       0.03608439182435161
+      ],
+      "precision": [
+       0.8620448179271708,
+       0.0845078820172728
+      ],
+      "holdout_recall": [
+       0.30833333333333335,
+       0.014433756729740658
+      ],
+      "novel_candidates": [
+       12.666666666666666,
+       4.041451884327381
+      ],
+      "false_links": 1,
+      "tool_calls": [
+       21.666666666666668,
+       0.5773502691896257
+      ],
+      "by_tier": {
+       "web_open": [
+        0.13636363636363635,
+        0.0
+       ],
+       "book": [
+        0.5602836879432624,
+        0.006142024140315144
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.12017167381974249,
+       0.015021459227467816
+      ],
+      "penalised": [
+       0.12017167381974249,
+       0.015021459227467816
+      ],
+      "reachable_recall": [
+       0.23220973782771537,
+       0.019729688675754198
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.0715307582260372,
+       0.004955796302056878
+      ],
+      "source_recall": [
+       0.09523809523809523,
+       0.011782658554890326
+      ],
+      "precision": [
+       0.8376623376623377,
+       0.14359314537335052
+      ],
+      "holdout_recall": [
+       0.12760416666666666,
+       0.009021097956087902
+      ],
+      "novel_candidates": [
+       5.666666666666667,
+       1.5275252316519468
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       19,
+       4.358898943540674
+      ],
+      "by_tier": {
+       "web_open": [
+        0.14220183486238533,
+        0.01999494928229667
+       ],
+       "book": [
+        0.07575757575757576,
+        0.008747731351357967
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.2,
+        0.034641016151377546
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.12335680317344039,
+    "overall_reachable_recall": 0.240565374270937,
+    "overall_penalised": 0.11893484994160007,
+    "by_era": {
+     "Civil War": 0.1851032448377581,
+     "WWI": 0.0,
+     "WWII": 0.0,
+     "civilian": 0.18501252473429475
+    },
+    "usd": 0.47274900000000003,
+    "runs": 18,
+    "llm_tokens": 700459,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 5
+   },
+   "B5": {
+    "label": "CR (preregistered)",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.1747787610619469,
+       0.0
+      ],
+      "penalised": [
+       0.15265486725663716,
+       0.0
+      ],
+      "reachable_recall": [
+       0.32882882882882886,
+       0.0
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.06637168141592921,
+       0.0
+      ],
+      "source_recall": [
+       0.05555555555555555,
+       0.0
+      ],
+      "precision": [
+       0.13968253968253969,
+       0.005498573992282147
+      ],
+      "holdout_recall": [
+       0.21710526315789475,
+       0.0
+      ],
+      "novel_candidates": [
+       0,
+       0.0
+      ],
+      "false_links": 3,
+      "tool_calls": [
+       21,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.13839285714285715,
+        0.0
+       ],
+       "book": [
+        0.39285714285714285,
+        0.0
+       ],
+       "web_gated": [
+        0.030303030303030304,
+        0.0
+       ],
+       "outreach": [
+        0.045454545454545456,
+        0.0
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       null,
+       null
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       0,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       17,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.47058823529411764,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       8,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.01939655172413793,
+       0.0
+      ],
+      "penalised": [
+       0.01939655172413793,
+       0.0
+      ],
+      "reachable_recall": [
+       0.03125,
+       0.0
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.004310344827586207,
+       0.0
+      ],
+      "source_recall": [
+       0.04678362573099415,
+       0.010128952091046065
+      ],
+      "precision": [
+       0.9166666666666666,
+       0.14433756729740643
+      ],
+      "holdout_recall": [
+       0.031746031746031744,
+       0.0
+      ],
+      "novel_candidates": [
+       1,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        0.03488372093023256,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.3563218390804598,
+       0.0
+      ],
+      "penalised": [
+       0.3563218390804598,
+       0.0
+      ],
+      "reachable_recall": [
+       0.5081967213114754,
+       0.0
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.1724137931034483,
+       0.0
+      ],
+      "source_recall": [
+       0.0625,
+       0.0
+      ],
+      "precision": [
+       0.9259259259259259,
+       0.06415002990995845
+      ],
+      "holdout_recall": [
+       0.3,
+       0.0
+      ],
+      "novel_candidates": [
+       7,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.13636363636363635,
+        0.0
+       ],
+       "book": [
+        0.5638297872340425,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.04434907010014306,
+       0.008672643528599528
+      ],
+      "penalised": [
+       0.04434907010014306,
+       0.008672643528599528
+      ],
+      "reachable_recall": [
+       0.11610486891385768,
+       0.022704785867007762
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.008583690987124463,
+       0.0
+      ],
+      "source_recall": [
+       0.05442176870748299,
+       0.011782658554890323
+      ],
+      "precision": [
+       0.8888888888888888,
+       0.0
+      ],
+      "holdout_recall": [
+       0.041666666666666664,
+       0.009021097956087902
+      ],
+      "novel_candidates": [
+       5.333333333333333,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06269113149847096,
+        0.0026483957302276414
+       ],
+       "book": [
+        0.03535353535353535,
+        0.017495462702715934
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.09914103699444794,
+    "overall_reachable_recall": 0.19687608381083238,
+    "overall_penalised": 0.09545372136022966,
+    "by_era": {
+     "Civil War": 0.1747787610619469,
+     "WWI": 0.0,
+     "WWII": 0.0,
+     "civilian": 0.14002248696824693
+    },
+    "usd": 0.0,
+    "runs": 18,
+    "llm_tokens": 0,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 0
+   },
+   "B5-fix": {
+    "label": "CR rules2 (post hoc fix)",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.20722713864306785,
+       0.02043717767042923
+      ],
+      "penalised": [
+       0.16297935103244837,
+       0.02043717767042923
+      ],
+      "reachable_recall": [
+       0.38588588588588585,
+       0.04161083021186491
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.07964601769911504,
+       0.0
+      ],
+      "source_recall": [
+       0.07407407407407407,
+       0.016037507477489603
+      ],
+      "precision": [
+       0.6004901960784313,
+       0.02122611283785388
+      ],
+      "holdout_recall": [
+       0.23903508771929824,
+       0.007596714068284557
+      ],
+      "novel_candidates": [
+       16,
+       0.0
+      ],
+      "false_links": 6,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.1875,
+        0.030929478706587098
+       ],
+       "book": [
+        0.4255952380952381,
+        0.020619652471058052
+       ],
+       "web_gated": [
+        0.030303030303030304,
+        0.0
+       ],
+       "outreach": [
+        0.045454545454545456,
+        0.0
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.6923076923076923,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       18,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.5714285714285714,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       10.666666666666666,
+       9.237604307034012
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       14.666666666666666,
+       12.701705922171767
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.09913793103448276,
+       0.0
+      ],
+      "penalised": [
+       0.09913793103448276,
+       0.0
+      ],
+      "reachable_recall": [
+       0.1597222222222222,
+       0.0
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.021551724137931036,
+       0.0
+      ],
+      "source_recall": [
+       0.2046783625730994,
+       0.026798688274595556
+      ],
+      "precision": [
+       1.0,
+       0.0
+      ],
+      "holdout_recall": [
+       0.09523809523809523,
+       0.0
+      ],
+      "novel_candidates": [
+       16,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.07758620689655173,
+        0.0
+       ],
+       "book": [
+        0.1434108527131783,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.35823754789272033,
+       0.006636209990685346
+      ],
+      "penalised": [
+       0.35823754789272033,
+       0.006636209990685346
+      ],
+      "reachable_recall": [
+       0.5109289617486339,
+       0.00946475851130535
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.17624521072796934,
+       0.013272419981370707
+      ],
+      "source_recall": [
+       0.1875,
+       0.0
+      ],
+      "precision": [
+       0.9270833333333334,
+       0.018042195912175804
+      ],
+      "holdout_recall": [
+       0.3,
+       0.0
+      ],
+      "novel_candidates": [
+       26.666666666666668,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.14646464646464646,
+        0.008747731351357974
+       ],
+       "book": [
+        0.5602836879432624,
+        0.006142024140315144
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.04434907010014306,
+       0.008672643528599528
+      ],
+      "penalised": [
+       0.04434907010014306,
+       0.008672643528599528
+      ],
+      "reachable_recall": [
+       0.11610486891385768,
+       0.022704785867007762
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.008583690987124463,
+       0.0
+      ],
+      "source_recall": [
+       0.05442176870748299,
+       0.011782658554890323
+      ],
+      "precision": [
+       0.7647058823529411,
+       0.0
+      ],
+      "holdout_recall": [
+       0.041666666666666664,
+       0.009021097956087902
+      ],
+      "novel_candidates": [
+       10.333333333333334,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06269113149847096,
+        0.0026483957302276414
+       ],
+       "book": [
+        0.03535353535353535,
+        0.017495462702715934
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.11815861461173567,
+    "overall_reachable_recall": 0.23452838775411994,
+    "overall_penalised": 0.11078398334329909,
+    "by_era": {
+     "Civil War": 0.20722713864306785,
+     "WWI": 0.0,
+     "WWII": 0.0,
+     "civilian": 0.16724151634244872
+    },
+    "usd": 0.0,
+    "runs": 18,
+    "llm_tokens": 0,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 6
+   },
+   "B6-swarm": {
+    "label": "CR v0.2 swarm (preregistered)",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.07964601769911504,
+       0.0
+      ],
+      "penalised": [
+       0.07964601769911504,
+       0.0
+      ],
+      "reachable_recall": [
+       0.14414414414414414,
+       0.0
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.01327433628318584,
+       0.0
+      ],
+      "source_recall": [
+       0.027777777777777776,
+       0.0
+      ],
+      "precision": [
+       0.834045584045584,
+       0.023439434005561775
+      ],
+      "holdout_recall": [
+       0.09210526315789473,
+       0.0
+      ],
+      "novel_candidates": [
+       31.666666666666668,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.08928571428571429,
+        0.0
+       ],
+       "book": [
+        0.14285714285714285,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.7857142857142857,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       11,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.006535947712418301,
+       0.005660296756761037
+      ],
+      "penalised": [
+       0.006535947712418301,
+       0.005660296756761037
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.8374999999999999,
+       0.017677669529663705
+      ],
+      "holdout_recall": [
+       0.013888888888888888,
+       0.012028130608117202
+      ],
+      "novel_candidates": [
+       22.333333333333332,
+       19.347695814575268
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       14.666666666666666,
+       12.701705922171767
+      ],
+      "by_tier": {
+       "web_open": [
+        0.03508771929824561,
+        0.030386856273138196
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.10129310344827586,
+       0.0
+      ],
+      "penalised": [
+       0.10129310344827586,
+       0.0
+      ],
+      "reachable_recall": [
+       0.16319444444444445,
+       0.0
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.034482758620689655,
+       0.0
+      ],
+      "source_recall": [
+       0.2222222222222222,
+       0.02025790418209213
+      ],
+      "precision": [
+       0.7619047619047619,
+       0.020619652471058052
+      ],
+      "holdout_recall": [
+       0.10317460317460317,
+       0.0
+      ],
+      "novel_candidates": [
+       14.333333333333334,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06896551724137931,
+        0.0
+       ],
+       "book": [
+        0.1511627906976744,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.20689655172413793,
+       0.0
+      ],
+      "penalised": [
+       0.20689655172413793,
+       0.0
+      ],
+      "reachable_recall": [
+       0.29508196721311475,
+       0.0
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.06896551724137931,
+       0.0
+      ],
+      "source_recall": [
+       0.0625,
+       0.0
+      ],
+      "precision": [
+       0.6417508417508417,
+       0.004665456720724279
+      ],
+      "holdout_recall": [
+       0.225,
+       0.0
+      ],
+      "novel_candidates": [
+       27.666666666666668,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06060606060606061,
+        0.0
+       ],
+       "book": [
+        0.3404255319148936,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.09227467811158799,
+       0.0
+      ],
+      "penalised": [
+       0.09227467811158799,
+       0.0
+      ],
+      "reachable_recall": [
+       0.19662921348314608,
+       0.0
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.060085836909871244,
+       0.0
+      ],
+      "source_recall": [
+       0.08163265306122448,
+       0.0
+      ],
+      "precision": [
+       0.9444444444444444,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0859375,
+       0.0
+      ],
+      "novel_candidates": [
+       12,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.11467889908256881,
+        0.0
+       ],
+       "book": [
+        0.050505050505050504,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.16,
+        0.0
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.08110771644925585,
+    "overall_reachable_recall": 0.1598099538569699,
+    "overall_penalised": 0.08110771644925585,
+    "by_era": {
+     "Civil War": 0.07964601769911504,
+     "WWI": 0.0,
+     "WWII": 0.006535947712418301,
+     "civilian": 0.13348811109466727
+    },
+    "usd": 0.0,
+    "runs": 18,
+    "llm_tokens": 0,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 0
+   },
+   "B6-no-ledger": {
+    "label": "swarm without ledger rules (ablation)",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.07964601769911504,
+       0.0
+      ],
+      "penalised": [
+       0.07964601769911504,
+       0.0
+      ],
+      "reachable_recall": [
+       0.14414414414414414,
+       0.0
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.01327433628318584,
+       0.0
+      ],
+      "source_recall": [
+       0.027777777777777776,
+       0.0
+      ],
+      "precision": [
+       0.829059829059829,
+       0.014803853056144262
+      ],
+      "holdout_recall": [
+       0.09210526315789473,
+       0.0
+      ],
+      "novel_candidates": [
+       32.333333333333336,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.08928571428571429,
+        0.0
+       ],
+       "book": [
+        0.14285714285714285,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.7857142857142857,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       11,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.006535947712418301,
+       0.005660296756761037
+      ],
+      "penalised": [
+       0.006535947712418301,
+       0.005660296756761037
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.8571428571428571,
+       0.0
+      ],
+      "holdout_recall": [
+       0.013888888888888888,
+       0.012028130608117202
+      ],
+      "novel_candidates": [
+       24,
+       20.784609690826528
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       14.666666666666666,
+       12.701705922171767
+      ],
+      "by_tier": {
+       "web_open": [
+        0.03508771929824561,
+        0.030386856273138196
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.09698275862068965,
+       0.0
+      ],
+      "penalised": [
+       0.09698275862068965,
+       0.0
+      ],
+      "reachable_recall": [
+       0.15625,
+       0.0
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.034482758620689655,
+       0.0
+      ],
+      "source_recall": [
+       0.24561403508771928,
+       0.0
+      ],
+      "precision": [
+       0.6881720430107526,
+       0.01862420223192346
+      ],
+      "holdout_recall": [
+       0.09523809523809523,
+       0.0
+      ],
+      "novel_candidates": [
+       14.333333333333334,
+       0.5773502691896257
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06896551724137931,
+        0.0
+       ],
+       "book": [
+        0.1434108527131783,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.20689655172413793,
+       0.0
+      ],
+      "penalised": [
+       0.20689655172413793,
+       0.0
+      ],
+      "reachable_recall": [
+       0.29508196721311475,
+       0.0
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.06896551724137931,
+       0.0
+      ],
+      "source_recall": [
+       0.0625,
+       0.0
+      ],
+      "precision": [
+       0.6666666666666666,
+       0.0
+      ],
+      "holdout_recall": [
+       0.225,
+       0.0
+      ],
+      "novel_candidates": [
+       27,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06060606060606061,
+        0.0
+       ],
+       "book": [
+        0.3404255319148936,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.09227467811158799,
+       0.0
+      ],
+      "penalised": [
+       0.09227467811158799,
+       0.0
+      ],
+      "reachable_recall": [
+       0.19662921348314608,
+       0.0
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.060085836909871244,
+       0.0
+      ],
+      "source_recall": [
+       0.08163265306122448,
+       0.0
+      ],
+      "precision": [
+       0.9444444444444444,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0859375,
+       0.0
+      ],
+      "novel_candidates": [
+       12,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.11467889908256881,
+        0.0
+       ],
+       "book": [
+        0.050505050505050504,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.16,
+        0.0
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.08038932564465816,
+    "overall_reachable_recall": 0.158421064968081,
+    "overall_penalised": 0.08038932564465816,
+    "by_era": {
+     "Civil War": 0.07964601769911504,
+     "WWI": 0.0,
+     "WWII": 0.006535947712418301,
+     "civilian": 0.13205132948547185
+    },
+    "usd": 0.0,
+    "runs": 18,
+    "llm_tokens": 0,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 0
+   },
+   "B6-no-parallel": {
+    "label": "swarm with one worker (ablation)",
+    "per_person": {
+     "burnham": {
+      "n_runs": 3,
+      "recall": [
+       0.07964601769911504,
+       0.0
+      ],
+      "penalised": [
+       0.07964601769911504,
+       0.0
+      ],
+      "reachable_recall": [
+       0.14414414414414414,
+       0.0
+      ],
+      "reachable_n": 111,
+      "full_credit_recall": [
+       0.01327433628318584,
+       0.0
+      ],
+      "source_recall": [
+       0.027777777777777776,
+       0.0
+      ],
+      "precision": [
+       0.8105263157894737,
+       0.009116056881941424
+      ],
+      "holdout_recall": [
+       0.09210526315789473,
+       0.0
+      ],
+      "novel_candidates": [
+       30,
+       1.7320508075688772
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.08928571428571429,
+        0.0
+       ],
+       "book": [
+        0.14285714285714285,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "homer": {
+      "n_runs": 3,
+      "recall": [
+       0.0,
+       0.0
+      ],
+      "penalised": [
+       0.0,
+       0.0
+      ],
+      "reachable_recall": [
+       null,
+       null
+      ],
+      "reachable_n": 0,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.7857142857142857,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0,
+       0.0
+      ],
+      "novel_candidates": [
+       7.333333333333333,
+       6.3508529610858835
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       14.666666666666666,
+       12.701705922171767
+      ],
+      "by_tier": {
+       "web_open": [
+        0.0,
+        0.0
+       ],
+       "book": [
+        null,
+        null
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "john": {
+      "n_runs": 3,
+      "recall": [
+       0.00980392156862745,
+       0.0
+      ],
+      "penalised": [
+       0.00980392156862745,
+       0.0
+      ],
+      "reachable_recall": [
+       0.0,
+       0.0
+      ],
+      "reachable_n": 2,
+      "full_credit_recall": [
+       0.0,
+       0.0
+      ],
+      "source_recall": [
+       0.0,
+       0.0
+      ],
+      "precision": [
+       0.837758811443022,
+       0.0043864988419085775
+      ],
+      "holdout_recall": [
+       0.020833333333333332,
+       0.0
+      ],
+      "novel_candidates": [
+       32.666666666666664,
+       2.0816659994661326
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.05263157894736842,
+        0.0
+       ],
+       "book": [
+        0.0,
+        0.0
+       ],
+       "web_gated": [
+        0.0,
+        0.0
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "kingsley": {
+      "n_runs": 3,
+      "recall": [
+       0.10129310344827586,
+       0.0
+      ],
+      "penalised": [
+       0.10129310344827586,
+       0.0
+      ],
+      "reachable_recall": [
+       0.16319444444444445,
+       0.0
+      ],
+      "reachable_n": 144,
+      "full_credit_recall": [
+       0.034482758620689655,
+       0.0
+      ],
+      "source_recall": [
+       0.2982456140350877,
+       0.0
+      ],
+      "precision": [
+       0.8214285714285714,
+       0.0
+      ],
+      "holdout_recall": [
+       0.10317460317460317,
+       0.0
+      ],
+      "novel_candidates": [
+       15,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06896551724137931,
+        0.0
+       ],
+       "book": [
+        0.1511627906976744,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "bristol": {
+      "n_runs": 3,
+      "recall": [
+       0.20689655172413793,
+       0.0
+      ],
+      "penalised": [
+       0.20689655172413793,
+       0.0
+      ],
+      "reachable_recall": [
+       0.29508196721311475,
+       0.0
+      ],
+      "reachable_n": 61,
+      "full_credit_recall": [
+       0.06896551724137931,
+       0.0
+      ],
+      "source_recall": [
+       0.0625,
+       0.0
+      ],
+      "precision": [
+       0.6444444444444445,
+       0.0
+      ],
+      "holdout_recall": [
+       0.225,
+       0.0
+      ],
+      "novel_candidates": [
+       28,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.06060606060606061,
+        0.0
+       ],
+       "book": [
+        0.3404255319148936,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "alex": {
+      "n_runs": 3,
+      "recall": [
+       0.09227467811158799,
+       0.0
+      ],
+      "penalised": [
+       0.09227467811158799,
+       0.0
+      ],
+      "reachable_recall": [
+       0.19662921348314608,
+       0.0
+      ],
+      "reachable_n": 89,
+      "full_credit_recall": [
+       0.060085836909871244,
+       0.0
+      ],
+      "source_recall": [
+       0.08163265306122448,
+       0.0
+      ],
+      "precision": [
+       0.9444444444444444,
+       0.0
+      ],
+      "holdout_recall": [
+       0.0859375,
+       0.0
+      ],
+      "novel_candidates": [
+       12,
+       0.0
+      ],
+      "false_links": 0,
+      "tool_calls": [
+       22,
+       0.0
+      ],
+      "by_tier": {
+       "web_open": [
+        0.11467889908256881,
+        0.0
+       ],
+       "book": [
+        0.050505050505050504,
+        0.0
+       ],
+       "web_gated": [
+        null,
+        null
+       ],
+       "outreach": [
+        0.16,
+        0.0
+       ]
+      }
+     }
+    },
+    "overall_recall": 0.08165237875862405,
+    "overall_reachable_recall": 0.1598099538569699,
+    "overall_penalised": 0.08165237875862405,
+    "by_era": {
+     "Civil War": 0.07964601769911504,
+     "WWI": 0.0,
+     "WWII": 0.00980392156862745,
+     "civilian": 0.13348811109466727
+    },
+    "usd": 0.0,
+    "runs": 18,
+    "llm_tokens": 0,
+    "runs_missing_tool_log": 0,
+    "blocked_host": 0,
+    "dropped_overlap": 0
+   }
+  }
+ },
+ "runs": [
+  {
+   "run": "B1-alex-b100-s1",
+   "condition": "B1",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 14,
+   "logged_calls": 14,
+   "wall_seconds": 90.8,
+   "usd": 0.018405,
+   "llm_tokens": 20340,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 2,
+   "reachable_n": 89,
+   "reachable_recall": 0.21348314606741572,
+   "n_facts": 233,
+   "credit": 28.0,
+   "recall": 0.12017167381974249,
+   "recall_full_credit_only": 0.06866952789699571,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.13302752293577982
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.22
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.08080808080808081
+    }
+   },
+   "holdout_recall": 0.1328125,
+   "non_holdout_recall": 0.11538461538461539,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 11,
+   "precision": 0.7272727272727273,
+   "novel_candidates": 6,
+   "false_links": 0,
+   "penalised": 0.12017167381974249
+  },
+  {
+   "run": "B1-alex-b100-s2",
+   "condition": "B1",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 25,
+   "wall_seconds": 157.1,
+   "usd": 0.023113,
+   "llm_tokens": 46534,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 2,
+   "reachable_n": 89,
+   "reachable_recall": 0.2303370786516854,
+   "n_facts": 233,
+   "credit": 24.5,
+   "recall": 0.10515021459227468,
+   "recall_full_credit_only": 0.06866952789699571,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.12844036697247707
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.06565656565656566
+    }
+   },
+   "holdout_recall": 0.1171875,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.10204081632653061,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 8,
+   "precision": 1.0,
+   "novel_candidates": 4,
+   "false_links": 0,
+   "penalised": 0.10515021459227468
+  },
+  {
+   "run": "B1-alex-b100-s3",
+   "condition": "B1",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 21,
+   "logged_calls": 21,
+   "wall_seconds": 216.8,
+   "usd": 0.031463,
+   "llm_tokens": 36269,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.25280898876404495,
+   "n_facts": 233,
+   "credit": 31.5,
+   "recall": 0.1351931330472103,
+   "recall_full_credit_only": 0.07725321888412018,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.1651376146788991
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.22
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.08080808080808081
+    }
+   },
+   "holdout_recall": 0.1328125,
+   "non_holdout_recall": 0.13609467455621302,
+   "source_recall": 0.10204081632653061,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 7,
+   "false_links": 0,
+   "penalised": 0.1351931330472103
+  },
+  {
+   "run": "B1-bristol-b100-s1",
+   "condition": "B1",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 33,
+   "wall_seconds": 459.6,
+   "usd": 0.046794,
+   "llm_tokens": 60468,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5081967213114754,
+   "n_facts": 87,
+   "credit": 31.0,
+   "recall": 0.3563218390804598,
+   "recall_full_credit_only": 0.1724137931034483,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.325,
+   "non_holdout_recall": 0.3656716417910448,
+   "source_recall": 0.125,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 12,
+   "precision": 0.9166666666666666,
+   "novel_candidates": 9,
+   "false_links": 0,
+   "penalised": 0.3563218390804598
+  },
+  {
+   "run": "B1-bristol-b100-s2",
+   "condition": "B1",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 25,
+   "wall_seconds": 173.9,
+   "usd": 0.021069,
+   "llm_tokens": 33780,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5,
+   "n_facts": 87,
+   "credit": 30.5,
+   "recall": 0.3505747126436782,
+   "recall_full_credit_only": 0.16091954022988506,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5531914893617021
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.3656716417910448,
+   "source_recall": 0.1875,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 21,
+   "precision": 0.9047619047619048,
+   "novel_candidates": 17,
+   "false_links": 1,
+   "penalised": 0.2931034482758621
+  },
+  {
+   "run": "B1-bristol-b100-s3",
+   "condition": "B1",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 21,
+   "logged_calls": 21,
+   "wall_seconds": 148.5,
+   "usd": 0.020649,
+   "llm_tokens": 29083,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5081967213114754,
+   "n_facts": 87,
+   "credit": 31.0,
+   "recall": 0.3563218390804598,
+   "recall_full_credit_only": 0.1724137931034483,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.373134328358209,
+   "source_recall": 0.1875,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 17,
+   "precision": 0.7647058823529411,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.3563218390804598
+  },
+  {
+   "run": "B1-burnham-b100-s1",
+   "condition": "B1",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 21,
+   "logged_calls": 21,
+   "wall_seconds": 152.5,
+   "usd": 0.026132,
+   "llm_tokens": 39876,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.33783783783783783,
+   "n_facts": 226,
+   "credit": 41.5,
+   "recall": 0.1836283185840708,
+   "recall_full_credit_only": 0.07964601769911504,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.15178571428571427
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.4017857142857143
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.23026315789473684,
+   "non_holdout_recall": 0.16,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 9,
+   "precision": 0.7777777777777778,
+   "novel_candidates": 4,
+   "false_links": 0,
+   "penalised": 0.1836283185840708
+  },
+  {
+   "run": "B1-burnham-b100-s2",
+   "condition": "B1",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 24,
+   "wall_seconds": 313.4,
+   "usd": 0.027831,
+   "llm_tokens": 29139,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.34684684684684686,
+   "n_facts": 226,
+   "credit": 44.5,
+   "recall": 0.19690265486725664,
+   "recall_full_credit_only": 0.09734513274336283,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.16517857142857142
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.09090909090909091
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.4107142857142857
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.23026315789473684,
+   "non_holdout_recall": 0.18,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 9,
+   "precision": 0.5555555555555556,
+   "novel_candidates": 2,
+   "false_links": 1,
+   "penalised": 0.1747787610619469
+  },
+  {
+   "run": "B1-burnham-b100-s3",
+   "condition": "B1",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 22,
+   "wall_seconds": 194.5,
+   "usd": 0.025691,
+   "llm_tokens": 27509,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 1,
+   "reachable_n": 111,
+   "reachable_recall": 0.32882882882882886,
+   "n_facts": 226,
+   "credit": 39.5,
+   "recall": 0.1747787610619469,
+   "recall_full_credit_only": 0.06637168141592921,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.13839285714285715
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.39285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.21710526315789475,
+   "non_holdout_recall": 0.15333333333333332,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 2,
+   "precision": 1.0,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.1747787610619469
+  },
+  {
+   "run": "B1-homer-b100-s1",
+   "condition": "B1",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 25,
+   "wall_seconds": 215.2,
+   "usd": 0.025068,
+   "llm_tokens": 53837,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 13,
+   "precision": 0.15384615384615385,
+   "novel_candidates": 2,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-homer-b100-s2",
+   "condition": "B1",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 25,
+   "wall_seconds": 282.1,
+   "usd": 0.035053,
+   "llm_tokens": 60591,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 59,
+   "precision": 0.0847457627118644,
+   "novel_candidates": 5,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-homer-b100-s3",
+   "condition": "B1",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 22,
+   "wall_seconds": 217.0,
+   "usd": 0.021803,
+   "llm_tokens": 36935,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 8,
+   "precision": 0.75,
+   "novel_candidates": 6,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-john-b100-s1",
+   "condition": "B1",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 15,
+   "logged_calls": 15,
+   "wall_seconds": 128.5,
+   "usd": 0.02422,
+   "llm_tokens": 31018,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 28,
+   "precision": 0.21428571428571427,
+   "novel_candidates": 6,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-john-b100-s2",
+   "condition": "B1",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 24,
+   "wall_seconds": 257.4,
+   "usd": 0.03869,
+   "llm_tokens": 49971,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 22,
+   "precision": 0.2727272727272727,
+   "novel_candidates": 6,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-john-b100-s3",
+   "condition": "B1",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 24,
+   "wall_seconds": 180.5,
+   "usd": 0.034667,
+   "llm_tokens": 61564,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 33,
+   "precision": 0.24242424242424243,
+   "novel_candidates": 8,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B1-kingsley-b100-s1",
+   "condition": "B1",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 22,
+   "logged_calls": 22,
+   "wall_seconds": 490.6,
+   "usd": 0.017865,
+   "llm_tokens": 34010,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.15625,
+   "n_facts": 232,
+   "credit": 22.5,
+   "recall": 0.09698275862068965,
+   "recall_full_credit_only": 0.01293103448275862,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.08620689655172414
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.13565891472868216
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.07936507936507936,
+   "non_holdout_recall": 0.10355029585798817,
+   "source_recall": 0.22807017543859648,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 6,
+   "precision": 0.6666666666666666,
+   "novel_candidates": 2,
+   "false_links": 0,
+   "penalised": 0.09698275862068965
+  },
+  {
+   "run": "B1-kingsley-b100-s2",
+   "condition": "B1",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 20,
+   "logged_calls": 20,
+   "wall_seconds": 116.6,
+   "usd": 0.021045,
+   "llm_tokens": 32694,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.125,
+   "n_facts": 232,
+   "credit": 19.0,
+   "recall": 0.08189655172413793,
+   "recall_full_credit_only": 0.03879310344827586,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.11206896551724138
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.08914728682170543
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.022222222222222223
+    }
+   },
+   "holdout_recall": 0.07142857142857142,
+   "non_holdout_recall": 0.08579881656804733,
+   "source_recall": 0.14035087719298245,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 11,
+   "precision": 0.0,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.08189655172413793
+  },
+  {
+   "run": "B1-kingsley-b100-s3",
+   "condition": "B1",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "model stopped",
+   "tool_calls": 16,
+   "logged_calls": 16,
+   "wall_seconds": 104.6,
+   "usd": 0.013191,
+   "llm_tokens": 16841,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.10069444444444445,
+   "n_facts": 232,
+   "credit": 14.5,
+   "recall": 0.0625,
+   "recall_full_credit_only": 0.004310344827586207,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.05172413793103448
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.08914728682170543
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.07142857142857142,
+   "non_holdout_recall": 0.05917159763313609,
+   "source_recall": 0.17543859649122806,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 13,
+   "precision": 0.3076923076923077,
+   "novel_candidates": 1,
+   "false_links": 0,
+   "penalised": 0.0625
+  },
+  {
+   "run": "B5-alex-b100-s1",
+   "condition": "B5",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 85.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.12921348314606743,
+   "n_facts": 233,
+   "credit": 11.5,
+   "recall": 0.04935622317596566,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.06422018348623854
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.045454545454545456
+    }
+   },
+   "holdout_recall": 0.046875,
+   "non_holdout_recall": 0.05029585798816568,
+   "source_recall": 0.061224489795918366,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 9,
+   "precision": 0.8888888888888888,
+   "novel_candidates": 5,
+   "false_links": 0,
+   "penalised": 0.04935622317596566
+  },
+  {
+   "run": "B5-alex-b100-s2",
+   "condition": "B5",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 118.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.0898876404494382,
+   "n_facts": 233,
+   "credit": 8.0,
+   "recall": 0.034334763948497854,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.05963302752293578
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.015151515151515152
+    }
+   },
+   "holdout_recall": 0.03125,
+   "non_holdout_recall": 0.03550295857988166,
+   "source_recall": 0.04081632653061224,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 9,
+   "precision": 0.8888888888888888,
+   "novel_candidates": 6,
+   "false_links": 0,
+   "penalised": 0.034334763948497854
+  },
+  {
+   "run": "B5-alex-b100-s3",
+   "condition": "B5",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 105.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.12921348314606743,
+   "n_facts": 233,
+   "credit": 11.5,
+   "recall": 0.04935622317596566,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.06422018348623854
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.045454545454545456
+    }
+   },
+   "holdout_recall": 0.046875,
+   "non_holdout_recall": 0.05029585798816568,
+   "source_recall": 0.061224489795918366,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 9,
+   "precision": 0.8888888888888888,
+   "novel_candidates": 5,
+   "false_links": 0,
+   "penalised": 0.04935622317596566
+  },
+  {
+   "run": "B5-bristol-b100-s1",
+   "condition": "B5",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 17,
+   "wall_seconds": 82.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5081967213114754,
+   "n_facts": 87,
+   "credit": 31.0,
+   "recall": 0.3563218390804598,
+   "recall_full_credit_only": 0.1724137931034483,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.373134328358209,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 9,
+   "precision": 0.8888888888888888,
+   "novel_candidates": 7,
+   "false_links": 0,
+   "penalised": 0.3563218390804598
+  },
+  {
+   "run": "B5-bristol-b100-s2",
+   "condition": "B5",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 18,
+   "wall_seconds": 122.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5081967213114754,
+   "n_facts": 87,
+   "credit": 31.0,
+   "recall": 0.3563218390804598,
+   "recall_full_credit_only": 0.1724137931034483,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.373134328358209,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 9,
+   "precision": 0.8888888888888888,
+   "novel_candidates": 7,
+   "false_links": 0,
+   "penalised": 0.3563218390804598
+  },
+  {
+   "run": "B5-bristol-b100-s3",
+   "condition": "B5",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 18,
+   "wall_seconds": 159.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5081967213114754,
+   "n_facts": 87,
+   "credit": 31.0,
+   "recall": 0.3563218390804598,
+   "recall_full_credit_only": 0.1724137931034483,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.373134328358209,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 8,
+   "precision": 1.0,
+   "novel_candidates": 7,
+   "false_links": 0,
+   "penalised": 0.3563218390804598
+  },
+  {
+   "run": "B5-burnham-b100-s1",
+   "condition": "B5",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 21,
+   "logged_calls": 15,
+   "wall_seconds": 93.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.32882882882882886,
+   "n_facts": 226,
+   "credit": 39.5,
+   "recall": 0.1747787610619469,
+   "recall_full_credit_only": 0.06637168141592921,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.13839285714285715
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.39285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.21710526315789475,
+   "non_holdout_recall": 0.15333333333333332,
+   "source_recall": 0.05555555555555555,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 14,
+   "precision": 0.14285714285714285,
+   "novel_candidates": 0,
+   "false_links": 1,
+   "penalised": 0.15265486725663716
+  },
+  {
+   "run": "B5-burnham-b100-s2",
+   "condition": "B5",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 21,
+   "logged_calls": 14,
+   "wall_seconds": 110.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.32882882882882886,
+   "n_facts": 226,
+   "credit": 39.5,
+   "recall": 0.1747787610619469,
+   "recall_full_credit_only": 0.06637168141592921,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.13839285714285715
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.39285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.21710526315789475,
+   "non_holdout_recall": 0.15333333333333332,
+   "source_recall": 0.05555555555555555,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 15,
+   "precision": 0.13333333333333333,
+   "novel_candidates": 0,
+   "false_links": 1,
+   "penalised": 0.15265486725663716
+  },
+  {
+   "run": "B5-burnham-b100-s3",
+   "condition": "B5",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 21,
+   "logged_calls": 14,
+   "wall_seconds": 100.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.32882882882882886,
+   "n_facts": 226,
+   "credit": 39.5,
+   "recall": 0.1747787610619469,
+   "recall_full_credit_only": 0.06637168141592921,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.13839285714285715
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.39285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.21710526315789475,
+   "non_holdout_recall": 0.15333333333333332,
+   "source_recall": 0.05555555555555555,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 14,
+   "precision": 0.14285714285714285,
+   "novel_candidates": 0,
+   "false_links": 1,
+   "penalised": 0.15265486725663716
+  },
+  {
+   "run": "B5-fix-alex-b100-s1",
+   "condition": "B5-fix",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 24,
+   "wall_seconds": 124.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.12921348314606743,
+   "n_facts": 233,
+   "credit": 11.5,
+   "recall": 0.04935622317596566,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.06422018348623854
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.045454545454545456
+    }
+   },
+   "holdout_recall": 0.046875,
+   "non_holdout_recall": 0.05029585798816568,
+   "source_recall": 0.061224489795918366,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 17,
+   "precision": 0.7647058823529411,
+   "novel_candidates": 10,
+   "false_links": 0,
+   "penalised": 0.04935622317596566
+  },
+  {
+   "run": "B5-fix-alex-b100-s2",
+   "condition": "B5-fix",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 25,
+   "wall_seconds": 142.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.0898876404494382,
+   "n_facts": 233,
+   "credit": 8.0,
+   "recall": 0.034334763948497854,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.05963302752293578
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.015151515151515152
+    }
+   },
+   "holdout_recall": 0.03125,
+   "non_holdout_recall": 0.03550295857988166,
+   "source_recall": 0.04081632653061224,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 17,
+   "precision": 0.7647058823529411,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.034334763948497854
+  },
+  {
+   "run": "B5-fix-alex-b100-s3",
+   "condition": "B5-fix",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 24,
+   "wall_seconds": 100.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.12921348314606743,
+   "n_facts": 233,
+   "credit": 11.5,
+   "recall": 0.04935622317596566,
+   "recall_full_credit_only": 0.008583690987124463,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.06422018348623854
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.045454545454545456
+    }
+   },
+   "holdout_recall": 0.046875,
+   "non_holdout_recall": 0.05029585798816568,
+   "source_recall": 0.061224489795918366,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 17,
+   "precision": 0.7647058823529411,
+   "novel_candidates": 10,
+   "false_links": 0,
+   "penalised": 0.04935622317596566
+  },
+  {
+   "run": "B5-fix-bristol-b100-s1",
+   "condition": "B5-fix",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 59,
+   "wall_seconds": 268.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5163934426229508,
+   "n_facts": 87,
+   "credit": 31.5,
+   "recall": 0.3620689655172414,
+   "recall_full_credit_only": 0.1839080459770115,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.15151515151515152
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.3805970149253731,
+   "source_recall": 0.1875,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 32,
+   "precision": 0.90625,
+   "novel_candidates": 26,
+   "false_links": 0,
+   "penalised": 0.3620689655172414
+  },
+  {
+   "run": "B5-fix-bristol-b100-s2",
+   "condition": "B5-fix",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 58,
+   "wall_seconds": 213.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5,
+   "n_facts": 87,
+   "credit": 30.5,
+   "recall": 0.3505747126436782,
+   "recall_full_credit_only": 0.16091954022988506,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5531914893617021
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.13636363636363635
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.3656716417910448,
+   "source_recall": 0.1875,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 32,
+   "precision": 0.9375,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.3505747126436782
+  },
+  {
+   "run": "B5-fix-bristol-b100-s3",
+   "condition": "B5-fix",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 58,
+   "wall_seconds": 199.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.5163934426229508,
+   "n_facts": 87,
+   "credit": 31.5,
+   "recall": 0.3620689655172414,
+   "recall_full_credit_only": 0.1839080459770115,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.5638297872340425
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.15151515151515152
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.3,
+   "non_holdout_recall": 0.3805970149253731,
+   "source_recall": 0.1875,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 32,
+   "precision": 0.9375,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.3620689655172414
+  },
+  {
+   "run": "B5-fix-burnham-b100-s1",
+   "condition": "B5-fix",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 67,
+   "wall_seconds": 319.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 2,
+   "reachable_n": 111,
+   "reachable_recall": 0.33783783783783783,
+   "n_facts": 226,
+   "credit": 41.5,
+   "recall": 0.1836283185840708,
+   "recall_full_credit_only": 0.07964601769911504,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.15178571428571427
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.4017857142857143
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.23026315789473684,
+   "non_holdout_recall": 0.16,
+   "source_recall": 0.05555555555555555,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 32,
+   "precision": 0.625,
+   "novel_candidates": 16,
+   "false_links": 2,
+   "penalised": 0.13938053097345132
+  },
+  {
+   "run": "B5-fix-burnham-b100-s2",
+   "condition": "B5-fix",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 66,
+   "wall_seconds": 283.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 2,
+   "reachable_n": 111,
+   "reachable_recall": 0.4099099099099099,
+   "n_facts": 226,
+   "credit": 49.5,
+   "recall": 0.21902654867256638,
+   "recall_full_credit_only": 0.07964601769911504,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.20535714285714285
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.4375
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.24342105263157895,
+   "non_holdout_recall": 0.20666666666666667,
+   "source_recall": 0.08333333333333333,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 34,
+   "precision": 0.5882352941176471,
+   "novel_candidates": 16,
+   "false_links": 2,
+   "penalised": 0.1747787610619469
+  },
+  {
+   "run": "B5-fix-burnham-b100-s3",
+   "condition": "B5-fix",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 67,
+   "wall_seconds": 342.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 2,
+   "reachable_n": 111,
+   "reachable_recall": 0.4099099099099099,
+   "n_facts": 226,
+   "credit": 49.5,
+   "recall": 0.21902654867256638,
+   "recall_full_credit_only": 0.07964601769911504,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.20535714285714285
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.045454545454545456
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.4375
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.030303030303030304
+    }
+   },
+   "holdout_recall": 0.24342105263157895,
+   "non_holdout_recall": 0.20666666666666667,
+   "source_recall": 0.08333333333333333,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 34,
+   "precision": 0.5882352941176471,
+   "novel_candidates": 16,
+   "false_links": 2,
+   "penalised": 0.1747787610619469
+  },
+  {
+   "run": "B5-fix-homer-b100-s1",
+   "condition": "B5-fix",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 37,
+   "wall_seconds": 832.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 26,
+   "precision": 0.6923076923076923,
+   "novel_candidates": 18,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-homer-b100-s2",
+   "condition": "B5-fix",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 33,
+   "wall_seconds": 142.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 26,
+   "precision": 0.6923076923076923,
+   "novel_candidates": 18,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-homer-b100-s3",
+   "condition": "B5-fix",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 34,
+   "wall_seconds": 194.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 26,
+   "precision": 0.6923076923076923,
+   "novel_candidates": 18,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-john-b100-s1",
+   "condition": "B5-fix",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": false,
+   "stop_reason": "error: RPCError: Timeout expired",
+   "tool_calls": 0,
+   "logged_calls": 31,
+   "wall_seconds": 718.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-john-b100-s2",
+   "condition": "B5-fix",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 41,
+   "wall_seconds": 71.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 28,
+   "precision": 0.5714285714285714,
+   "novel_candidates": 16,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-john-b100-s3",
+   "condition": "B5-fix",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 41,
+   "wall_seconds": 88.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 28,
+   "precision": 0.5714285714285714,
+   "novel_candidates": 16,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-fix-kingsley-b100-s1",
+   "condition": "B5-fix",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 45,
+   "wall_seconds": 537.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.1597222222222222,
+   "n_facts": 232,
+   "credit": 23.0,
+   "recall": 0.09913793103448276,
+   "recall_full_credit_only": 0.021551724137931036,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.07758620689655173
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.17543859649122806,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 26,
+   "precision": 1.0,
+   "novel_candidates": 16,
+   "false_links": 0,
+   "penalised": 0.09913793103448276
+  },
+  {
+   "run": "B5-fix-kingsley-b100-s2",
+   "condition": "B5-fix",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 44,
+   "wall_seconds": 202.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.1597222222222222,
+   "n_facts": 232,
+   "credit": 23.0,
+   "recall": 0.09913793103448276,
+   "recall_full_credit_only": 0.021551724137931036,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.07758620689655173
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.21052631578947367,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 26,
+   "precision": 1.0,
+   "novel_candidates": 16,
+   "false_links": 0,
+   "penalised": 0.09913793103448276
+  },
+  {
+   "run": "B5-fix-kingsley-b100-s3",
+   "condition": "B5-fix",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 45,
+   "wall_seconds": 287.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.1597222222222222,
+   "n_facts": 232,
+   "credit": 23.0,
+   "recall": 0.09913793103448276,
+   "recall_full_credit_only": 0.021551724137931036,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.07758620689655173
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.22807017543859648,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 26,
+   "precision": 1.0,
+   "novel_candidates": 16,
+   "false_links": 0,
+   "penalised": 0.09913793103448276
+  },
+  {
+   "run": "B5-homer-b100-s1",
+   "condition": "B5",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 17,
+   "logged_calls": 10,
+   "wall_seconds": 71.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-homer-b100-s2",
+   "condition": "B5",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 17,
+   "logged_calls": 10,
+   "wall_seconds": 73.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-homer-b100-s3",
+   "condition": "B5",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 17,
+   "logged_calls": 15,
+   "wall_seconds": 233.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-john-b100-s1",
+   "condition": "B5",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 20,
+   "wall_seconds": 131.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 17,
+   "precision": 0.47058823529411764,
+   "novel_candidates": 8,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-john-b100-s2",
+   "condition": "B5",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 82.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 17,
+   "precision": 0.47058823529411764,
+   "novel_candidates": 8,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-john-b100-s3",
+   "condition": "B5",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 110.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 17,
+   "precision": 0.47058823529411764,
+   "novel_candidates": 8,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B5-kingsley-b100-s1",
+   "condition": "B5",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 19,
+   "wall_seconds": 489.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.03125,
+   "n_facts": 232,
+   "credit": 4.5,
+   "recall": 0.01939655172413793,
+   "recall_full_credit_only": 0.004310344827586207,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.03488372093023256
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.031746031746031744,
+   "non_holdout_recall": 0.014792899408284023,
+   "source_recall": 0.03508771929824561,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 4,
+   "precision": 0.75,
+   "novel_candidates": 1,
+   "false_links": 0,
+   "penalised": 0.01939655172413793
+  },
+  {
+   "run": "B5-kingsley-b100-s2",
+   "condition": "B5",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 20,
+   "wall_seconds": 260.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.03125,
+   "n_facts": 232,
+   "credit": 4.5,
+   "recall": 0.01939655172413793,
+   "recall_full_credit_only": 0.004310344827586207,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.03488372093023256
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.031746031746031744,
+   "non_holdout_recall": 0.014792899408284023,
+   "source_recall": 0.05263157894736842,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 3,
+   "precision": 1.0,
+   "novel_candidates": 1,
+   "false_links": 0,
+   "penalised": 0.01939655172413793
+  },
+  {
+   "run": "B5-kingsley-b100-s3",
+   "condition": "B5",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "No new questions: every lead has been followed to the depth you set.",
+   "tool_calls": 22,
+   "logged_calls": 18,
+   "wall_seconds": 101.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.03125,
+   "n_facts": 232,
+   "credit": 4.5,
+   "recall": 0.01939655172413793,
+   "recall_full_credit_only": 0.004310344827586207,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.03488372093023256
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.031746031746031744,
+   "non_holdout_recall": 0.014792899408284023,
+   "source_recall": 0.05263157894736842,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 3,
+   "precision": 1.0,
+   "novel_candidates": 1,
+   "false_links": 0,
+   "penalised": 0.01939655172413793
+  },
+  {
+   "run": "B6-no-ledger-alex-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 117.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-ledger-alex-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 129.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-ledger-alex-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 155.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-ledger-bristol-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 264.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 42,
+   "precision": 0.6666666666666666,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-ledger-bristol-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 421.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 42,
+   "precision": 0.6666666666666666,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-ledger-bristol-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 332.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 42,
+   "precision": 0.6666666666666666,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-ledger-burnham-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 336.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 39,
+   "precision": 0.8205128205128205,
+   "novel_candidates": 32,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-ledger-burnham-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 170.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 39,
+   "precision": 0.8205128205128205,
+   "novel_candidates": 32,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-ledger-burnham-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 390.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 39,
+   "precision": 0.8461538461538461,
+   "novel_candidates": 33,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-ledger-homer-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 106,
+   "wall_seconds": 1669.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-ledger-homer-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 571.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-ledger-homer-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 106,
+   "wall_seconds": 818.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-ledger-john-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": false,
+   "stop_reason": "error: RPCError: Timeout expired",
+   "tool_calls": 0,
+   "logged_calls": 21,
+   "wall_seconds": 260.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-ledger-john-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 529.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 42,
+   "precision": 0.8571428571428571,
+   "novel_candidates": 36,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-no-ledger-john-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 454.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 42,
+   "precision": 0.8571428571428571,
+   "novel_candidates": 36,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-no-ledger-kingsley-b100-s1",
+   "condition": "B6-no-ledger",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 522.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.15625,
+   "n_facts": 232,
+   "credit": 22.5,
+   "recall": 0.09698275862068965,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.09763313609467456,
+   "source_recall": 0.24561403508771928,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 31,
+   "precision": 0.6774193548387096,
+   "novel_candidates": 14,
+   "false_links": 0,
+   "penalised": 0.09698275862068965
+  },
+  {
+   "run": "B6-no-ledger-kingsley-b100-s2",
+   "condition": "B6-no-ledger",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 105,
+   "wall_seconds": 439.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.15625,
+   "n_facts": 232,
+   "credit": 22.5,
+   "recall": 0.09698275862068965,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.09763313609467456,
+   "source_recall": 0.24561403508771928,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 31,
+   "precision": 0.6774193548387096,
+   "novel_candidates": 14,
+   "false_links": 0,
+   "penalised": 0.09698275862068965
+  },
+  {
+   "run": "B6-no-ledger-kingsley-b100-s3",
+   "condition": "B6-no-ledger",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 457.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.15625,
+   "n_facts": 232,
+   "credit": 22.5,
+   "recall": 0.09698275862068965,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1434108527131783
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09523809523809523,
+   "non_holdout_recall": 0.09763313609467456,
+   "source_recall": 0.24561403508771928,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 31,
+   "precision": 0.7096774193548387,
+   "novel_candidates": 15,
+   "false_links": 0,
+   "penalised": 0.09698275862068965
+  },
+  {
+   "run": "B6-no-parallel-alex-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 380.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-parallel-alex-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 241.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-parallel-alex-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 250.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-no-parallel-bristol-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 661.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 45,
+   "precision": 0.6444444444444445,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-parallel-bristol-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 781.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 45,
+   "precision": 0.6444444444444445,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-parallel-bristol-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 751.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 45,
+   "precision": 0.6444444444444445,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-no-parallel-burnham-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 1428.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 35,
+   "precision": 0.8,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-parallel-burnham-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 372.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 38,
+   "precision": 0.8157894736842105,
+   "novel_candidates": 31,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-parallel-burnham-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 664.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 38,
+   "precision": 0.8157894736842105,
+   "novel_candidates": 31,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-no-parallel-homer-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": false,
+   "stop_reason": "error: RPCError: Timeout expired",
+   "tool_calls": 0,
+   "logged_calls": 86,
+   "wall_seconds": 1313.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-parallel-homer-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 104,
+   "wall_seconds": 1078.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-parallel-homer-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 108,
+   "wall_seconds": 1369.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-no-parallel-john-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 104,
+   "wall_seconds": 1432.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 37,
+   "precision": 0.8378378378378378,
+   "novel_candidates": 31,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-no-parallel-john-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 744.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 38,
+   "precision": 0.8421052631578947,
+   "novel_candidates": 32,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-no-parallel-john-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 743.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 42,
+   "precision": 0.8333333333333334,
+   "novel_candidates": 35,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-no-parallel-kingsley-b100-s1",
+   "condition": "B6-no-parallel",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 445.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.2982456140350877,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.8214285714285714,
+   "novel_candidates": 15,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  },
+  {
+   "run": "B6-no-parallel-kingsley-b100-s2",
+   "condition": "B6-no-parallel",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 427.6,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.2982456140350877,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.8214285714285714,
+   "novel_candidates": 15,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  },
+  {
+   "run": "B6-no-parallel-kingsley-b100-s3",
+   "condition": "B6-no-parallel",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 448.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.2982456140350877,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.8214285714285714,
+   "novel_candidates": 15,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  },
+  {
+   "run": "B6-swarm-alex-b100-s1",
+   "condition": "B6-swarm",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 151.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-swarm-alex-b100-s2",
+   "condition": "B6-swarm",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 134.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-swarm-alex-b100-s3",
+   "condition": "B6-swarm",
+   "person": "alex",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 140.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 89,
+   "reachable_recall": 0.19662921348314608,
+   "n_facts": 233,
+   "credit": 21.5,
+   "recall": 0.09227467811158799,
+   "recall_full_credit_only": 0.060085836909871244,
+   "by_tier": {
+    "web_open": {
+     "n": 109,
+     "recall": 0.11467889908256881
+    },
+    "outreach": {
+     "n": 25,
+     "recall": 0.16
+    },
+    "book": {
+     "n": 99,
+     "recall": 0.050505050505050504
+    }
+   },
+   "holdout_recall": 0.0859375,
+   "non_holdout_recall": 0.09467455621301775,
+   "source_recall": 0.08163265306122448,
+   "n_key_sources_identifiable": 49,
+   "n_reported": 18,
+   "precision": 0.9444444444444444,
+   "novel_candidates": 12,
+   "false_links": 0,
+   "penalised": 0.09227467811158799
+  },
+  {
+   "run": "B6-swarm-bristol-b100-s1",
+   "condition": "B6-swarm",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 409.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 44,
+   "precision": 0.6363636363636364,
+   "novel_candidates": 27,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-swarm-bristol-b100-s2",
+   "condition": "B6-swarm",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 497.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 45,
+   "precision": 0.6444444444444445,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-swarm-bristol-b100-s3",
+   "condition": "B6-swarm",
+   "person": "bristol",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 388.2,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 61,
+   "reachable_recall": 0.29508196721311475,
+   "n_facts": 87,
+   "credit": 18.0,
+   "recall": 0.20689655172413793,
+   "recall_full_credit_only": 0.06896551724137931,
+   "by_tier": {
+    "book": {
+     "n": 47,
+     "recall": 0.3404255319148936
+    },
+    "web_open": {
+     "n": 33,
+     "recall": 0.06060606060606061
+    },
+    "outreach": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.225,
+   "non_holdout_recall": 0.20149253731343283,
+   "source_recall": 0.0625,
+   "n_key_sources_identifiable": 16,
+   "n_reported": 45,
+   "precision": 0.6444444444444445,
+   "novel_candidates": 28,
+   "false_links": 0,
+   "penalised": 0.20689655172413793
+  },
+  {
+   "run": "B6-swarm-burnham-b100-s1",
+   "condition": "B6-swarm",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 501.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 36,
+   "precision": 0.8611111111111112,
+   "novel_candidates": 31,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-swarm-burnham-b100-s2",
+   "condition": "B6-swarm",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 369.1,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 39,
+   "precision": 0.8205128205128205,
+   "novel_candidates": 32,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-swarm-burnham-b100-s3",
+   "condition": "B6-swarm",
+   "person": "burnham",
+   "era": "Civil War",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 457.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 111,
+   "reachable_recall": 0.14414414414414414,
+   "n_facts": 226,
+   "credit": 18.0,
+   "recall": 0.07964601769911504,
+   "recall_full_credit_only": 0.01327433628318584,
+   "by_tier": {
+    "web_open": {
+     "n": 112,
+     "recall": 0.08928571428571429
+    },
+    "outreach": {
+     "n": 22,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 3,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 56,
+     "recall": 0.14285714285714285
+    },
+    "web_gated": {
+     "n": 33,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.09210526315789473,
+   "non_holdout_recall": 0.07333333333333333,
+   "source_recall": 0.027777777777777776,
+   "n_key_sources_identifiable": 36,
+   "n_reported": 39,
+   "precision": 0.8205128205128205,
+   "novel_candidates": 32,
+   "false_links": 0,
+   "penalised": 0.07964601769911504
+  },
+  {
+   "run": "B6-swarm-homer-b100-s1",
+   "condition": "B6-swarm",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 1171.9,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-swarm-homer-b100-s2",
+   "condition": "B6-swarm",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 671.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-swarm-homer-b100-s3",
+   "condition": "B6-swarm",
+   "person": "homer",
+   "era": "WWI",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 719.8,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 0,
+   "reachable_recall": null,
+   "n_facts": 109,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 43,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 51,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 11,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 4,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 9,
+   "n_reported": 14,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 11,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-swarm-john-b100-s1",
+   "condition": "B6-swarm",
+   "person": "john",
+   "era": "WWII",
+   "seed": 1,
+   "budget": 100,
+   "completed": false,
+   "stop_reason": "error: RPCError: Timeout expired",
+   "tool_calls": 0,
+   "logged_calls": 45,
+   "wall_seconds": 711.0,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 0.0,
+   "recall": 0.0,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.0
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.0,
+   "non_holdout_recall": 0.0,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 0,
+   "precision": null,
+   "novel_candidates": 0,
+   "false_links": 0,
+   "penalised": 0.0
+  },
+  {
+   "run": "B6-swarm-john-b100-s2",
+   "condition": "B6-swarm",
+   "person": "john",
+   "era": "WWII",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 101,
+   "wall_seconds": 361.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 40,
+   "precision": 0.85,
+   "novel_candidates": 34,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-swarm-john-b100-s3",
+   "condition": "B6-swarm",
+   "person": "john",
+   "era": "WWII",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 508.5,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 2,
+   "reachable_recall": 0.0,
+   "n_facts": 102,
+   "credit": 1.0,
+   "recall": 0.00980392156862745,
+   "recall_full_credit_only": 0.0,
+   "by_tier": {
+    "outreach": {
+     "n": 77,
+     "recall": 0.0
+    },
+    "web_open": {
+     "n": 19,
+     "recall": 0.05263157894736842
+    },
+    "book": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "web_gated": {
+     "n": 2,
+     "recall": 0.0
+    },
+    "none": {
+     "n": 2,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.020833333333333332,
+   "non_holdout_recall": 0.00641025641025641,
+   "source_recall": 0.0,
+   "n_key_sources_identifiable": 6,
+   "n_reported": 40,
+   "precision": 0.825,
+   "novel_candidates": 33,
+   "false_links": 0,
+   "penalised": 0.00980392156862745
+  },
+  {
+   "run": "B6-swarm-kingsley-b100-s1",
+   "condition": "B6-swarm",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 1,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 100,
+   "wall_seconds": 261.3,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.24561403508771928,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.75,
+   "novel_candidates": 14,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  },
+  {
+   "run": "B6-swarm-kingsley-b100-s2",
+   "condition": "B6-swarm",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 2,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 103,
+   "wall_seconds": 373.7,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.21052631578947367,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.75,
+   "novel_candidates": 14,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  },
+  {
+   "run": "B6-swarm-kingsley-b100-s3",
+   "condition": "B6-swarm",
+   "person": "kingsley",
+   "era": "civilian",
+   "seed": 3,
+   "budget": 100,
+   "completed": true,
+   "stop_reason": "Reached the 100 tool-call budget.",
+   "tool_calls": 22,
+   "logged_calls": 102,
+   "wall_seconds": 355.4,
+   "usd": 0.0,
+   "llm_tokens": 0,
+   "tool_log": true,
+   "blocked_host": 0,
+   "dropped_overlap": 0,
+   "reachable_n": 144,
+   "reachable_recall": 0.16319444444444445,
+   "n_facts": 232,
+   "credit": 23.5,
+   "recall": 0.10129310344827586,
+   "recall_full_credit_only": 0.034482758620689655,
+   "by_tier": {
+    "web_open": {
+     "n": 58,
+     "recall": 0.06896551724137931
+    },
+    "book": {
+     "n": 129,
+     "recall": 0.1511627906976744
+    },
+    "outreach": {
+     "n": 45,
+     "recall": 0.0
+    }
+   },
+   "holdout_recall": 0.10317460317460317,
+   "non_holdout_recall": 0.10059171597633136,
+   "source_recall": 0.21052631578947367,
+   "n_key_sources_identifiable": 57,
+   "n_reported": 28,
+   "precision": 0.7857142857142857,
+   "novel_candidates": 15,
+   "false_links": 0,
+   "penalised": 0.10129310344827586
+  }
+ ]
+}

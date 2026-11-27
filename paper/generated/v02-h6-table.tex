@@ -1,0 +1,15 @@
+\begin{table}[t]\centering\small
+\begin{tabular}{@{}p{0.17\linewidth}p{0.5\linewidth}l@{}}
+\toprule
+Hypothesis & Preregistered test & Verdict \\
+\midrule
+H6 & B6-swarm beats B1 and B5-fix on overall recall & NOT SUPPORTED \\
+H6-prec & precision within 3 points of B5-fix and above B1 & SUPPORTED \\
+H6-waste & exact-repeat rate below 2\% and at least 80\% of B used & SUPPORTED \\
+H6-ablation & B6-swarm beats B6-no-ledger and B6-no-parallel & NOT SUPPORTED \\
+H6-budget & B6-swarm beats B1 at the matched call count & NOT SUPPORTED \\
+\bottomrule
+\end{tabular}
+\caption{Preregistered v0.2 hypotheses (\texttt{bench/PREREGISTRATION-v0.2.md}) and verdicts under the preregistered decision rule, computed by \texttt{eval/corpus/h6.py}. With six people no difference can be statistically significant.}
+\label{tab:h6}
+\end{table}
