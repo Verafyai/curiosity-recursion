@@ -23,7 +23,7 @@ async def main():
         workflows=[CuriosityRecursionWorkflow, ChecklistPassWorkflow, CuriosityRecursionSwarmWorkflow, LaneWorkerWorkflow],
         activities=[a.load_catalog, a.run_checklist_step, a.brainstorm_questions, a.investigate, a.compose_report,
                     a.persist_run, a.load_prior_questions, a.export_outreach,
-                    sa.swarm_tool, sa.plan_outline_activity, sa.merge_verify, sa.reflect_round],
+                    sa.swarm_tool, sa.plan_outline_activity, sa.merge_verify, sa.reflect_round, sa.load_graph_cache],
         max_concurrent_activities=8,
     )
     logging.info("worker polling %s", TASK_QUEUE)

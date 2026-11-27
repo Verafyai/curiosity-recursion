@@ -144,3 +144,14 @@ async def reflect_round(inp: ReflectInput) -> list[Lesson]:
 def dump_ledger(path: Path, ledger_log: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(r, default=str) + "\n" for r in ledger_log))
+
+
+@activity.defn
+async def load_graph_cache(path: str) -> dict[str, str]:
+    """Post hoc feature (after the v0.2 preregistration), used only when ResearchRequest.graph_cache is set:
+    read earlier runs' search graph(s) and return the canonical ids they executed. A directory loads every
+    *.graph.json in it."""
+    from cr import search_graph as sg
+    p = Path(path)
+    files = sorted(p.glob("*.graph.json")) if p.is_dir() else [p]
+    return sg.done_queries(sg.merge([sg.load(f) for f in files])) if files else {}

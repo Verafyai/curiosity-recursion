@@ -115,6 +115,7 @@ class ResearchRequest(BaseModel):
     outline: Literal["rules", "llm"] = Field(default="rules", description="Outline generator; llm only in an approved ablation")
     tools: Literal["v1", "v2"] = Field(default="v2", description="v2 adds the Internet Archive FTS API (ia_fts)")
     round_calls: int = Field(default=12, ge=1, description="Calls allocated per swarm round after round 1")
+    graph_cache: Optional[str] = Field(default=None, description="Post hoc, off for every benchmark condition: path to an earlier run's graph.json whose done queries are skipped")
     continue_as_new_events: int = Field(default=10_000, ge=0, description="Continue-as-new when history passes this many events (0 = every round, tests only)")
 
 

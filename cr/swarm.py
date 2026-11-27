@@ -35,7 +35,7 @@ with workflow.unsafe.imports_passed_through():
     from cr.ledger import Decision, Ledger, LedgerState, QuerySpec, canonical_id, life_window, source_of
     from cr.models import Citation, ComposeInput, Finding, OutreachDraft, Plan, Progress, Question, ResearchRequest, Round, StudioReport
     from cr.outline import Lane, Outline
-    from cr.swarm_activities import merge_verify, plan_outline_activity, reflect_round, swarm_tool
+    from cr.swarm_activities import load_graph_cache, merge_verify, plan_outline_activity, reflect_round, swarm_tool
     from cr.swarm_logic import expand, lead_value, replenish, reward_of
     from cr.swarm_models import (CallRecord, Ev, LaneResult, LaneTask, MergeInput, RecordSignal, ReflectInput, ReserveReply, ReserveRequest,
                                  SwarmInput, SwarmState, ToolCall)
@@ -272,6 +272,10 @@ class CuriosityRecursionSwarmWorkflow:
                                                       start_to_close_timeout=timedelta(seconds=30), retry_policy=QUICK)
             self.st.outline = outline
             self.ledger = Ledger(enabled=req.ledger, life_window=life_window(req.person), current_year=workflow.now().year)
+            if req.graph_cache:  # post hoc feature, never set by the benchmark; no extra command when unset
+                done = await workflow.execute_activity(load_graph_cache, req.graph_cache, start_to_close_timeout=timedelta(seconds=60),
+                                                       retry_policy=QUICK)
+                self._log(f"graph cache: {self.ledger.preload_cache(done)} queries done in earlier runs will be skipped")
             self._seed(outline)
             self._log(f"outline: {len(outline.lanes)} lanes ({', '.join(l.id for l in outline.lanes)}), era {outline.era}")
         B = req.max_tool_calls or 100

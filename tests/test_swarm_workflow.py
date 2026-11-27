@@ -61,7 +61,7 @@ async def tracked_tool(call: ToolCall) -> ToolResult:
     return r
 
 
-ACTS = [tracked_tool, sa.plan_outline_activity, sa.merge_verify, sa.reflect_round, compose_report]
+ACTS = [tracked_tool, sa.plan_outline_activity, sa.merge_verify, sa.reflect_round, compose_report, sa.load_graph_cache]
 WFS = [CuriosityRecursionSwarmWorkflow, LaneWorkerWorkflow]
 
 
@@ -172,3 +172,25 @@ def test_merge_dedupes_and_gate():
     assert out.duplicates == 2  # the second copy and the already-known key
     assert [e.key for e in out.leads_only] == ["ia:y#2"]
     assert out.namesakes and out.refuted and "skeptic" in out.refuted[0]["why"]
+
+
+def test_graph_cache_skips_queries_done_in_an_earlier_run(tmp_path):
+    """Post hoc graph cache (off for every benchmark condition): run 2, given run 1's search graph, issues
+    none of run 1's calls."""
+    from cr import search_graph as sg
+
+    async def go():
+        async with await WorkflowEnvironment.start_time_skipping(data_converter=pydantic_data_converter) as env:
+            async with Worker(env.client, task_queue="tq-g", workflows=WFS, activities=ACTS):
+                r1 = await env.client.execute_workflow(CuriosityRecursionSwarmWorkflow.run, SwarmInput(request=req(max_tool_calls=30)),
+                                                       id="g1", task_queue="tq-g")
+                sg.write_all(sg.build_graph(r1.swarm["ledger"], r1.swarm["calls"], {"run_id": "g1"}), tmp_path / "g1")
+                r2 = await env.client.execute_workflow(
+                    CuriosityRecursionSwarmWorkflow.run,
+                    SwarmInput(request=req(max_tool_calls=30, graph_cache=str(tmp_path / "g1.graph.json"))), id="g2", task_queue="tq-g")
+        return r1, r2
+    r1, r2 = asyncio.run(go())
+    first = {c["canonical"] for c in r1.swarm["calls"]}
+    second = {c["canonical"] for c in r2.swarm["calls"]}
+    assert first and second and not (first & second), "a query done in run 1 was issued again in run 2"
+    assert any(r["decision"] == "cached" for r in r2.swarm["ledger"])

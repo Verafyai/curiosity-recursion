@@ -67,7 +67,8 @@ class QuerySpec(BaseModel):
 
 
 class Decision(BaseModel):
-    decision: Literal["new", "revisit", "blocked_repeat", "blocked_near", "blocked_no_key", "blocked_closed", "refused_living", "unchecked"]
+    decision: Literal["new", "revisit", "blocked_repeat", "blocked_near", "blocked_no_key", "blocked_closed", "refused_living", "unchecked",
+                      "cached"]
     canonical_id: str
     key_type: Optional[str] = None
     key_value: Optional[str] = None
@@ -115,6 +116,10 @@ class LedgerState(BaseModel):
     log: list[dict] = Field(default_factory=list)
     blocked: int = 0
     revisits: dict[str, int] = Field(default_factory=dict)
+    # post hoc (added after the v0.2 preregistration): canonical ids already done in an earlier run, loaded
+    # from that run's search graph (cr/search_graph.py). Empty unless a graph cache is given; every
+    # benchmark condition runs with it empty.
+    cached: dict[str, str] = Field(default_factory=dict)
 
 
 # ------------------------------------------------------------------ canonical form
@@ -191,8 +196,16 @@ class Ledger:
         return [e for e in self.s.entries.values() if e.spec.tool == spec.tool and not e.spec.collection_or_item
                 and e.canonical_id != cid and jaccard(ts, set(e.terms_set)) >= NEAR_JACCARD]
 
+    def preload_cache(self, done: dict[str, str]) -> int:
+        """Mark canonical ids done in an earlier run (id -> that run's id). Post hoc feature, off by default."""
+        self.s.cached.update(done)
+        return len(done)
+
     def classify(self, spec: QuerySpec) -> Decision:
         cid = canonical_id(spec)
+        if cid in self.s.cached and cid not in self.s.entries:
+            return Decision(decision="cached", canonical_id=cid, prior_canonical_ids=[cid],
+                            reason=f"done in an earlier run ({self.s.cached[cid]}), loaded from its search graph: skipped, not charged")
         if not self.s.enabled:
             return Decision(decision="unchecked", canonical_id=cid, reason="ledger rules off (B6-no-ledger): call logged, not checked")
         if cid in self.s.entries:

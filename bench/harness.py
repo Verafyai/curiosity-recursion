@@ -90,6 +90,11 @@ def start_worker(tq: str, env_extra: dict) -> subprocess.Popen:
 
 async def run_temporal(client: Client, tq: str, agent: str, subject: dict, budget: int, seed: int, faults: dict) -> dict:
     req = request_for(subject, budget, **AGENT_CONFIG[agent])
+    cache = os.environ.get("CR_GRAPH_CACHE")
+    if cache:  # post hoc feature: never for a benchmark subject, so no frozen condition changes
+        if str(subject["subject_id"]).startswith("corpus-") or subject.get("split") not in (None, "mock", "dev"):
+            raise SystemExit(f"CR_GRAPH_CACHE refused for benchmark subject {subject['subject_id']}: the cache is off for every benchmark condition")
+        req = req.model_copy(update={"graph_cache": cache})
     wid = f"bench-{agent}-{subject['subject_id']}-b{budget}-s{seed}-{uuid.uuid4().hex[:6]}"
     t0 = time.time()
     meta = dict(run_id=wid, agent=agent, config=AGENT_CONFIG[agent], subject_id=subject["subject_id"], budget=budget, seed=seed,
@@ -109,6 +114,10 @@ async def run_temporal(client: Client, tq: str, agent: str, subject: dict, budge
                 LEDGER_DIR.mkdir(parents=True, exist_ok=True)
                 (LEDGER_DIR / f"{LEDGER_STEM or wid}.ledger.jsonl").write_text("".join(json.dumps(r, default=str) + "\n" for r in rep.swarm["ledger"]))
                 (LEDGER_DIR / f"{LEDGER_STEM or wid}.calls.jsonl").write_text("".join(json.dumps(r, default=str) + "\n" for r in rep.swarm["calls"]))
+                # persistent search graph built from the ledger (post hoc; output only, does not affect the run or its score)
+                from cr import search_graph
+                search_graph.write_all(search_graph.build_graph(rep.swarm["ledger"], rep.swarm["calls"], {**line, "run_id": wid}, subject),
+                                       LEDGER_DIR / f"{LEDGER_STEM or wid}")
         line.update(completed=True, wall_seconds=round(time.time() - t0, 1),
                     tool_calls=prog.get("tool_calls", 0) if isinstance(prog, dict) else prog.tool_calls,
                     llm_tokens=prog.get("llm_tokens", 0) if isinstance(prog, dict) else prog.llm_tokens,

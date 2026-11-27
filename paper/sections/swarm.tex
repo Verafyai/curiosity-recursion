@@ -22,3 +22,5 @@
 \end{figure}
 
 \IfFileExists{generated/v02-diagnose-table.tex}{\input{generated/v02-diagnose-table}}{}
+
+\paragraph{Post hoc feature: search graph and cache.} \emph{Added after the preregistration and not part of any benchmark condition.} Each swarm run can export a persistent search graph built from its ledger (\texttt{cr/search\_graph.py}): nodes for the person, relatives used as keys, places, queries, sources and records; edges with provenance (which query found which record, which record supports which ``Possible'' finding, with a capped snippet, and which revisit was allowed for which reason). A later run can load earlier graphs as a cache and skip queries already done, at no budget cost. The cache is off for every benchmark condition and the v0.2 batch ran from a commit without it, so none of the numbers above depend on it.
