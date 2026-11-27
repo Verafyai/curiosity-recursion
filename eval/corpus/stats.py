@@ -5,7 +5,9 @@ import json
 import sys
 from pathlib import Path
 
-PAIRS = [("B5", "B1"), ("B5", "B0"), ("B5", "B3"), ("B5-fix", "B1"), ("B5-max", "B1"), ("B5-llm", "B1"), ("B1", "B0")]
+PAIRS = [("B5", "B1"), ("B5", "B0"), ("B5", "B3"), ("B5-fix", "B1"), ("B5-max", "B1"), ("B5-llm", "B1"), ("B1", "B0"),
+         # v0.2 (preregistered in bench/PREREGISTRATION-v0.2.md)
+         ("B6-swarm", "B1"), ("B6-swarm", "B5-fix"), ("B6-swarm", "B5"), ("B6-swarm", "B6-no-ledger"), ("B6-swarm", "B6-no-parallel")]
 
 
 def perm_p(d):

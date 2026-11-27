@@ -16,6 +16,14 @@ NAME = {"burnham": "Erastus Burnham", "homer": "Homer St. John", "john": "John S
         "bristol": "Edgar H. Bristol", "alex": "Alex St. John"}
 
 
+# Which strategies were frozen before their results were seen (bench/PREREGISTRATION.md for v0.1,
+# bench/PREREGISTRATION-v0.2.md for v0.2). Anything else is post hoc or exploratory.
+PREREG = {"B0": "preregistered (v0.1)", "B1": "preregistered (v0.1)", "B3": "preregistered (v0.1)", "B5": "preregistered (v0.1)",
+          "B5-max": "post hoc", "B5-fix": "post hoc", "B5-llm": "post hoc", "B6-swarm": "preregistered (v0.2)",
+          "B6-no-ledger": "preregistered ablation (v0.2)", "B6-no-parallel": "preregistered ablation (v0.2)",
+          "B6-no-reflect": "exploratory", "B6-v1tools": "exploratory"}
+
+
 def pct(x):
     return "n.m." if x is None else f"{100 * x:.1f}%"
 
@@ -39,12 +47,12 @@ def tables(s):
     people = [p for p in ERA if any(p in x["per_person"] for x in c.values())]
     eras = [e for e in ("Civil War", "WWI", "WWII", "civilian") if any(ERA[p] == e for p in people)]
     order = sorted(c, key=lambda k: -(c[k]["overall_recall"] or 0))
-    main = [["Rank", "Strategy"] + [f"{NAME[p]} ({ERA[p]})" for p in people] + ["Overall", "Reachable only", "Precision", "Penalised", "Spend"]]
+    main = [["Rank", "Strategy"] + [f"{NAME[p]} ({ERA[p]})" for p in people] + ["Overall", "Reachable only", "Precision", "Penalised", "Spend", "Status"]]
     for i, k in enumerate(order, 1):
         x = c[k]
         pr = [pp["precision"][0] for pp in x["per_person"].values() if pp["precision"][0] is not None]
         main.append([str(i), f"{k}: {x['label']}"] + [pm(x["per_person"].get(p, {}).get("recall")) for p in people] +
-                    [pct(x["overall_recall"]), pct(x.get("overall_reachable_recall")), pct(sum(pr) / len(pr) if pr else None), pct(x["overall_penalised"]), "n.m." if x["usd"] is None else f"${x['usd']:.2f}"])
+                    [pct(x["overall_recall"]), pct(x.get("overall_reachable_recall")), pct(sum(pr) / len(pr) if pr else None), pct(x["overall_penalised"]), "n.m." if x["usd"] is None else f"${x['usd']:.2f}", PREREG.get(k, "post hoc")])
     reach = [["Strategy"] + [f"{NAME[p]} ({next((x['per_person'][p].get('reachable_n') for x in c.values() if p in x['per_person']), 0)} reachable)" for p in people] + ["Mean (reachable)"]]
     for k in order:
         x = c[k]

@@ -1,0 +1,24 @@
+\section{v0.2: a lane swarm with a search ledger}
+\label{sec:swarm}
+
+\paragraph{Why.} The v0.1 diagnosis (\cref{sec:corpus}) found that CR wasted calls on exact repeats, stopped before its budget, and that strategies used very different shares of the budget. v0.2 changes how calls are spent and adds a budget-matched comparison. The design is in \texttt{docs/v0.2-design.md}; the hypotheses, weights, comparators and decision rule were committed in \texttt{bench/PREREGISTRATION-v0.2.md} before any v0.2 live run.
+
+\paragraph{Design.} An outline of research lanes (reference works, military service when the person was of age for a war, census, church, newspapers in three life phases, land, probate, immigration) is planned from the card alone, after STORM and Co-STORM~\cite{shao2024storm,jiang2024costorm}. Lanes run as parallel Temporal child workflows, four at a time~\cite{temporalpythonsdk}, following the parallel-subagent pattern of~\cite{anthropic2025multiagent} and guarding against the duplicated-work failure in~\cite{cemri2025mast}. Every call passes a run-wide search ledger in the orchestrator: exact and near repeats are refused before they cost anything, and a source may be revisited only with a new key (a name variant, adjacent pages, a gated relative's name, another collection, another date window, the next results page), once per value, with the reason logged. This is tabu search with aspiration criteria~\cite{glover1997tabu}, with name variants from record linkage~\cite{christen2012datamatching} and a foraging stop after three empty calls~\cite{pirolli1999foraging}. Within a lane, leads are picked by a value score plus a UCT bonus~\cite{kocsis2006uct,zhou2024lats}; a UCB1 allocator~\cite{auer2002ucb} splits calls across lanes; short rule-based lessons between rounds adjust expected yields~\cite{shinn2023reflexion}. A verification gate admits a citation only if the snippet prints the full name inside the life window. v0.2 adds the Internet Archive full-text search API~\cite{iafts}; B1 gets it too. B6 uses no model, so its model spend is zero.
+
+\paragraph{Protocol.} Same six people, answer key, scorer rules, exclusion filter and $B=100$ as \cref{sec:corpus}. B1, B5 and B5-fix were rerun in the same batch, from the same commit (\RESULT{v02-commit}), with \RESULT{v02-runs} runs per person; v0.1 numbers are context only. Every run was also re-scored from its first $N$ logged calls, where $N$ is the median number of calls B1 used (\RESULT{v02-matchedN}), and at 10, 25, 50, 75 and 100 calls (\cref{fig:rvc}).
+
+\IfFileExists{generated/v02-table.tex}{\input{generated/v02-table}}{}
+
+\paragraph{Results.} B6-swarm recovered \RESULT{v02-overall-B6-swarm} of the dossiers on average, against \RESULT{v02-overall-B1} for B1 and \RESULT{v02-overall-B5-fix} for B5-fix (B5: \RESULT{v02-overall-B5}). Against B1 the mean per-person difference was \RESULT{v02-B6-swarm-vs-B1-diff} points (\RESULT{v02-B6-swarm-vs-B1-wl}, exact sign-flip $p=$\,\RESULT{v02-B6-swarm-vs-B1-p}, Holm $p=$\,\RESULT{v02-B6-swarm-vs-B1-holm}); against B5-fix it was \RESULT{v02-B6-swarm-vs-B5-fix-diff} points (\RESULT{v02-B6-swarm-vs-B5-fix-wl}, $p=$\,\RESULT{v02-B6-swarm-vs-B5-fix-p}). Precision was \RESULT{v02-prec-B6-swarm} for B6-swarm, \RESULT{v02-prec-B5-fix} for B5-fix and \RESULT{v02-prec-B1} for B1. B6-swarm's exact-repeat rate was \RESULT{v02-waste-repeat} and it used \RESULT{v02-waste-used} of $B$. The ablations recovered \RESULT{v02-overall-B6-no-ledger} without the ledger and \RESULT{v02-overall-B6-no-parallel} with one worker. At the matched call count, B6-swarm recovered \RESULT{v02-matched-overall-B6-swarm} against \RESULT{v02-matched-overall-B1} for B1. Model spend for the whole batch was \RESULT{v02-usd-total}, all of it B1's (\RESULT{v02-tokens-B1} tokens); B5 and B6 used \RESULT{v02-tokens-B6-swarm} model tokens.
+
+\IfFileExists{generated/v02-h6-table.tex}{\input{generated/v02-h6-table}}{}
+
+\paragraph{Verdicts.} Under the preregistered rule (\cref{tab:h6}): H6 \RESULT{v02-H6}; H6-prec \RESULT{v02-H6-prec}; H6-waste \RESULT{v02-H6-waste}; H6-ablation \RESULT{v02-H6-ablation}; H6-budget \RESULT{v02-H6-budget}. \textbf{Six people are far too few for statistical significance}: only four have reachable facts, so the smallest attainable two-sided $p$ on those is 0.125, and the permutation and Holm $p$ values above are reported for completeness, not as evidence.
+
+\begin{figure}[t]\centering
+\RESULTFIG{recall-vs-calls}{overall recall after 10, 25, 50, 75 and 100 logged calls per strategy}
+\caption{Recall against tool calls: every run re-scored from its first $N$ logged calls (\texttt{eval/corpus/report.py --truncate-calls}). Drawn by \texttt{eval/plots.py}.}
+\label{fig:rvc}
+\end{figure}
+
+\IfFileExists{generated/v02-diagnose-table.tex}{\input{generated/v02-diagnose-table}}{}

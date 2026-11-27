@@ -10,7 +10,8 @@
     "ia_title_search",
     "ia_fulltext",
     "ia_inside",
-    "chronam"
+    "chronam",
+    "ia_fts"
   ],
   "budget": "max_tool_calls = B (benchmark budget)",
   "exclusion_filter": "cr/sources/exclusion.py (on for every strategy)"

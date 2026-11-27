@@ -13,8 +13,11 @@ BG, CARD, GRID, INK, SUB, MUTED, ACC = "#14110e", "#1c1814", "#3a3128", "#f6f0e8
 SERIF = "Georgia, 'IBM Plex Serif', 'Times New Roman', serif"
 SANS = "Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
 NAMES = {"B0": "Single pass (B0)", "B1": "ReAct agent (B1)", "B3": "Checklist only (B3)", "B5": "CR, preregistered (B5)",
-         "B5-max": "CR, wider limits (B5-max)*", "B5-fix": "CR, fixed rules (B5-fix)*", "B5-llm": "CR, model questions (B5-llm)*"}
-ORDER = ["B0", "B1", "B3", "B5", "B5-max", "B5-fix", "B5-llm"]
+         "B5-max": "CR, wider limits (B5-max)*", "B5-fix": "CR, fixed rules (B5-fix)*", "B5-llm": "CR, model questions (B5-llm)*",
+         "B6-swarm": "CR v0.2 swarm, preregistered (B6-swarm)", "B6-no-ledger": "swarm, no ledger (ablation)",
+         "B6-no-parallel": "swarm, one worker (ablation)", "B6-no-reflect": "swarm, no reflection (exploratory)*",
+         "B6-v1tools": "swarm, v0.1 tools (exploratory)*"}
+ORDER = ["B0", "B1", "B3", "B5", "B5-max", "B5-fix", "B5-llm", "B6-swarm", "B6-no-ledger", "B6-no-parallel", "B6-no-reflect", "B6-v1tools"]
 LOGO = """<g transform="translate(-20 2)">
 <path d="M86 104 C86 66 108 50 132 50 C160 50 178 68 178 94 C178 116 162 126 148 136 C136 145 130 152 130 172" fill="none" stroke="#f6f0e8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
 <g fill="none" stroke="#a89886" stroke-width="5" stroke-linecap="round"><path d="M154 54 L184 30"/><path d="M178 96 L212 96"/><path d="M150 134 L184 156"/></g>
@@ -65,17 +68,17 @@ def main():
         s.append(f'<line x1="{px}" y1="{top + 14}" x2="{px}" y2="{top + 18 + 64 * len(conds)}" stroke="{GRID}" stroke-width="2"/>')
         for i, (c, v) in enumerate(zip(conds, vals)):
             y = top + 30 + 64 * i
-            col = ACC if c.startswith("B5") else MUTED
+            col = ACC if c.startswith(("B5", "B6")) else MUTED
             if v is None:
                 s.append(t(px + 8, y + 26, "not measured", 16, MUTED))
                 continue
-            s.append(f'<rect x="{px}" y="{y}" width="{max(v * scale, 2):.1f}" height="36" rx="4" fill="{col}" opacity="{1 if c.startswith("B5") else 0.75}"/>')
+            s.append(f'<rect x="{px}" y="{y}" width="{max(v * scale, 2):.1f}" height="36" rx="4" fill="{col}" opacity="{1 if c.startswith(("B5", "B6")) else 0.75}"/>')
             s.append(t(px + max(v * scale, 2) + 10, y + 25, f"{100 * v:.1f}%", 18, INK, SANS, "600"))
     for i, c in enumerate(conds):
         y = top + 30 + 64 * i
-        s.append(t(x0, y + 25, NAMES.get(c, c), 19, INK if c.startswith("B5") else SUB))
+        s.append(t(x0, y + 25, NAMES.get(c, c), 19, INK if c.startswith(("B5", "B6")) else SUB))
     fy = top + 30 + 64 * len(conds) + 30
-    s.append(t(56, fy, "* post hoc, not preregistered. Reachable = at least one dossier source on archive.org, loc.gov or wikidata.org, the only hosts the tools query.", 15, MUTED))
+    s.append(t(56, fy, "* post hoc or exploratory, not preregistered. Reachable = at least one dossier source on archive.org, loc.gov or wikidata.org, the only hosts the tools query.", 15, MUTED))
     s.append(t(56, fy + 26, "Credit 1.0 for a fact found in returned evidence, 0.5 for naming the right book or archive. Mean over six people.", 15, MUTED))
     s.append(t(W - 56, fy + 26, f"{a.version}  ·  run {a.date}  ·  github.com/Verafyai/curiosity-recursion", 15, SUB, anchor="end"))
     s.append("</svg>")

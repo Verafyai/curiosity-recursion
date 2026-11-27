@@ -27,6 +27,8 @@ from cr import sources as src
 TOOLS = [
     {"name": "ia_fulltext", "description": "Full-text search across digitised books on Internet Archive.",
      "input_schema": {"type": "object", "properties": {"phrase": {"type": "string"}}, "required": ["phrase"]}},
+    {"name": "ia_fts", "description": "Internet Archive full-text search API (page-level hits with snippets); offset pages through results, collection optionally scopes to one IA collection.",
+     "input_schema": {"type": "object", "properties": {"query": {"type": "string"}, "offset": {"type": "integer"}, "collection": {"type": "string"}}, "required": ["query"]}},
     {"name": "ia_inside", "description": "Search inside one Internet Archive book by identifier.",
      "input_schema": {"type": "object", "properties": {"item_id": {"type": "string"}, "q": {"type": "string"}}, "required": ["item_id", "q"]}},
     {"name": "ia_title", "description": "Internet Archive catalogue title search.",
@@ -42,6 +44,9 @@ async def _tool(name: str, args: dict) -> tuple[str, list[dict]]:
     try:
         if name == "ia_fulltext":
             hits = await src.ia_fulltext(args["phrase"])
+            cits = [{"url": f"https://archive.org/details/{h['identifier']}", "item_id": h["identifier"], "title": h.get("title")} for h in hits]
+        elif name == "ia_fts":
+            hits = await src.ia_fts(args["query"], 10, int(args.get("offset") or 0), args.get("collection") or None)
             cits = [{"url": f"https://archive.org/details/{h['identifier']}", "item_id": h["identifier"], "title": h.get("title")} for h in hits]
         elif name == "ia_inside":
             hits = await src.ia_inside(args["item_id"], args["q"])

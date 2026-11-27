@@ -6,7 +6,9 @@ continue-as-new gives the same result; a worker killed mid-round redoes no finis
 history replays.
 """
 import asyncio
+import os
 import re
+from pathlib import Path
 import uuid
 from collections import Counter
 
@@ -120,6 +122,24 @@ def test_parallel_swarm_budget_ids_and_no_duplicate_calls():
         if child_hist is not None:
             await r.replay_workflow(child_hist)
     asyncio.run(replay())
+    if os.environ.get("CR_RECORD_SWARM_HISTORY"):
+        HIST.mkdir(exist_ok=True)
+        (HIST / f"{wid}.json").write_text(hist.to_json())
+        (HIST / f"{children[0]}.json").write_text(child_hist.to_json())
+
+
+HIST = Path(__file__).resolve().parent / "histories_swarm"
+
+
+def test_saved_swarm_histories_replay():
+    files = sorted(HIST.glob("*.json"))
+    assert files, "no saved swarm histories (record with CR_RECORD_SWARM_HISTORY=1)"
+
+    async def run():
+        r = Replayer(workflows=WFS, data_converter=pydantic_data_converter)
+        for f in files:
+            await r.replay_workflow(WorkflowHistory.from_json(f.stem, f.read_text()))
+    asyncio.run(run())
 
 
 def _sig(rep):

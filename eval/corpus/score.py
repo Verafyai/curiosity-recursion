@@ -121,11 +121,15 @@ def _salvage(line: str) -> dict | None:
     return {"fn": m.group(1), "args": args, "result": items, "salvaged": True}
 
 
-def evidence(tool_log: Path) -> list[dict]:
+def evidence(tool_log: Path, max_calls: int | None = None) -> list[dict]:
+    """Items returned by the logged tool calls. With max_calls, only the first max_calls logged calls
+    count (budget-matched scoring, spec v0.2 section 9); each tool-log line is one call."""
     items = []
     if not tool_log.exists():
         return items
-    for line in tool_log.read_text().splitlines():
+    for n_call, line in enumerate(tool_log.read_text().splitlines()):
+        if max_calls is not None and n_call >= max_calls:
+            break
         try:
             d = json.loads(line)
         except json.JSONDecodeError:
@@ -137,7 +141,7 @@ def evidence(tool_log: Path) -> list[dict]:
         for r in rows:
             if not isinstance(r, dict):
                 continue
-            if fn == "ia_inside":
+            if fn in ("ia_inside", "ia_inside_pages"):
                 key = {"ia:" + str(args[0])} if args else set()
                 url = f"https://archive.org/details/{args[0]}" if args else None
             elif r.get("identifier"):
@@ -199,8 +203,14 @@ def reachable(f: dict) -> bool:
     return any(any(h in (s.get("url") or "") for h in REACH_HOSTS) for s in f.get("sources", []))
 
 
-def score_run(run: dict, items: list[dict], key: list[dict], life: tuple[int, int], family: set[str]) -> dict:
+def score_run(run: dict, items: list[dict], key: list[dict], life: tuple[int, int], family: set[str],
+              truncated: bool = False) -> dict:
     rep_keys, rep_extra = reported(run)
+    if truncated:
+        # budget-matched scoring: a reported source counts only if the agent had reached it within the
+        # truncated tool log (section 9); the scoring rules themselves are unchanged
+        reach = set().union(*[it["keys"] for it in items]) if items else set()
+        rep_keys &= reach
     rep_extra_n = norm(rep_extra)
     subj = key[0]["subject"] if key else ""
     sp = name_pattern(subj)
@@ -350,10 +360,11 @@ if __name__ == "__main__":
     ap.add_argument("--pid", required=True)
     ap.add_argument("--key", type=Path, default=Path(__file__).resolve().parents[1] / "answer_keys/v1")
     ap.add_argument("--private", type=Path, default=Path(__file__).resolve().parents[1] / "private/answer_keys/v1")
+    ap.add_argument("--truncate-calls", type=int, default=None, help="score only evidence from the first N logged calls")
     a = ap.parse_args()
     key = load_key(a.key, a.pid, a.private)
     LIFE = {"burnham": (1834, 1921), "homer": (1900, 1972), "john": (1921, 2006), "kingsley": (1907, 1962), "bristol": (1871, 1944), "alex": (1967, 2026)}
     fam = {f["person"] for f in key}
     run = json.loads(a.run_jsonl.read_text().splitlines()[-1])
-    s = score_run(run, evidence(a.tool_log), key, LIFE[a.pid], fam)
+    s = score_run(run, evidence(a.tool_log, a.truncate_calls), key, LIFE[a.pid], fam, truncated=a.truncate_calls is not None)
     print(json.dumps({k: v for k, v in s.items() if not k.startswith("_")}, indent=1))

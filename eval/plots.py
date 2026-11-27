@@ -197,6 +197,27 @@ def results_v0(rundir: Path, outdir: Path):
     print("wrote figures 5 to 8 to", outdir)
 
 
+def recall_vs_calls(rundir: Path, out: Path):
+    """v0.2 Figure: overall recall after 10, 25, 50, 75, 100 logged calls per strategy, re-scored from the
+    truncated tool logs (report.py --truncate-calls N; collected in <rundir>/h6.json by eval/corpus/h6.py)."""
+    curves = json.loads((rundir / "h6.json").read_text())["curves"]
+    ns = sorted(int(k) for k in curves)
+    if not ns:
+        sys.exit("no truncated results: run report.py --truncate-calls N first")
+    conds = sorted({c for k in curves.values() for c in k}, key=lambda c: (not c.startswith("B6"), c))
+    fig, ax = plt.subplots(figsize=(3.4, 2.4))
+    styles = ["-o", "--s", ":^", "-.v", "-d", "--x", ":+"]
+    for i, c in enumerate(conds):
+        ys = [curves[str(n)].get(c) for n in ns]
+        xs = [n for n, y in zip(ns, ys) if y is not None]
+        ax.plot(xs, [100 * y for y in ys if y is not None], styles[i % len(styles)], ms=3, lw=1, label=c)
+    ax.set_xlabel("tool calls (logged, truncated)"); ax.set_ylabel("overall recall (%)")
+    ax.legend(frameon=False, fontsize=6); fig.tight_layout()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out)
+    print("wrote", out)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -205,8 +226,12 @@ if __name__ == "__main__":
     r = sp.add_parser("results"); r.add_argument("scores", type=Path); r.add_argument("--out", type=Path, default=Path("paper/figures"))
     f = sp.add_parser("faults"); f.add_argument("lines", type=Path); f.add_argument("--out", type=Path, default=Path("paper/figures"))
     v = sp.add_parser("v0"); v.add_argument("rundir", type=Path); v.add_argument("--out", type=Path, default=Path("paper/figures"))
+    rc = sp.add_parser("recall-vs-calls"); rc.add_argument("rundir", type=Path)
+    rc.add_argument("--out", type=Path, default=Path("paper/figures/recall-vs-calls.pdf"))
     a = ap.parse_args()
-    if a.cmd == "graph":
+    if a.cmd == "recall-vs-calls":
+        recall_vs_calls(a.rundir, a.out)
+    elif a.cmd == "graph":
         graph(a.db, a.run, a.out, tuple(a.highlight.split(",")))
     elif a.cmd == "results":
         results(a.scores, a.out)

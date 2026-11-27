@@ -20,7 +20,10 @@ LIFE = {"burnham": (1834, 1921), "homer": (1900, 1972), "john": (1921, 2006), "k
 ERA = {"burnham": "Civil War", "homer": "WWI", "john": "WWII", "kingsley": "civilian", "bristol": "civilian", "alex": "civilian"}
 LABEL = {"B0": "single-pass LLM search", "B1": "ReAct LLM agent", "B3": "checklist only", "B5": "CR (preregistered)",
          "B5-max": "CR wider (post hoc)", "B5-fix": "CR rules2 (post hoc fix)",
-         "B5-llm": "CR, model question generator (ablation, post hoc)"}
+         "B5-llm": "CR, model question generator (ablation, post hoc)",
+         "B6-swarm": "CR v0.2 swarm (preregistered)", "B6-no-ledger": "swarm without ledger rules (ablation)",
+         "B6-no-parallel": "swarm with one worker (ablation)", "B6-no-reflect": "swarm without reflection (ablation)",
+         "B6-v1tools": "swarm without ia_fts (ablation)"}
 TIERS = ("web_open", "book", "web_gated", "outreach")
 
 
@@ -36,11 +39,17 @@ def mean_or_none(xs):
     return st.mean(xs) if xs else None
 
 
-def main(out: Path) -> None:
+def main(out: Path, truncate: int | None = None) -> None:
+    """Score all runs. With truncate=N, score only the first N logged calls of every run (spec v0.2
+    section 9) and write to <out>/truncated/n<N>/ (private tables to <out>/private/truncated-n<N>/)."""
     lock = json.loads((KEY / "LOCK.json").read_text())
     rows, perfact = [], {}
-    (out / "private").mkdir(exist_ok=True)
-    for rf in sorted((out / "runs").glob("*.jsonl")):
+    src = out
+    dst = out if truncate is None else out / "truncated" / f"n{truncate}"
+    priv = out / "private" if truncate is None else out / "private" / f"truncated-n{truncate}"
+    dst.mkdir(parents=True, exist_ok=True)
+    priv.mkdir(parents=True, exist_ok=True)
+    for rf in sorted((src / "runs").glob("*.jsonl")):
         lines = [x for x in rf.read_text().splitlines() if x.strip()]
         if not lines:
             continue
@@ -50,19 +59,20 @@ def main(out: Path) -> None:
         pid = stem.split("-")[-1]
         cond = stem[: -(len(pid) + 1)]
         key = load_key(KEY, pid, PRIV if PRIV.exists() else None)
-        tl = out / "logs" / f"{name}.tools.jsonl"
-        s = score_run(run, evidence(tl), key, LIFE[pid], {f["person"] for f in key})
-        bl = out / "logs" / f"{name}.blocked.jsonl"
+        tl = src / "logs" / f"{name}.tools.jsonl"
+        s = score_run(run, evidence(tl, truncate), key, LIFE[pid], {f["person"] for f in key}, truncated=truncate is not None)
+        bl = src / "logs" / f"{name}.blocked.jsonl"
         blocked = [json.loads(x) for x in bl.read_text().splitlines() if x.strip()] if bl.exists() else []
         rows.append({"run": name, "condition": cond, "person": pid, "era": ERA[pid], "seed": run.get("seed"), "budget": run.get("budget"),
-                     "completed": run.get("completed"), "stop_reason": run.get("stop_reason"), "tool_calls": run.get("tool_calls"),
-                     "wall_seconds": run.get("wall_seconds"), "usd": run.get("usd") or 0.0, "tool_log": tl.exists(),
+                     "completed": run.get("completed"), "stop_reason": run.get("stop_reason"), "tool_calls": (run.get("tool_calls") if truncate is None or run.get("tool_calls") is None else min(run["tool_calls"], truncate)),
+                     "logged_calls": (sum(1 for _ in tl.open()) if tl.exists() else None),
+                     "wall_seconds": run.get("wall_seconds"), "usd": run.get("usd") or 0.0, "llm_tokens": run.get("llm_tokens") or 0, "tool_log": tl.exists(),
                      "blocked_host": sum(1 for b in blocked if b.get("reason") == "blocked_host"),
                      "dropped_overlap": sum(1 for b in blocked if b.get("reason") == "dossier_overlap"),
                      **{k: v for k, v in s.items() if not k.startswith("_")}})
         for p in s["_per_fact"]:
             perfact.setdefault(pid, {}).setdefault(p["fact_id"], {}).setdefault(cond, []).append(p["score"])
-        (out / "private" / f"{name}.facts.json").write_text(json.dumps({"per_fact": s["_per_fact"], "novel": s["_novel"]}, indent=1))
+        (priv / f"{name}.facts.json").write_text(json.dumps({"per_fact": s["_per_fact"], "novel": s["_novel"]}, indent=1))
     conds = [c for c in LABEL if any(r["condition"] == c for r in rows)] + sorted({r["condition"] for r in rows} - set(LABEL))
     people = [p for p in LIFE if any(r["person"] == p for r in rows)]
     agg = {"answer_key": {"version": lock["version"], "frozen": lock["frozen"],
@@ -89,11 +99,11 @@ def main(out: Path) -> None:
                                 "overall_reachable_recall": mean_or_none([v["reachable_recall"][0] for v in per.values() if v["reachable_recall"][0] is not None]),
                                 "overall_penalised": mean_or_none([v["penalised"][0] for v in per.values()]),
                                 "by_era": {e: st.mean(v) for e, v in eras.items()},
-                                "usd": (None if c == "B5-llm" and not sum(r["usd"] for r in R) else sum(r["usd"] for r in R)), "runs": len(R),
+                                "usd": (None if c == "B5-llm" and not sum(r["usd"] for r in R) else sum(r["usd"] for r in R)), "runs": len(R), "llm_tokens": sum(r.get("llm_tokens") or 0 for r in R),
                                 "runs_missing_tool_log": sum(1 for r in R if not r["tool_log"]),
                                 "blocked_host": sum(r["blocked_host"] for r in R), "dropped_overlap": sum(r["dropped_overlap"] for r in R)}
-    (out / "results.json").write_text(json.dumps({"aggregate": agg, "runs": rows}, indent=1))
-    with (out / "private" / "per-fact-table.md").open("w") as fh:
+    (dst / "results.json").write_text(json.dumps({"aggregate": agg, "runs": rows}, indent=1))
+    with (priv / "per-fact-table.md").open("w") as fh:
         for p, facts in perfact.items():
             key = {f["fact_id"]: f for f in load_key(KEY, p, PRIV if PRIV.exists() else None)}
             fh.write(f"\n## {p}\n\n| fact | tier | holdout | " + " | ".join(conds) + " |\n|---|---|---|" + "---|" * len(conds) + "\n")
@@ -138,7 +148,7 @@ def main(out: Path) -> None:
           "| strategy | runs | blocked (host) | dropped (dossier overlap) | runs without tool log |", "|---|---|---|---|---|"]
     for c, v in agg["conditions"].items():
         L.append(f"| {c} | {v['runs']} | {v['blocked_host']} | {v['dropped_overlap']} | {v['runs_missing_tool_log']} |")
-    (out / "RESULTS.md").write_text("\n".join(L) + "\n")
+    (dst / "RESULTS.md").write_text("\n".join(L) + "\n")
     try:
         import matplotlib
         matplotlib.use("Agg")
@@ -155,12 +165,17 @@ def main(out: Path) -> None:
         ax.set_ylabel("% of dossier recovered")
         ax.legend(fontsize=7, ncol=3)
         fig.tight_layout()
-        fig.savefig(out / "corpus-recall.png", dpi=160)
-        fig.savefig(out / "corpus-recall.pdf")
+        fig.savefig(dst / "corpus-recall.png", dpi=160)
+        fig.savefig(dst / "corpus-recall.pdf")
     except ImportError:
         print("matplotlib missing: no chart", file=sys.stderr)
-    print((out / "RESULTS.md").read_text())
+    print((dst / "RESULTS.md").read_text())
 
 
 if __name__ == "__main__":
-    main(Path(sys.argv[1]))
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("out", type=Path)
+    ap.add_argument("--truncate-calls", type=int, default=None)
+    a = ap.parse_args()
+    main(a.out, a.truncate_calls)

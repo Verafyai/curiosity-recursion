@@ -1,0 +1,42 @@
+{
+  "agent": "B6-no-parallel",
+  "kind": "cr-temporal-swarm",
+  "mode": "swarm",
+  "generator": "rules2",
+  "outline": "rules",
+  "workers": 1,
+  "ledger": true,
+  "reflect": true,
+  "verify_nodes": true,
+  "tools": "v2",
+  "value_weights": {
+    "w_novelty": 0.3,
+    "w_expected_yield": 0.3,
+    "w_reachability": 0.15,
+    "w_gap_fill": 0.25,
+    "w_cost": 0.1
+  },
+  "uct_c": 0.7,
+  "value_floor": 0.05,
+  "allocator": {
+    "rule": "UCB1",
+    "min_first_round": 3,
+    "dry_rounds": 3
+  },
+  "ledger_rules": {
+    "k_empty": 3,
+    "page_window": 10,
+    "max_hops": 3,
+    "near_jaccard": 0.8,
+    "novelty_by_key": {
+      "adjacent_pages": 0.8,
+      "relative_name": 0.7,
+      "different_collection": 0.6,
+      "name_variant": 0.5,
+      "date_window": 0.5,
+      "result_offset": 0.4
+    }
+  },
+  "budget": "max_tool_calls = B (benchmark budget)",
+  "exclusion_filter": "cr/sources/exclusion.py (on for every strategy)"
+}
