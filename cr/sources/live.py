@@ -130,6 +130,62 @@ async def ia_inside(item_id: str, q: str) -> list[dict]:
     return out
 
 
+FTS_API = "https://be-api.us.archive.org/ia-pub-fts-api"
+
+
+async def post_json(url: str, body: dict, timeout: float = 45) -> Any:
+    try:
+        async with httpx.AsyncClient(headers={"User-Agent": UA, "Accept": "application/json"}, timeout=timeout, follow_redirects=True) as c:
+            r = await c.post(url, json=body)
+    except (httpx.TimeoutException, httpx.TransportError) as exc:
+        raise Transient(f"{type(exc).__name__} on {url}") from exc
+    if r.status_code >= 500 or r.status_code == 429:
+        raise Transient(f"HTTP {r.status_code} on {url}")
+    if r.status_code >= 400:
+        raise ValueError(f"HTTP {r.status_code} on {url}")
+    return r.json()
+
+
+def parse_fts(d: Any) -> list[dict]:
+    """Rows from the public FTS API body. `user_message` or `UPSTREAM_ERROR` bodies are errors."""
+    if not isinstance(d, dict):
+        raise ValueError("FTS API returned a non-object body")
+    if d.get("user_message") or "UPSTREAM_ERROR" in str(d.get("error", "")) or d.get("error"):
+        msg = str(d.get("user_message") or d.get("error"))[:200]
+        if "UPSTREAM_ERROR" in msg or "UPSTREAM_ERROR" in str(d.get("error", "")):
+            raise Transient(f"FTS API upstream error: {msg}")
+        raise ValueError(f"FTS API error: {msg}")
+    out = []
+    for h in ((d.get("hits") or {}).get("hits") or []):
+        f = h.get("fields") or {}
+        one = lambda k: (f.get(k) or [None])[0] if isinstance(f.get(k), list) else f.get(k)  # noqa: E731
+        pages = f.get("page_num") or []
+        page = pages[0][0] if pages and isinstance(pages[0], list) and pages[0] else (pages[0] if pages else None)
+        out.append({"identifier": one("identifier"), "title": one("meta_title"), "year": one("meta_year"), "page": page,
+                    "collection": f.get("meta_collection") or [],
+                    "snippets": [clean_snip(x) for x in ((h.get("highlight") or {}).get("text") or [])[:3]]})
+    return out
+
+
+async def ia_fts(query: str, size: int = 10, offset: int = 0, collection: str | None = None) -> list[dict]:
+    """Internet Archive full-text search through the public FTS API (documented in the internetarchive
+    Python library). Lucene syntax with the `!L` prefix; `offset` pages through results; `collection`
+    adds a `collection:` clause (checked 26 Nov 2026: returned hits carry that collection)."""
+    q = f"!L {query}" + (f" AND collection:{collection}" if collection else "")
+    d = await post_json(FTS_API, {"q": q, "size": str(size), "from": str(offset), "scroll": False}, timeout=45)
+    return parse_fts(d)
+
+
+async def ia_inside_pages(item_id: str, q: str, first: int, last: int) -> list[dict]:
+    """Search inside one book, keeping only matches on page images first..last (the adjacent_pages key).
+    The returned list is all the agent is shown, so the tool log holds only the window."""
+    return [m for m in await _ia_inside_raw(item_id, q) if m.get("page") is not None and first <= int(m["page"]) <= last]
+
+
+async def _ia_inside_raw(item_id: str, q: str) -> list[dict]:
+    return await _INSIDE(item_id, q)
+
+
 def clean_snip(s: str) -> str:
     s = s.replace("<IA_FTS_MATCH>", "**").replace("</IA_FTS_MATCH>", "**")
     s = s.replace("{{{", "**").replace("}}}", "**")
@@ -155,6 +211,18 @@ async def chronam(q: str, years: tuple[int, int] | None, rows: int = 6) -> list[
     return out
 
 
+# ---- Offline mock mode (tests and the mock bench) ---------------------------
+# CR_SOURCES=mock swaps every network client for the deterministic synthetic archive in
+# cr/sources/mock_live.py, before the tool log and exclusion wrappers are installed, so the mock
+# bench is logged and filtered exactly like a live run. No network is touched.
+_INSIDE = ia_inside
+if os.environ.get("CR_SOURCES") == "mock":
+    from cr.sources import mock_live as _mock
+    for _n in ("wikidata_search", "wikidata_entities", "ia_title_search", "ia_fulltext", "ia_inside", "chronam", "ia_fts"):
+        globals()[_n] = getattr(_mock, _n)
+    _INSIDE = _mock.ia_inside
+
+
 # ---- Optional raw tool log (corpus-replication eval) ------------------------
 # When CR_TOOL_LOG is set, every public lookup appends {fn, args, result} to that JSONL file, so an
 # evaluator can see exactly what text each agent was shown. Off by default; no effect on results.
@@ -178,7 +246,7 @@ def _install_tool_log() -> None:
     from cr.sources import exclusion as _ex
     path = _os.environ.get("CR_TOOL_LOG")
     g = globals()
-    for _name in ("wikidata_search", "wikidata_entities", "ia_title_search", "ia_fulltext", "ia_inside", "chronam"):
+    for _name in ("wikidata_search", "wikidata_entities", "ia_title_search", "ia_fulltext", "ia_inside", "chronam", "ia_fts", "ia_inside_pages"):
         _fn = g.get(_name)
         if _fn is None:
             continue

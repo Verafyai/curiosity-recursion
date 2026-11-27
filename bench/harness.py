@@ -30,6 +30,8 @@ from temporalio.contrib.pydantic import pydantic_data_converter  # noqa: E402
 from bench.common import ROOT, rpc_retry, wait_result, commit, load_subjects, now, request_for, result_from_report  # noqa: E402
 from cr.models import StudioReport  # noqa: E402
 from cr.workflow import CuriosityRecursionWorkflow  # noqa: E402
+from cr.swarm import CuriosityRecursionSwarmWorkflow  # noqa: E402
+from cr.swarm_models import SwarmInput  # noqa: E402
 
 WORKDIR = ROOT / "results"
 
@@ -55,7 +57,29 @@ AGENT_CONFIG = {
     # namesake filter, no repeat search inside the same book, and "keep going" root re-brainstorm while
     # budget remains), with a node cap above the budget so B binds.
     "B5-fix": dict(mode="brainstorm", generator="rules2", breadth=5, depth=4, max_nodes=300),
+    # v0.2 (preregistered in bench/PREREGISTRATION-v0.2.md before any live run): the swarm. Rules only, no model.
+    "B6-swarm": dict(mode="swarm", generator="rules2", outline="rules", workers=4, ledger=True, reflect=True, verify_nodes=True, tools="v2"),
+    "B6-no-ledger": dict(mode="swarm", generator="rules2", outline="rules", workers=4, ledger=False, reflect=True, verify_nodes=True, tools="v2"),
+    "B6-no-parallel": dict(mode="swarm", generator="rules2", outline="rules", workers=1, ledger=True, reflect=True, verify_nodes=True, tools="v2"),
+    "B6-no-reflect": dict(mode="swarm", generator="rules2", outline="rules", workers=4, ledger=True, reflect=False, verify_nodes=True, tools="v2"),
+    "B6-v1tools": dict(mode="swarm", generator="rules2", outline="rules", workers=4, ledger=True, reflect=True, verify_nodes=True, tools="v1"),
 }
+
+
+LEDGER_DIR: Path | None = None
+LEDGER_STEM: str = ""
+
+
+def swarm_summary(sw: dict) -> dict:
+    """Compact swarm stats for the result line (the full ledger goes to <out>/ledgers/)."""
+    calls = sw.get("calls", [])
+    rev = [c for c in calls if c.get("decision") == "revisit"]
+    return {"reserved": sw.get("reserved"), "blocked": sw.get("blocked"), "rounds": sw.get("rounds"), "continued_as_new": sw.get("continued_as_new"),
+            "revisit_count": (sw.get("ledger_summary") or {}).get("revisit_count", {}), "revisits": len(rev),
+            "revisit_yield": (sum(1 for c in rev if c.get("reward", 0) >= 1) / len(rev)) if rev else None,
+            "verified": sw.get("verified"), "namesakes": sw.get("namesakes"), "relatives": len(sw.get("relatives") or []),
+            "lane_failures": sw.get("lane_failures"), "coverage": sw.get("coverage"), "lessons": len(sw.get("lessons") or []),
+            "lanes": {k: {"calls": v.get("calls"), "reward": v.get("reward"), "closed": v.get("closed")} for k, v in (sw.get("lanes") or {}).items()}}
 
 
 def start_worker(tq: str, env_extra: dict) -> subprocess.Popen:
@@ -71,11 +95,20 @@ async def run_temporal(client: Client, tq: str, agent: str, subject: dict, budge
     meta = dict(run_id=wid, agent=agent, config=AGENT_CONFIG[agent], subject_id=subject["subject_id"], budget=budget, seed=seed,
                 commit=commit(), started_at=now(), faults=faults)
     try:
-        h = await rpc_retry(lambda: client.start_workflow(CuriosityRecursionWorkflow.run, req, id=wid, task_queue=tq))
+        if req.mode == "swarm":
+            h = await rpc_retry(lambda: client.start_workflow(CuriosityRecursionSwarmWorkflow.run, SwarmInput(request=req), id=wid, task_queue=tq))
+        else:
+            h = await rpc_retry(lambda: client.start_workflow(CuriosityRecursionWorkflow.run, req, id=wid, task_queue=tq))
         rep: StudioReport = await wait_result(h, req.max_run_minutes * 60 + 600)
         desc = await rpc_retry(h.describe)
         prog = await rpc_retry(lambda: h.query("progress"))
         line = result_from_report(rep, **meta)
+        if rep.swarm is not None:
+            line["swarm"] = swarm_summary(rep.swarm)
+            if LEDGER_DIR is not None:
+                LEDGER_DIR.mkdir(parents=True, exist_ok=True)
+                (LEDGER_DIR / f"{LEDGER_STEM or wid}.ledger.jsonl").write_text("".join(json.dumps(r, default=str) + "\n" for r in rep.swarm["ledger"]))
+                (LEDGER_DIR / f"{LEDGER_STEM or wid}.calls.jsonl").write_text("".join(json.dumps(r, default=str) + "\n" for r in rep.swarm["calls"]))
         line.update(completed=True, wall_seconds=round(time.time() - t0, 1),
                     tool_calls=prog.get("tool_calls", 0) if isinstance(prog, dict) else prog.tool_calls,
                     llm_tokens=prog.get("llm_tokens", 0) if isinstance(prog, dict) else prog.llm_tokens,
@@ -102,7 +135,12 @@ async def main() -> int:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--tag", default="", help="isolates memory stores and worker queues between invocations")
     ap.add_argument("--workdir", type=Path, default=ROOT / "results", help="where memory stores and worker logs go")
+    ap.add_argument("--ledger-dir", type=Path, default=None, help="where swarm runs write <run>.ledger.jsonl (default <out dir>/../ledgers)")
+    ap.add_argument("--ledger-stem", default="", help="file stem for the ledger (default: the workflow id)")
     a = ap.parse_args()
+    global LEDGER_DIR, LEDGER_STEM
+    LEDGER_DIR = a.ledger_dir or (a.out.parent.parent / "ledgers" if a.out.parent.name == "runs" else a.out.parent / "ledgers")
+    LEDGER_STEM = a.ledger_stem
     (ROOT / "results").mkdir(exist_ok=True)
     a.workdir.mkdir(parents=True, exist_ok=True)
     global WORKDIR
@@ -152,7 +190,7 @@ async def main() -> int:
                     continue
                 tq = f"bench-{agent}{a.tag}-s{seed}-{uuid.uuid4().hex[:6]}"
                 env = {"CR_DB": str(a.workdir / f"memory-{agent}{a.tag}-s{seed}.db"),
-                       "CR_OUTBOX": str(a.workdir / "outbox-not-sent")}
+                       "CR_OUTBOX": str(a.workdir / "outbox-not-sent"), "CR_EVIDENCE_DIR": str(a.workdir / "evidence")}
                 if faults:
                     env.update(CR_FAULT_P=str(a.fault_p), CR_FAULT_K=str(a.fault_k))
                 workers.append(start_worker(tq, env))

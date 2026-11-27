@@ -85,7 +85,7 @@ class ResearchRequest(BaseModel):
         default=None, description="Studio template. Defaults from the circuit."
     )
     output_kind: StudioKind = "chapter"
-    mode: Literal["brainstorm", "checklist"] = "brainstorm"
+    mode: Literal["brainstorm", "checklist", "swarm"] = "brainstorm"
     depth: int = Field(default=2, ge=1, le=4, description="Follow-up levels under each first question")
     breadth: int = Field(default=3, ge=1, le=8, description="Brainstorm questions per node")
     max_nodes: int = Field(default=30, ge=1, le=400, description="Total question nodes in the graph")
@@ -108,6 +108,14 @@ class ResearchRequest(BaseModel):
     use_catalog: bool = Field(default=False, description="Load the optional public source catalog (CR_CATALOG_URL)")
     max_tool_calls: Optional[int] = Field(default=None, ge=1, description="Budget B: checklist steps plus investigations. None = no cap.")
     llm_token_budget: int = Field(default=200_000, ge=0, description="Hard stop for the LLM generator, input plus output tokens per run")
+    # v0.2 swarm settings (mode="swarm", CuriosityRecursionSwarmWorkflow). Ignored by the v0.1 workflows.
+    workers: int = Field(default=4, ge=1, le=16, description="W: lane workers (child workflows) per round; 1 = lanes run one at a time")
+    ledger: bool = Field(default=True, description="Search ledger rules 1 to 6 (calls are logged either way)")
+    reflect: bool = Field(default=True, description="Reflexion-style lessons between rounds")
+    outline: Literal["rules", "llm"] = Field(default="rules", description="Outline generator; llm only in an approved ablation")
+    tools: Literal["v1", "v2"] = Field(default="v2", description="v2 adds the Internet Archive FTS API (ia_fts)")
+    round_calls: int = Field(default=12, ge=1, description="Calls allocated per swarm round after round 1")
+    continue_as_new_events: int = Field(default=10_000, ge=0, description="Continue-as-new when history passes this many events (0 = every round, tests only)")
 
 
 class Citation(BaseModel):
@@ -215,7 +223,8 @@ QuestionStatus = Literal["pending", "running", "answered", "no_lead", "stub", "e
 
 class Plan(BaseModel):
     """How to try a question. `handler` is a live client or 'stub'."""
-    handler: Literal["ia_fulltext", "ia_inside", "ia_title", "chronam", "wikidata", "wikidata_kin", "stub"]
+    handler: Literal["ia_fulltext", "ia_inside", "ia_title", "chronam", "wikidata", "wikidata_kin", "stub",
+                     "ia_fts", "ia_inside_pages", "wikidata_search", "wikidata_entities"]
     query: str = ""
     item_id: Optional[str] = None
     years: Optional[tuple[int, int]] = None
@@ -356,7 +365,7 @@ class Gap(BaseModel):
 
 class Round(BaseModel):
     number: int
-    kind: Literal["checklist", "brainstorm", "reviewer"]
+    kind: Literal["checklist", "brainstorm", "reviewer", "swarm"]
     started_at: datetime
     finished_at: Optional[datetime] = None
     question_ids: list[str] = Field(default_factory=list)
@@ -467,6 +476,7 @@ class StudioReport(BaseModel):
     decision: Literal["pending", "approved", "rejected", "blocked", "not_required"] = "pending"
     decision_note: str = ""
     markdown: str = ""
+    swarm: Optional[dict] = Field(default=None, description="v0.2 swarm only: ledger log, lanes, coverage, lessons, calls")
 
 
 class Decision(BaseModel):

@@ -40,6 +40,8 @@ from bench.common import ROOT, rpc_retry, wait_result, commit, load_subjects, no
 from cr.models import OutreachDraft  # noqa: E402
 from cr.sources.mock_archive import plan_reply  # noqa: E402
 from cr.workflow import CuriosityRecursionWorkflow  # noqa: E402
+from cr.swarm import CuriosityRecursionSwarmWorkflow  # noqa: E402
+from cr.swarm_models import SwarmInput  # noqa: E402
 
 
 LOGDIR = ROOT / "results"
@@ -89,6 +91,16 @@ async def repeated_activities(handle: WorkflowHandle) -> int:
     return again
 
 
+async def repeated_activities_tree(client: Client, handle: WorkflowHandle) -> int:
+    """repeated_activities() over the parent and every lane worker child (the v0.2 swarm)."""
+    total = await repeated_activities(handle)
+    async for e in handle.fetch_history_events():
+        if e.HasField("child_workflow_execution_started_event_attributes"):
+            cid = e.child_workflow_execution_started_event_attributes.workflow_execution.workflow_id
+            total += await repeated_activities(client.get_workflow_handle(cid))
+    return total
+
+
 async def delayed_replies(handle: WorkflowHandle, drafts: list[OutreachDraft], held: list[dict], seed: int, day_seconds: float):
     """Send simulated archive replies after their planned delay (scaled: one day = day_seconds)."""
     plans = sorted((p for p in (plan_reply(d, held, seed) for d in drafts) if p.delay_days is not None), key=lambda p: p.delay_days)
@@ -106,11 +118,19 @@ async def run_b5(subject: dict, budget: int, a) -> dict:
     killer = WorkerKiller(tq, env, a.kill_every, a.restart_after, a.seed)
     killer.start()
     await asyncio.sleep(3)
-    req = request_for(subject, budget, mode="brainstorm")
-    wid = f"faults-B5-{subject['subject_id']}-p{a.fault_p}-{uuid.uuid4().hex[:6]}"
-    meta = dict(run_id=wid, agent="B5", subject_id=subject["subject_id"], budget=budget, seed=a.seed, commit=commit(), started_at=now(),
+    swarm = a.agent.startswith("B6")
+    if swarm:
+        from bench.harness import AGENT_CONFIG
+        req = request_for(subject, budget, **AGENT_CONFIG[a.agent])
+    else:
+        req = request_for(subject, budget, mode="brainstorm")
+    wid = f"faults-{a.agent}-{subject['subject_id']}-p{a.fault_p}-{uuid.uuid4().hex[:6]}"
+    meta = dict(run_id=wid, agent=a.agent, subject_id=subject["subject_id"], budget=budget, seed=a.seed, commit=commit(), started_at=now(),
                 faults={"p": a.fault_p, "k": a.fault_k, "kill_every_s": a.kill_every, "restart_after_s": a.restart_after})
-    h = await client.start_workflow(CuriosityRecursionWorkflow.run, req, id=wid, task_queue=tq)
+    if swarm:
+        h = await client.start_workflow(CuriosityRecursionSwarmWorkflow.run, SwarmInput(request=req), id=wid, task_queue=tq)
+    else:
+        h = await client.start_workflow(CuriosityRecursionWorkflow.run, req, id=wid, task_queue=tq)
     done = asyncio.Event()
     kt = asyncio.create_task(killer.loop(h, done)) if a.kill_every else None
     t0 = time.time()
@@ -123,7 +143,7 @@ async def run_b5(subject: dict, budget: int, a) -> dict:
         line.update(tool_calls=prog.tool_calls if hasattr(prog, "tool_calls") else prog.get("tool_calls"))
         line.update(completed=True, wall_seconds=round(time.time() - t0, 1), kills=killer.kills,
                     history_events=desc.raw_description.workflow_execution_info.history_length,
-                    repeated_activities=await repeated_activities(h))
+                    repeated_activities=await (repeated_activities_tree(client, h) if swarm else repeated_activities(h)))
     except Exception as e:
         done.set()
         line = {**meta, "completed": False, "stop_reason": f"error: {type(e).__name__}: {e}", "kills": killer.kills,
@@ -176,7 +196,7 @@ def run_b4(subject: dict, budget: int, a) -> dict:
 
 async def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--agent", choices=["B4", "B5"], required=True)
+    ap.add_argument("--agent", choices=["B4", "B5", "B6-swarm", "B6-no-ledger", "B6-no-parallel"], required=True)
     ap.add_argument("--subjects", required=True)
     ap.add_argument("--budget", type=int, default=50)
     ap.add_argument("--fault-p", type=float, default=0.3)
@@ -186,15 +206,16 @@ async def main() -> int:
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("--timeout", type=float, default=3600)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--subjects-file", type=Path, default=None, help="subject cards jsonl (default bench/data/subjects.jsonl)")
     a = ap.parse_args()
     (ROOT / "results").mkdir(exist_ok=True)
     global LOGDIR
     LOGDIR = Path(a.out).parent
     LOGDIR.mkdir(parents=True, exist_ok=True)
-    subs = [s for s in load_subjects("all") if s["subject_id"] in set(a.subjects.split(","))]
+    subs = [s for s in load_subjects("all", a.subjects_file) if s["subject_id"] in set(a.subjects.split(","))]
     with a.out.open("a") as f:
         for s in subs:
-            line = await run_b5(s, a.budget, a) if a.agent == "B5" else run_b4(s, a.budget, a)
+            line = await run_b5(s, a.budget, a) if a.agent != "B4" else run_b4(s, a.budget, a)
             f.write(json.dumps(line, default=str) + "\n")
             print(line["agent"], line["subject_id"], "completed" if line["completed"] else "NOT completed", len(line.get("kills", [])), "kills")
     return 0
