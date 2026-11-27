@@ -35,3 +35,5 @@ paper/*.fdb_latexmk
 paper/whitepaper/*.aux
 paper/whitepaper/*.log
 paper/whitepaper/*.out
+.venv
+eval/private
