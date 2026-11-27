@@ -1,0 +1,18 @@
+\begin{table}[t]\centering\small
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lccccccc@{}}
+\toprule
+& Burnham & Homer & John & Kingsley & Bristol & Alex & Mean \\
+Reachable facts & 111/226 & 0/109 & 2/102 & 144/232 & 61/87 & 89/233 & \\
+\midrule
+B0 & 27.9 & \NM & 0.0 & 10.5 & 27.3 & 5.6 & 14.3\% \\
+B1 & 33.9 & \NM & 0.0 & 11.2 & 51.1 & 13.7 & 22.0\% \\
+B3 & 0.0 & \NM & 0.0 & 0.0 & 0.0 & 5.6 & 1.1\% \\
+B5 & 32.9 & \NM & 0.0 & 3.1 & 50.8 & 10.3 & 19.4\% \\
+B5-max & 33.3 & \NM & 0.0 & 3.1 & 51.6 & 10.3 & 19.7\% \\
+B5-fix & 41.4 & \NM & 0.0 & 18.4 & 51.6 & 10.3 & 24.4\% \\
+B5-llm & 27.8 & \NM & 0.0 & 8.3 & 44.8 & 12.9 & 18.8\% \\
+\bottomrule
+\end{tabular}}
+\caption{The reachability ceiling. A fact is reachable when one of its dossier sources is on archive.org, loc.gov or wikidata.org, the only hosts the bench tools query. Recall (\%) on the reachable facts only; Homer has no reachable fact (\NM). Generated from results.}
+\label{tab:reach}
+\end{table}

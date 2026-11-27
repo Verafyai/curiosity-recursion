@@ -1,0 +1,17 @@
+{
+  "agent": "B0",
+  "kind": "llm",
+  "turns": 1,
+  "prompt": "bench/baselines/llm_agents.py SYSTEM + task string",
+  "temperature": 1.0,
+  "tools": [
+    "wikidata_search",
+    "wikidata_entities",
+    "ia_title_search",
+    "ia_fulltext",
+    "ia_inside",
+    "chronam"
+  ],
+  "budget": "max_tool_calls = B (benchmark budget)",
+  "exclusion_filter": "cr/sources/exclusion.py (on for every strategy)"
+}

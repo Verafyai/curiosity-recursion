@@ -1,0 +1,146 @@
+{
+ "recall": [
+  {
+   "a": "B5",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": -0.01723167792245943,
+   "wins": 0,
+   "losses": 4,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5",
+   "b": "B0",
+   "n_people": 6,
+   "mean_diff": 0.029044542564281517,
+   "wins": 3,
+   "losses": 1,
+   "p": 0.5,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5",
+   "b": "B3",
+   "n_people": 6,
+   "mean_diff": 0.09472997357050898,
+   "wins": 4,
+   "losses": 0,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-fix",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": 0.00801160014352233,
+   "wins": 3,
+   "losses": 1,
+   "p": 0.375,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-max",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": -0.015167628826063673,
+   "wins": 1,
+   "losses": 3,
+   "p": 0.25,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-llm",
+   "b": "B1",
+   "n_people": 6,
+   "mean_diff": -0.022852845480125814,
+   "wins": 0,
+   "losses": 4,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B1",
+   "b": "B0",
+   "n_people": 6,
+   "mean_diff": 0.04627622048674094,
+   "wins": 4,
+   "losses": 0,
+   "p": 0.125,
+   "holm_p": 0.875
+  }
+ ],
+ "reachable_recall": [
+  {
+   "a": "B5",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": -0.02559382692694536,
+   "wins": 0,
+   "losses": 4,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5",
+   "b": "B0",
+   "n_people": 5,
+   "mean_diff": 0.05145292649437059,
+   "wins": 3,
+   "losses": 1,
+   "p": 0.5,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5",
+   "b": "B3",
+   "n_people": 5,
+   "mean_diff": 0.18301840590821067,
+   "wins": 4,
+   "losses": 0,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-fix",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": 0.02371819000802239,
+   "wins": 3,
+   "losses": 1,
+   "p": 0.375,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-max",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": -0.023053581763749387,
+   "wins": 1,
+   "losses": 3,
+   "p": 0.25,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B5-llm",
+   "b": "B1",
+   "n_people": 5,
+   "mean_diff": -0.032165782701102284,
+   "wins": 0,
+   "losses": 4,
+   "p": 0.125,
+   "holm_p": 0.875
+  },
+  {
+   "a": "B1",
+   "b": "B0",
+   "n_people": 5,
+   "mean_diff": 0.07704675342131595,
+   "wins": 4,
+   "losses": 0,
+   "p": 0.125,
+   "holm_p": 0.875
+  }
+ ]
+}

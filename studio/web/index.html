@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lineage Studio</title>
+<link rel="icon" href="/static/lineage-logo.svg" type="image/svg+xml">
+<link rel="preload" href="/static/fonts/Fraunces-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/static/fonts/PublicSans-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/studio.css">
+<style>
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start}
+.intro h1{font-size:44px;margin-top:6px}
+.namebox{display:flex;gap:10px;margin-top:20px}
+.namebox input{font-family:var(--display);font-size:22px;min-height:60px;border-radius:999px;padding:0 24px}
+.namebox .btn{min-height:60px;padding:0 32px}
+.f4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.f3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.examples{margin:14px 0 4px}
+.examples button{font:500 15px var(--body);color:var(--ink-2);background:var(--paper);border:1px dashed var(--rule-strong);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:36px}
+.examples button:hover{color:var(--ink);border-color:var(--accent)}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode label,.choice{display:flex;gap:12px;align-items:flex-start;margin:0;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--ink);font-size:17px}
+.mode label.on{border-color:var(--accent)}
+.mode small,.choice small{display:block;color:var(--ink-2);font-size:15px;font-weight:400;margin-top:2px;line-height:1.45}
+.choice{border:0;padding:10px 0;border-radius:0;border-top:1px solid var(--line)}
+.choice:first-of-type{border-top:0}
+.choice.off{cursor:not-allowed;color:var(--ink-3)}
+.choice.off small{color:var(--ink-3)}
+fieldset{border:0;padding:0;margin:0}
+legend{padding:0;margin-bottom:12px}
+.side{display:grid;gap:20px}
+#runs td:first-child{word-break:break-word}
+</style></head><body class="lineage">
+<header class="site-header"><div class="site-header-inner">
+<a class="brand" href="/"><img src="/static/lineage-logo.svg" alt=""><span class="brand-name">Lineage Studio</span></a>
+<span class="site-tag">Research builder, running locally on Temporal</span>
+<nav class="site-nav"><a href="/">New search</a><a href="http://localhost:8233/namespaces/default/workflows" target="_blank" rel="noopener">Temporal UI</a></nav>
+</div></header>
+<main>
+<div class="hero">
+<section class="card intro">
+  <div class="eyebrow">Put in one name</div>
+  <h1>Who do you want to find?</h1>
+  <p class="lead">Type a name and research agents search census pages, muster rolls, parish registers and small archives to map the family. Every fact links to the source it came from.</p>
+  <p class="muted small">The run is durable. It keeps asking new questions from what it finds for as long as you allow, survives a crash, and records every question it asks. Nothing is sent anywhere without your approval.</p>
+  <form id="f" class="grid" style="gap:18px">
+    <div class="namebox"><label for="full_name" class="sr" style="position:absolute;left:-9999px">Full name</label><input type="text" id="full_name" placeholder="Erastus W. Burnham" required autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></div>
+    <div class="examples row small muted">Try <button type="button" data-ex="erastus">Erastus W. Burnham, Civil War</button><button type="button" data-ex="mary">Mary Devine, Glasgow to Connecticut</button><button type="button" data-ex="living">A living person (gate test)</button></div>
+    <div class="f4">
+      <div><label for="birth_year">Born (year)</label><input type="number" id="birth_year" placeholder="1834"></div>
+      <div><label for="death_year">Died (year)</label><input type="number" id="death_year" placeholder="1921"></div>
+      <div style="grid-column:span 2"><label for="place">Place</label><input type="text" id="place" placeholder="South Windsor, Connecticut"></div>
+    </div>
+    <div><label for="variants">Other spellings, comma separated</label><input type="text" id="variants" placeholder="Erastus Burnham, E. W. Burnham"></div>
+    <div><label for="question">What do you want to know?</label><input type="text" id="question" placeholder="What unit did he serve in, was he on a ship, where is he buried?"></div>
+    <div><label for="notes">What the family says</label><input type="text" id="notes" placeholder="He was a whaler out of New London"></div>
+    <fieldset><legend class="eyebrow">Mode</legend><div class="mode">
+      <label class="on"><input type="radio" name="mode" value="brainstorm" checked><span><b>Brainstorm</b><small>The checklist first, then new questions from every finding.</small></span></label>
+      <label><input type="radio" name="mode" value="checklist"><span><b>Checklist only</b><small>Just the circuit's baseline sources.</small></span></label></div></fieldset>
+  </form>
+</section>
+<div class="side">
+  <section class="card"><fieldset><legend class="eyebrow">How far it goes</legend>
+    <div class="f3">
+      <div style="grid-column:span 3"><label for="circuit_id">Circuit (baseline checklist)</label><select id="circuit_id"></select></div>
+      <div><label for="depth">Depth</label><input type="number" id="depth" value="2" min="1" max="4"></div>
+      <div><label for="breadth">Breadth</label><input type="number" id="breadth" value="3" min="1" max="8"></div>
+      <div><label for="max_nodes">Max nodes</label><input type="number" id="max_nodes" value="30" min="1" max="80"></div>
+      <div><label for="max_run_minutes">Max minutes</label><input type="number" id="max_run_minutes" value="20" min="1"></div>
+      <div style="grid-column:span 2"><label for="level_pause_seconds">Pause between levels (seconds)</label><input type="number" id="level_pause_seconds" value="3" min="0"></div>
+    </div>
+    <p class="tiny faint" style="margin:10px 0 0">Depth is how many follow-ups it chases down one topic. Breadth is how many new questions it asks from each finding.</p></fieldset>
+  </section>
+  <section class="card"><fieldset><legend class="eyebrow">Outreach to archives</legend>
+      <label class="choice"><input type="radio" name="outreach" value="ask_first" checked><span><b>Ask me before sending</b><small>Letters to archives, churches and clerks are drafted and held for you. Approving writes a text file. Nothing is ever sent.</small></span></label>
+      <label class="choice off"><input type="radio" name="outreach" value="automate" disabled><span><b>Automate outreach</b><small>Not enabled in the local demo. Every request still waits for you.</small></span></label>
+      <label class="choice"><input type="checkbox" id="flaky" checked><span><b>Simulate flaky archives</b><small>Some lookups fail on their first tries so you can watch Temporal retry them.</small></span></label>
+  </fieldset></section>
+  <section class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Recent runs</h3><span class="tiny faint">Times in Pacific</span></div><table id="runs"><tbody><tr><td class="muted">Loading</td></tr></tbody></table></section>
+</div>
+</div>
+</main>
+<script>
+const EX={erastus:{full_name:"Erastus W. Burnham",birth_year:1834,death_year:1921,place:"South Windsor, Connecticut",variants:"Erastus Burnham, Erastus Williams Burnham, E. W. Burnham",question:"What Civil War unit did he serve in, was he on a ship, and where is he buried?",notes:"Whaler out of New London. Civil War surgeon for four years.",circuit_id:"civil_war_veteran"},
+mary:{full_name:"Mary Devine",birth_year:1830,death_year:1911,place:"Glasgow, Scotland",variants:"Mary G. Devine, Mary Graham Devine, Mary Devine Burnham, Mary G. Burnham",question:"When did she come over from Scotland, and where did she settle?",notes:"",circuit_id:"the_crossing"},
+living:{full_name:"Jane Example",birth_year:1950,death_year:"",place:"Hartford, Connecticut",variants:"",question:"Gate test",notes:"",circuit_id:"vital_records"}};
+const $=id=>document.getElementById(id);
+const esc=s=>(s??'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fill=e=>{for(const k in e)if($(k))$(k).value=e[k]};
+fetch('/api/circuits').then(r=>r.json()).then(cs=>{$('circuit_id').innerHTML=cs.map(c=>`<option value="${c.id}">${esc(c.title)}</option>`).join('');const ex=new URLSearchParams(location.search).get('ex');if(ex&&EX[ex])fill(EX[ex])});
+document.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>fill(EX[b.dataset.ex]));
+document.querySelectorAll('.mode input').forEach(i=>i.onchange=()=>document.querySelectorAll('.mode label').forEach(l=>l.classList.toggle('on',l.querySelector('input').checked)));
+const pt=s=>s?new Date(s).toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'';
+const LABEL={COMPLETED:'completed',RUNNING:'running',FAILED:'failed',TERMINATED:'stopped',CANCELED:'cancelled',TIMED_OUT:'timed out'};
+fetch('/api/runs').then(r=>r.json()).then(rs=>{$('runs').innerHTML='<tr><th>Run</th><th>Status</th><th>Started</th></tr>'+(rs.map(r=>`<tr><td><a href="/run/${esc(r.workflow_id)}">${esc(r.workflow_id.replace('studio-',''))}</a></td><td><span class="state ${esc(r.status)}">${esc(LABEL[r.status]||r.status.toLowerCase())}</span></td><td class="small faint">${pt(r.start_time)}</td></tr>`).join('')||'<tr><td class="muted" colspan="3">No runs yet.</td></tr>')});
+$('f').onsubmit=async e=>{e.preventDefault();
+ const place=$('place').value.trim(), num=v=>v===''?null:parseInt(v), notes=$('notes').value.trim();
+ const body={person:{full_name:$('full_name').value.trim(),name_variants:$('variants').value.split(',').map(s=>s.trim()).filter(Boolean),birth_year:num($('birth_year').value),death_year:num($('death_year').value),birth_place:place||null,family_notes:notes||null},
+  question:$('question').value,circuit_id:$('circuit_id').value,mode:document.querySelector('input[name=mode]:checked').value,depth:+$('depth').value,breadth:+$('breadth').value,
+  max_nodes:+$('max_nodes').value,max_run_minutes:+$('max_run_minutes').value,level_pause_seconds:+$('level_pause_seconds').value,outreach:document.querySelector('input[name=outreach]:checked').value,simulate_flaky_archives:$('flaky').checked};
+ const r=await fetch('/api/runs',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
+ if(!r.ok){alert(await r.text());return} location.href=(await r.json()).url;};
+</script></body></html>

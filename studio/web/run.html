@@ -1,0 +1,246 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Run, Lineage Studio</title>
+<link rel="icon" href="/static/lineage-logo.svg" type="image/svg+xml">
+<link rel="preload" href="/static/fonts/Fraunces-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/static/fonts/PublicSans-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/studio.css"><script src="/static/cytoscape.min.js"></script>
+<style>
+main{max-width:none}
+.sum{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap;margin-bottom:18px}
+.sum h1{margin:4px 0 0;font-size:34px}
+.facts{display:flex;gap:0;flex-wrap:wrap;margin:0 0 18px;padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:10px 22px 10px 0;margin-right:22px;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.facts dd{margin:0;font-size:18px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.top2{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px}
+.graphcard{padding:12px}
+#cy{height:620px;border-radius:12px;background:var(--paper)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:10px 4px 2px}
+#detail{height:688px;overflow:auto}
+#detail h3{font-size:21px}
+#detail dl{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;margin:12px 0;font-size:15px}
+#detail dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+#detail dd{margin:0;color:var(--ink-2);word-break:break-word}
+.retries{color:var(--live)}
+.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.panel{max-height:460px;overflow:auto;padding-top:16px}
+.panel h3{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:20px}
+.q{padding:10px 8px;margin:0 -8px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
+.q:hover{background:var(--accent-wash)}
+.q .t{font-size:16px;line-height:1.45}.q .m{font-size:13px;color:var(--ink-3);margin-top:2px}
+.q .id{font-weight:600;color:var(--ink-3);margin-right:6px;font-variant-numeric:tabular-nums}
+.letter{white-space:pre-wrap;font-family:var(--display);font-size:16px;line-height:1.5;color:var(--ink-2);border-left:2px solid var(--rule-strong);padding:6px 0 6px 14px;margin:8px 0}
+.log{font-size:13px;white-space:pre-wrap;color:var(--ink-2);line-height:1.55;font-variant-numeric:tabular-nums}
+/* report: the Studio panel */
+.studio{margin-top:18px;padding:28px 30px}
+.studio .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.studio .head h2{font-size:30px;margin:0}
+.scards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 8px}
+.scard{display:flex;flex-direction:column;border:1px solid var(--rule-strong);border-radius:18px;padding:18px 20px;min-height:200px}
+.scard.soon{border-style:dashed;border-color:var(--rule)}
+.scard h3{font-size:21px;margin:0 0 6px}.scard.soon h3{color:var(--ink-3)}
+.scard p{font-size:15px;line-height:1.5;color:var(--ink-2);margin:0}
+.scard.soon p{color:var(--ink-3)}
+.scard .foot{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.scard .price{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.scard .gap{color:var(--frontier);font-size:15px}
+.soonchip{font-size:13px;font-weight:600;color:var(--ink-3);border:1px solid var(--rule);border-radius:999px;padding:6px 14px}
+.decide{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0 6px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.decide input{max-width:320px}
+.doc{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;margin-top:22px}
+.doc .title{font-size:30px;margin:0 0 4px}
+.prose h3{font-size:22px;margin:26px 0 8px}
+.prose p.text{font-family:var(--display);font-size:19px;line-height:1.65;max-width:66ch;color:var(--ink)}
+.prose sup{font-family:var(--body);font-size:12px;font-weight:600;color:var(--accent-ink);margin-left:1px}
+.prose sup a{text-decoration:none;color:inherit}
+.proof{font-size:15px;color:var(--ink-3);margin-top:18px;padding-top:12px;border-top:1px solid var(--line)}
+ol.sources{padding-left:22px;font-size:15px;color:var(--ink-2)}
+ol.sources li{padding:6px 0;border-bottom:1px solid var(--line)}
+ol.sources li:last-child{border-bottom:0}
+.side h3{font-size:22px;margin:0 0 6px}
+.side section{margin-bottom:28px}
+.lead{max-width:none}
+.leaditem{padding:12px 0;border-bottom:1px solid var(--line)}
+.leaditem:last-child{border-bottom:0}
+.leaditem .lt{font-size:16px;color:var(--ink);margin:2px 0}
+.how{font-size:13px;color:var(--ink-3)}
+.conflictbox{border:1px solid color-mix(in srgb,var(--warn) 40%,var(--line));border-radius:14px;padding:12px 16px;margin:8px 0}
+.dropped li{font-size:15px;color:var(--ink-2)}
+</style></head><body class="lineage">
+<header class="site-header"><div class="site-header-inner">
+<a class="brand" href="/"><img src="/static/lineage-logo.svg" alt=""><span class="brand-name">Lineage Studio</span></a>
+<span class="site-tag">Research builder, running locally on Temporal</span>
+<nav class="site-nav"><a href="/">New search</a><a id="tlink" href="#" target="_blank" rel="noopener">Open this run in Temporal UI</a></nav>
+</div></header>
+<main>
+<div class="sum"><div><div class="eyebrow" id="eyebrow">Brainstorm run</div><h1 id="who">Loading</h1></div><span class="state" id="status">starting</span></div>
+<dl class="facts" id="facts"></dl>
+<div id="banner" role="status"></div>
+<div class="top2">
+  <section class="card graphcard"><div id="cy" role="img" aria-label="Brainstorm graph: the person, the checklist and every question asked"></div>
+    <div class="legend" id="legend"></div></section>
+  <section class="card" id="detail"><div class="eyebrow">Node</div><h3>Click a node</h3><p class="muted">Each node is a question the brainstorm asked: what sparked it, where it looked, what came back, and every retry.</p></section>
+</div>
+<div class="panels">
+  <section class="card panel"><h3>Open questions <span class="count" id="nOpen">0</span></h3><div id="open"></div></section>
+  <section class="card panel"><h3>Answered, with data <span class="count" id="nAns">0</span></h3><div id="answered"></div></section>
+  <section class="card panel"><h3>Outgoing research requests <span class="count" id="nOut">0</span></h3><p class="small faint" style="margin-top:0">Ask me before sending. Approving writes a text file for you to send yourself. This app never sends email.</p><div id="outgoing"></div></section>
+  <section class="card panel"><h3>Failures and retries <span class="count" id="nFail">0</span></h3><div id="fails"></div></section>
+  <section class="card panel"><h3>Checklist</h3><div id="checklist"></div></section>
+  <section class="card panel"><h3>Run log</h3><div class="log" id="log"></div></section>
+</div>
+<section class="card studio" id="report" aria-labelledby="studio-heading"><div class="eyebrow">Studio</div><h2 id="studio-heading">Make something from this</h2><p class="muted">Written when the brainstorm stops.</p></section>
+</main>
+<script>
+const WID="__WID__";const $=id=>document.getElementById(id);
+const esc=s=>(s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const snip=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+const pt=s=>s?new Date(s).toLocaleTimeString('en-US',{timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit',second:'2-digit'})+' PT':'';
+const short=(t,n=50)=>(t||'').length>n?t.slice(0,n-1).trimEnd()+'...':(t||'');
+const words=s=>(s||'').replace(/_/g,' ');
+// Studio copy, from kin lib/content/studio.ts and components/studio-panel.tsx
+const CARDS={chapter:{title:'Book chapter',blurb:'Eight to fourteen pages in the Book of Daniel style: his life in order, the period around it, every claim footnoted.',threshold:8},
+ newsletter:{title:'Newsletter',blurb:'His story summarised to one readable issue you can send to the family, and turn into a narrated podcast afterwards.',threshold:2},
+ documentary:{title:'Documentary',blurb:'A narrated short film from the records, the photographs and the places he lived.',threshold:20}};
+const proofLine=(u,f,n)=>`${u} ${u===1?'claim':'claims'} used, ${f} footnoted, ${n} uncited ${n===1?'sentence':'sentences'}.`;
+const TIER={documented:'Documented',told:'Told',lore:'Lore',possible:'Possible',conflict:'Conflict'};
+const tier=t=>`<span class="tier ${t}">${TIER[t]||t}</span>`;
+const STATUS={pending:'queued',running:'running',answered:'answered',no_lead:'no lead',stub:'stub',error:'failed',skipped:'skipped',awaiting_approval:'awaiting your approval',waiting_next_level:'pausing between levels',blocked_living:'blocked, may be living'};
+const stateLabel=(cls,text)=>`<span class="state ${esc(cls)}">${esc(text??STATUS[cls]??words(cls))}</span>`;
+
+// graph colours come from the CSS tokens, so the stylesheet is the only place colour lives
+const css=getComputedStyle(document.body);const tok=n=>css.getPropertyValue('--'+n).trim();
+const T={paper:tok('paper'),ink:tok('ink'),ink2:tok('ink-2'),ink3:tok('ink-3'),rule:tok('rule'),ruleS:tok('rule-strong'),accent:tok('accent'),accentWash:tok('accent-wash'),
+ documented:tok('documented'),warn:tok('warn'),lore:tok('lore'),live:tok('live'),frontier:tok('frontier'),frontierB:tok('frontier-border'),told:tok('told')};
+const LEGEND=[['person',T.accent,'solid',T.accentWash],['queued',T.frontier,'solid',T.paper],['running',T.accent,'solid',T.paper],['retrying',T.warn,'solid',T.paper],['answered with data',T.documented,'solid',T.paper],['no lead',T.ink3,'solid',T.rule],['stub, not searched',T.lore,'dashed',T.paper],['failed',T.live,'solid',T.paper]];
+$('legend').innerHTML=LEGEND.map(([w,c,st,bg])=>`<span><i class="swatch" style="border-color:${c};border-style:${st};background:${bg}"></i>${w}</span>`).join('');
+
+let state=null, selected=new URLSearchParams(location.search).get('node'), known='';
+const node=(sel,o)=>({selector:sel,style:o});
+const ring=(c,w=1.5)=>({'border-color':c,'border-width':w,'background-color':c,'background-opacity':0.12});
+const cy=cytoscape({container:$('cy'),wheelSensitivity:.2,minZoom:.2,maxZoom:2.5,style:[
+ node('node',{'shape':'round-rectangle','width':'label','height':'label','padding':'10px','label':'data(label)','text-wrap':'wrap','text-max-width':'200px','font-size':'13px','font-family':'Public Sans, system-ui, sans-serif','line-height':1.35,'text-valign':'center','text-halign':'center','color':T.ink,'background-color':T.paper,'background-opacity':1,'border-width':1.5,'border-color':T.frontier}),
+ node('node.root',{'background-color':T.accentWash,'background-opacity':1,'border-color':T.accent,'border-width':2,'font-family':'Fraunces, Georgia, serif','font-size':'16px','font-weight':600,'text-max-width':'190px','padding':'14px'}),
+ node('node.checklist',{'border-color':T.ruleS,'border-width':1.5,'background-color':T.paper}),
+ node('node.pending',{'border-color':T.frontier}),
+ node('node.running',ring(T.accent,2)),
+ node('node.retrying',ring(T.warn,3)),
+ node('node.answered',ring(T.documented,1.5)),
+ node('node.no_lead',{'background-color':T.rule,'background-opacity':1,'border-color':T.ruleS,'color':T.ink3}),
+ node('node.stub',{'border-style':'dashed','border-color':T.lore,'color':T.ink2}),
+ node('node.error',ring(T.live,2)),
+ node('node.skipped',{'border-color':T.rule,'color':T.ink3}),
+ node('node.reviewer',{'border-style':'double','border-width':4}),
+ node('node:selected',{'border-color':T.ink,'border-width':3}),
+ node('edge',{'width':1.2,'line-color':T.ruleS,'target-arrow-color':T.ruleS,'target-arrow-shape':'triangle','curve-style':'taxi','taxi-direction':'rightward','taxi-turn':'40px','arrow-scale':.7})]});
+cy.on('tap','node',e=>{selected=e.target.id();renderDetail()});
+function pend(){const m={};(state?.pending||[]).forEach(p=>m[p.activity_id]=p);return m}
+function nodeLabel(q,pa){let st=STATUS[q.status]||words(q.status);if(pa&&pa.attempt>1)st=`retrying ${pa.attempt}/${pa.maximum_attempts||'unlimited'}`;else if(q.attempts>1)st+=` after ${q.attempts-1} ${q.attempts>2?'retries':'retry'}`;if(q.mode==='stub'&&q.status==='stub')st='STUB, not searched';return `${q.id}  ${short(q.text,58)}\n${st}`}
+function renderGraph(){
+ const p=state.progress;if(!p)return;const req=p.request||{};const P=req.person||{};const pa=pend();
+ const els=[{data:{id:'root',label:`${P.full_name||WID}\n${P.birth_year||'?'} to ${P.death_year||'?'}`},classes:'root'}];
+ const fs=p.findings||[];const found=fs.filter(f=>f.status==='found').length;
+ if(p.levels&&p.levels.length){els.push({data:{id:'checklist',label:`Checklist: ${words(req.circuit_id)}\n${fs.length} steps, ${found} found records`},classes:'checklist'});els.push({data:{id:'e-checklist',source:'root',target:'checklist'}})}
+ for(const q of p.questions||[]){const a=pa['node-'+q.id];let cls=q.status;if(a&&a.attempt>1)cls='retrying';if(q.template==='reviewer->look-here')cls+=' reviewer';
+  els.push({data:{id:q.id,label:nodeLabel(q,a)},classes:cls});els.push({data:{id:'e-'+q.id,source:(q.parent_id&&q.parent_id!=='root')?q.parent_id:'root',target:q.id}})}
+ const ids=els.map(e=>e.data.id).join(',');
+ if(ids!==known){cy.elements().remove();cy.add(els);cy.layout({name:'preset',positions:treePos(els),fit:true,padding:16,animate:false}).run();if(cy.zoom()>1.1){cy.zoom(1.1);cy.center()}if(cy.zoom()<0.62){cy.zoom(0.62);const bb=cy.elements().boundingBox();cy.pan({x:24-bb.x1*0.62,y:24-bb.y1*0.62})}known=ids;if(selected)cy.$id(selected).select()}
+ else{els.forEach(e=>{if(!e.data.source){const n=cy.$id(e.data.id);n.data('label',e.data.label);n.classes(e.classes)}})}
+}
+function treePos(els){ // left-to-right tidy tree: depth on x, leaves stacked on y
+ const kids={},pos={};els.filter(e=>e.data.source).forEach(e=>{(kids[e.data.source]=kids[e.data.source]||[]).push(e.data.target)});
+ let row=0;const X=280,Y=96;
+ function place(id,d){const ch=kids[id]||[];if(!ch.length){pos[id]={x:d*X,y:(row++)*Y};return pos[id].y}
+  const ys=ch.map(c=>place(c,d+1));pos[id]={x:d*X,y:(Math.min(...ys)+Math.max(...ys))/2};return pos[id].y}
+ place('root',0);return pos}
+function qById(id){return (state.progress.questions||[]).find(q=>q.id===id)}
+function cites(cs){return (cs||[]).map(c=>`<li><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a>${c.name_match?` ${stateLabel(c.name_match==='strong'?'found':'no_lead',c.name_match==='strong'?'full name match':'surname only')}`:''}${c.snippet?`<div class="snip">${snip(c.snippet)}</div>`:''}</li>`).join('')}
+function leadsFor(id){return (state.progress.report?.leads||[]).filter(l=>l.question_id===id)}
+function select(id){selected=id;renderDetail();cy.$('node').unselect();cy.$id(id).select();$('detail').scrollTop=0}
+function renderDetail(){
+ if(!selected||!state?.progress)return;const p=state.progress;const d=$('detail');
+ if(selected==='root'){const r=p.request||{};d.innerHTML=`<div class="eyebrow">Person</div><h3>${esc(r.person?.full_name)}</h3><p class="muted">${esc(r.question||'')}</p><p class="small faint">${esc(p.gate?.reason||'')}</p><dl><dt>Depth</dt><dd>${r.depth}</dd><dt>Breadth</dt><dd>${r.breadth}</dd><dt>Max nodes</dt><dd>${r.max_nodes}</dd><dt>Max run</dt><dd>${r.max_run_minutes} minutes</dd><dt>Outreach</dt><dd>Ask me before sending</dd><dt>Reused</dt><dd>${p.seeded||0} question(s) from earlier runs</dd></dl>${r.person?.family_notes?`<div class="eyebrow">What the family says</div><div class="family">${esc(r.person.family_notes)}</div>`:''}`;return}
+ if(selected==='checklist'){d.innerHTML=`<div class="eyebrow">Circuit checklist</div><h3>${esc(words(p.request?.circuit_id))}</h3><ul class="clean">`+(p.findings||[]).map(f=>`<li><div class="row" style="gap:8px">${stateLabel(f.status)}${f.mode==='stub'?stateLabel('stub','STUB'):stateLabel('live','live')}</div><div style="margin-top:4px"><b>${esc(f.step_title)}</b></div><div class="small muted">${esc(f.notes)}</div>${f.claims.length?'<ul class="clean">'+f.claims.map(c=>`<li class="small">${tier(c.tier)} ${esc(c.text)} <span class="faint tiny">${esc(c.id)}</span></li>`).join('')+'</ul>':''}${f.citations.length&&!f.claims.length?'<ul class="clean small">'+cites(f.citations.slice(0,3))+'</ul>':''}</li>`).join('')+'</ul>';return}
+ const q=qById(selected);if(!q)return;const a=pend()['node-'+q.id];const parent=q.parent_id&&q.parent_id!=='root'?qById(q.parent_id):null;
+ const retrying=a&&a.attempt>1;const ls=leadsFor(q.id);
+ d.innerHTML=`<div class="eyebrow">Question ${esc(q.id)}, level ${q.depth}</div><h3>${esc(q.text)}</h3>
+ <div class="row" style="gap:8px">${retrying?stateLabel('retrying',`retrying ${a.attempt}/${a.maximum_attempts}`):stateLabel(q.status)}${q.mode==='stub'?stateLabel('stub','STUB'):stateLabel('live','live')}${q.seeded_from?stateLabel('plain','reused from an earlier run'):''}</div>
+ ${q.mode==='stub'&&q.plan.why_stub?`<p class="small" style="margin-top:10px"><b>STUB:</b> ${esc(q.plan.why_stub)}</p>`:''}
+ <dl><dt>Why</dt><dd>${esc(q.because)}</dd>
+ <dt>Parent</dt><dd>${parent?`<a href="#" onclick="select('${esc(parent.id)}');return false">${esc(parent.id)}: ${esc(short(parent.text,70))}</a>`:'The person'}</dd>
+ <dt>Looked</dt><dd>${esc(words(q.plan.handler))} ${esc(q.plan.query||'')} ${q.plan.item_id?'in '+esc(q.plan.item_id):''}</dd>
+ <dt>Template</dt><dd>${esc(q.template)}</dd>
+ ${a&&a.last_failure?`<dt>Last failure</dt><dd class="retries">${esc(a.last_failure)}</dd>`:''}
+ ${q.failures.length?`<dt>Retries</dt><dd class="retries">${q.failures.map(esc).join('<br>')}</dd>`:''}
+ <dt>Asked</dt><dd>Level ${q.round}${q.finished_at?', finished '+pt(q.finished_at):''}</dd></dl>
+ <div class="eyebrow">Response</div><p>${esc(q.answer||'Not answered yet.')}</p>
+ ${ls.length?'<div class="eyebrow" style="margin-top:14px">Leads from this node</div>'+ls.map(l=>`<div class="leaditem">${tier('possible')}${(state.progress.report?.conflicts||[]).some(c=>c.claim_ids.includes(l.id))?' '+tier('conflict'):''}<div class="lt">${esc(l.text)}</div><div class="snip">${esc(l.quote)}</div><div class="how">${esc(l.matched_by)}</div></div>`).join(''):''}
+ ${q.citations.length?'<div class="eyebrow" style="margin-top:14px">Sources</div><ul class="clean small">'+cites(q.citations)+'</ul>':''}
+ ${q.outreach_id?`<p class="small">Drafted research request <b>${esc(q.outreach_id)}</b>, see Outgoing research requests.</p>`:''}`;
+}
+function qrow(q){return `<div class="q" tabindex="0" onclick="select('${esc(q.id)}')" onkeydown="if(event.key==='Enter')select('${esc(q.id)}')"><div class="t"><span class="id">${esc(q.id)}</span>${esc(q.text)}</div><div class="m">${esc(q.mode==='stub'&&q.status==='stub'?'STUB, not searched':STATUS[q.status]||words(q.status))}, level ${q.depth}, ${esc(words(q.plan.handler))}${q.answer?'. '+esc(short(q.answer,90)):''}</div></div>`}
+async function post(path,body){await fetch(`/api/runs/${WID}/${path}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});tick()}
+const decideOut=(id,ok)=>post('outreach',{draft_id:id,approve:ok});
+const decide=ok=>post(ok?'approve':'reject',{approve:ok,note:$('dnote').value,by:'you'});
+function lookHere(){const q=$('lookq').value.trim();if(!q)return;$('lookq').value='';post('redirect',{question:q,query:q})}
+function renderPanels(){
+ const p=state.progress;if(!p)return;const qs=p.questions||[];
+ const open=qs.filter(q=>['pending','running','no_lead','stub','error','skipped'].includes(q.status)), ans=qs.filter(q=>q.status==='answered');
+ $('open').innerHTML=open.map(qrow).join('')||'<p class="muted">None yet.</p>';$('nOpen').textContent=open.length;
+ $('answered').innerHTML=ans.map(q=>qrow(q)+(q.snippets[0]?`<div class="snip">${snip(q.snippets[0].slice(0,240))}</div>`:'')).join('')||'<p class="muted">None yet.</p>';$('nAns').textContent=ans.length;
+ const outs=p.outreach||[];$('nOut').textContent=outs.length;
+ $('outgoing').innerHTML=outs.map(o=>`<div class="q" style="cursor:default"><div class="row" style="justify-content:space-between;gap:8px"><b>${esc(o.to)}</b>${stateLabel(o.status==='approved'?'approved':o.status==='declined'?'declined':'awaiting_approval',o.status==='awaiting_approval'?'awaiting your approval':o.status==='approved'?'approved, not sent':'declined')}</div><div class="m">${esc(o.channel)}. ${esc(o.contact_hint)}</div><details><summary class="small">${esc(o.subject)}</summary><div class="letter">${esc(o.body)}</div></details>${o.status==='awaiting_approval'?`<div class="row" style="margin-top:8px"><button class="btn btn-primary btn-sm" onclick="decideOut('${esc(o.id)}',true)">Approve and export</button><button class="btn btn-secondary btn-sm" onclick="decideOut('${esc(o.id)}',false)">Decline</button></div>`:''}${o.exported_to?`<div class="m">Written to ${esc(o.exported_to.split('/').pop())}. Not sent.</div>`:''}</div>`).join('')||'<p class="muted">None yet. Stub questions that need a letter show up here.</p>';
+ const live=(state.pending||[]).filter(a=>a.attempt>1).map(a=>`<div class="q" onclick="select('${esc(a.activity_id.replace(/^node-/,''))}')"><div class="t">${stateLabel('retrying',`retrying ${a.attempt}/${a.maximum_attempts}`)} <b>${esc(a.activity_id)}</b></div><div class="m">${esc(a.last_failure)}</div></div>`);
+ const done=qs.filter(q=>q.failures&&q.failures.length).map(q=>`<div class="q" onclick="select('${esc(q.id)}')"><div class="t">${q.status==='error'?stateLabel('gaveup','gave up'):stateLabel('recovered','recovered')} <b>${esc(q.id)}</b> ${q.status==='error'?'stopped after':'succeeded on'} attempt ${q.attempts}</div><div class="m">${q.failures.map(esc).join('. ')}</div></div>`);
+ const steps=(p.findings||[]).filter(f=>f.status==='error').map(f=>`<div class="q" onclick="select('checklist')"><div class="t">${stateLabel('gaveup','gave up')} <b>${esc(f.step_title)}</b></div><div class="m">${esc(short(f.notes,160))}</div></div>`);
+ $('fails').innerHTML=live.concat(done,steps).join('')||'<p class="muted">No failures yet.</p>';$('nFail').textContent=live.length+done.length+steps.length;
+ const gaps=state.progress.report?.checklist||[];const GL={covered:'covered',leads_only:'leads only',missing:'missing'};
+ $('checklist').innerHTML=(gaps.length?'<table>'+gaps.map(g=>`<tr><td>${esc(g.label)}</td><td style="text-align:right">${stateLabel(g.state,GL[g.state])}</td></tr>`).join('')+'</table>':'')+((p.findings||[]).length?`<p class="small faint" style="margin-top:10px">${p.findings.length} steps ran: ${p.findings.filter(f=>f.mode==='live').length} live, ${p.findings.filter(f=>f.mode==='stub').length} STUB. Click the Checklist node for each one.</p>`:`<p class="muted">${p.status==='blocked_living'?'Nothing was searched.':'Running.'}</p>`);
+ $('log').textContent=(p.log||[]).slice().reverse().map(l=>{const i=l.indexOf('|');return i>0?pt(l.slice(0,i))+'  '+l.slice(i+1):l}).join('\n');
+}
+function card(c,first){const C=CARDS[c.kind];
+ if(c.state==='soon')return `<div class="scard soon"><h3>${C.title}</h3><p>${esc(C.blurb)}</p><div class="foot"><span class="price faint">from ${c.price_credits.toLocaleString('en-US')} cr</span><span class="soonchip">Coming soon</span></div></div>`;
+ if(c.state==='thin')return `<div class="scard"><h3>${C.title}</h3><p class="gap"><strong>Needs ${c.need} more sourced ${c.need===1?'fact':'facts'}.</strong> Has ${c.have} of ${C.threshold}.</p><div class="foot"><span class="small muted">More research will open this.</span></div></div>`;
+ return `<div class="scard"><h3>${C.title}</h3><p>${esc(C.blurb)}</p><div class="foot"><span class="price">${c.price_credits} cr</span><button class="btn btn-secondary btn-sm" disabled title="Writing is not part of the local research builder">Ready to write</button></div></div>`}
+function renderReport(){
+ const p=state.progress, r=p?.report;const el=$('report');
+ const waiting=p&&p.status==='awaiting_approval';
+ $('banner').innerHTML=state.worker_offline?`<div class="banner down"><b>Worker is down. Temporal is holding this run.</b> ${state.history_length} events are saved and ${(state.pending||[]).length} lookup(s) are waiting for a worker. Restart the worker and it carries on from here. The graph shows the last state the worker reported.</div>`:waiting?`<div class="banner"><b>The draft is ready for you.</b> Approve it, reject it, or tell the run where else to look first.</div>`:'';
+ if(!r){el.innerHTML='<div class="eyebrow">Studio</div><h2 id="studio-heading">Make something from this</h2><p class="muted">Written when the brainstorm stops.</p>';return}
+ const first=(r.subject?.full_name||'').split(' ')[0];
+ if(r.decision==='blocked'){el.innerHTML=`<div class="eyebrow">Studio</div><h2 id="studio-heading">Make something from this</h2><p class="lead">This person may be living, so Lineage does not write about them.</p><p class="small faint">${esc(r.gate.reason)}</p>`;return}
+ const byId={};[...r.facts,...r.told].forEach(c=>byId[c.id]=c);const order=[];r.sections.forEach(s=>s.sentences.forEach(x=>x.claim_ids.forEach(i=>{if(byId[i]&&!order.includes(i))order.push(i)})));[...r.facts,...r.told].forEach(c=>{if(!order.includes(c.id))order.push(c.id)});const all=order.map(i=>byId[i]);const n={};all.forEach((c,i)=>n[c.id]=i+1);
+ const DEC={pending:'awaiting your approval',approved:'approved',rejected:'rejected',not_required:'no approval needed'};
+ const leads=r.leads||[], conflicts=r.conflicts||[], inConflict=new Set(conflicts.flatMap(c=>c.claim_ids));
+ el.innerHTML=`<div class="head"><div><div class="eyebrow">Studio, ${esc(r.template)} template</div><h2 id="studio-heading">Make something from this</h2></div>${stateLabel(r.decision==='pending'?'awaiting_approval':r.decision,DEC[r.decision]||r.decision)}</div>
+ <p class="lead" style="margin-top:8px">${esc(r.lead)}</p>
+ <div class="scards">${r.cards.map(c=>card(c,first)).join('')}</div>
+ <p class="small faint">Stopped because: ${esc(r.stop_reason)}</p>
+ ${waiting?`<div class="decide"><label for="dnote" style="position:absolute;left:-9999px">Note</label><input type="text" id="dnote" placeholder="Note, optional"><button class="btn btn-primary" onclick="decide(true)">Approve</button><button class="btn btn-secondary" onclick="decide(false)">Reject</button><span style="flex:1"></span><label for="lookq" style="position:absolute;left:-9999px">Look over here</label><input type="text" id="lookq" placeholder="Look over here: Holyoke church records"><button class="btn btn-secondary" onclick="lookHere()">Dig here first</button></div>`:(r.decision_note?`<p class="small muted">Decision note: ${esc(r.decision_note)}</p>`:'')}
+ <div class="doc"><article class="prose"><div class="eyebrow">The draft</div><h2 class="title">${esc(r.title)}</h2>
+ ${r.sections.map(s=>`<h3>${esc(s.heading)}</h3>${s.empty_line?`<p class="muted small">${esc(s.empty_line)}</p>`:''}${s.heading==='What the family says'?s.sentences.map(x=>`<div class="family">${esc(x.text)}<sup>${x.claim_ids.map(i=>`<a href="#src-${n[i]}">${n[i]||'?'}</a>`).join(',')}</sup></div>`).join(''):`<p class="text">${s.sentences.map(x=>`${esc(x.text)}<sup>${x.claim_ids.map(i=>`<a href="#src-${n[i]}">${n[i]||'?'}</a>`).join(',')}</sup>`).join(' ')}</p>`}`).join('')}
+ <p class="proof">${esc(proofLine(r.stats.used,r.stats.footnoted,r.stats.uncited))}</p>
+ <h3>Sources</h3><ol class="sources">${all.map(c=>`<li id="src-${n[c.id]}">${tier(c.tier)} ${c.citation.url?`<a href="${esc(c.citation.url)}" target="_blank" rel="noopener">${esc(c.citation.title)}</a>`:esc(c.citation.title)}<div class="tiny faint">${esc(c.text.replace(/\.$/,''))}. ${esc(c.origin)}${/^fixture:/.test(c.origin)?'. STUB source: a curated kin eval fixture, not a live lookup':''}</div></li>`).join('')}</ol>
+ ${(r.dropped||[]).length?`<h3>Left out by the validator</h3><ul class="clean dropped">${r.dropped.map(x=>`<li>${esc(x.text)} <span class="faint">${esc(x.reason)}</span></li>`).join('')}</ul>`:''}
+ </article>
+ <aside class="side">
+ ${conflicts.length?`<section><h3>Conflicts</h3><p class="small faint">Two sources disagree. Both stay, and nothing here chooses between them.</p>${conflicts.map(c=>`<div class="conflictbox">${tier('conflict')}<div class="lt" style="margin-top:4px">${esc(c.label)}.</div><div class="small muted">${esc(c.note)}</div><div class="tiny faint">${c.claim_ids.map(esc).join(', ')}</div></div>`).join('')}</section>`:''}
+ <section><h3>Possible</h3><p class="small faint">Name matches in search and OCR text. Leads to read, not facts in the draft. A lead never decides a date.</p>
+ ${leads.map(l=>`<div class="leaditem">${tier('possible')}${inConflict.has(l.id)?' '+tier('conflict'):''}<div class="lt">${esc(l.text)}</div><div class="snip">${esc(l.quote)}</div><div class="how">${esc(l.matched_by)}. <a href="${esc(l.citation.url)}" target="_blank" rel="noopener">${esc(short(l.citation.title,80))}</a>, found by <a href="#" onclick="select('${esc(l.question_id)}');document.getElementById('detail').scrollIntoView({block:'nearest'});return false">${esc(l.question_id)}</a>.</div></div>`).join('')||'<p class="muted">None.</p>'}</section>
+ <section><h3>Live and STUB sources</h3><p class="small muted">${r.live_steps.length} live lookups, ${r.stub_steps.length} STUB steps. STUB facts come from kin eval fixtures, not a live lookup.</p><details><summary class="small">STUB steps</summary><ul class="clean small">${r.stub_steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details><details><summary class="small">Live lookups</summary><ul class="clean small">${r.live_steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details></section>
+ </aside></div>`;
+}
+async function tick(){
+ try{const r=await fetch('/api/runs/'+WID);if(!r.ok)throw new Error(await r.text());state=await r.json()}catch(e){$('status').textContent='unreachable';return}
+ const p=state.progress||{};const req=p.request||{};const qs=p.questions||[];
+ $('who').textContent=(req.person?.full_name||WID)+(req.person?`, ${req.person.birth_year||'?'} to ${req.person.death_year||'?'}`:'');
+ $('eyebrow').textContent=`${req.mode==='checklist'?'Checklist run':'Brainstorm run'}, ${words(req.circuit_id)}, started ${pt(p.started_at)}`;
+ $('status').outerHTML=state.worker_offline?`<span class="state retrying" id="status">held by Temporal, worker down</span>`:`<span class="state ${esc(p.status)}" id="status">${esc(STATUS[p.status]||words(p.status))}</span>`;$('tlink').href=state.temporal_url;
+ const c=s=>qs.filter(q=>q.status===s).length;const retr=(state.pending||[]).filter(a=>a.attempt>1).length;
+ $('facts').innerHTML=[['Nodes',`${qs.length} of ${req.max_nodes||'?'}`],['Level',p.round||0],['Answered',c('answered')],['No lead',c('no_lead')],['STUB',c('stub')],['Running',c('running')],['Retrying now',retr],['History events',state.history_length]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+ renderGraph();renderPanels();renderDetail();renderReport();
+}
+let busy=false;async function loop(){if(busy)return;busy=true;try{await tick()}finally{busy=false}}
+document.fonts.ready.then(()=>{loop();if(!new URLSearchParams(location.search).get('snap'))setInterval(()=>{const a=document.activeElement;if(!a||!['dnote','lookq'].includes(a.id))loop()},1500)});
+</script></body></html>

@@ -1,0 +1,63 @@
+\section{Solution: circuits, durable execution and the system}
+\label{sec:solution}
+
+\subsection{Circuits: a floor, not a ceiling}
+A \emph{circuit} is a named baseline checklist for a heritage or kin group: Civil War veteran, the crossing (immigration), and a vital-records life story in the reference code, with more in the production system. Each circuit lists topics (unit and service dates, burial, pension file, census households, parents) and, for each topic, the steps that can fill it, in order. A step is \emph{live}, a keyless public client, or a \emph{stub}, a source that needs a login, a key, a letter or a visit, with the reason written next to it. ``Did you check the synagogues?''\ becomes a line item that is checked or not. After level 0 each topic is \emph{covered} (a documented claim), \emph{leads only} (candidate citations) or \emph{missing}; missing topics become grounded ``still nothing on $X$'' questions. Circuits make thoroughness repeatable: relative 66 gets the same floor as relative 12, and the coverage table says so.
+
+\subsection{Durable execution on Temporal}
+The loop runs as a Temporal workflow \citep{temporaldocs,temporalpythonsdk}. Workflow code is deterministic: it decides, and every side effect is an \emph{activity} (a catalogue search, a full-text search, a search inside a book, writing to the question store, composing the report). Temporal records each activity's result in the workflow's \emph{event history}; if the worker process dies, a new worker replays the history to rebuild state and continues from the same node without repeating finished lookups. This is the same idea as sagas for long-lived transactions \citep{garciamolina1987sagas} and replay-based durable functions \citep{burckhardt2021durable}. \Cref{fig:loop} shows the loop as it runs. The pieces CR uses:
+\emph{Retry policies}: live lookups retry with exponential backoff (2\,s initial, doubling, 30\,s maximum, 8 attempts); a 4xx response, such as Internet Archive refusing inside-book search on a lending-library book (HTTP 403), is recorded as ``source refused'' and not retried. \emph{Durable timers} separate levels, from seconds to weeks. \emph{Signals} carry \texttt{approve}, \texttt{reject}, \texttt{redirect} (``dig here first''), \texttt{outreach\_decision} and \texttt{archive\_reply}, an archive's answer, verbatim. A \emph{query}, \texttt{progress}, returns the typed graph the interface draws. The checklist runs as a \emph{child workflow} with its own history. The \emph{event history} is the audit trail: every question, retry, timer and human decision, replayed against current code by a test in the repository.
+
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{\begin{tikzpicture}[font=\footnotesize, node distance=4mm and 6mm,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt, minimum height=8mm},
+  grp/.style={draw, dashed, rounded corners=3pt, inner sep=5pt}, ar/.style={-{Latex[length=2mm]}}]
+\node[box] (ui) {Browser\\live graph, panels,\\report, approve};
+\node[box, right=10mm of ui] (api) {FastAPI\\web app};
+\node[box, right=10mm of api] (t) {Temporal server\\event history};
+\node[box, below=6mm of t] (tui) {Temporal UI};
+\node[box, right=10mm of t] (w) {Worker\\workflows +\\activities};
+\node[box, below=6mm of w] (db) {SQLite\\question memory $M$};
+\node[box, right=10mm of w] (src) {Public, keyless:\\Internet Archive,\\Chronicling America,\\Wikidata, catalogue};
+\node[box, below=6mm of src] (out) {Outbox\\(not sent)};
+\draw[ar] (ui) -- node[above]{poll} (api);
+\draw[ar] (api) -- node[above, align=center]{start, query,\\signals} (t);
+\draw[ar, <->] (t) -- node[above]{tasks} (w);
+\draw (t) -- (tui);
+\draw[ar] (w) -- (db); \draw[ar] (w) -- (out); \draw[ar] (w) -- (src);
+\end{tikzpicture}}
+\caption{System architecture. The web app never runs research itself: it starts workflows, reads the \texttt{progress} query and sends signals. Workers poll Temporal for tasks, call public keyless sources, and write the question memory and approved letters (never sent).}
+\label{fig:arch}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\resizebox{\columnwidth}{!}{\begin{tikzpicture}[font=\footnotesize, node distance=5mm and 9mm,
+  st/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, minimum width=24mm, minimum height=8mm},
+  ar/.style={-{Latex[length=2mm]}}, hm/.style={draw, dashed, rounded corners=2pt, align=center, inner sep=3pt}]
+\node[st] (find) {Findings $R$};
+\node[st, right=of find] (gen) {Grounded question\\generation $g$};
+\node[st, right=of gen] (dd) {Dedupe against\\memory $M$};
+\node[st, below=of dd] (sel) {Select top $b$\\(+ stubs, floor)};
+\node[st, left=of sel] (inv) {Investigate\\durable, retried};
+\node[st, left=of inv] (per) {Persist every\\question};
+\node[st, below=of inv] (sleep) {Durable timer $\tau$};
+\draw[ar] (find) -- (gen); \draw[ar] (gen) -- (dd); \draw[ar] (dd) -- (sel); \draw[ar] (sel) -- (inv);
+\draw[ar] (inv) -- (per); \draw[ar] (per) -- (find);
+\draw[ar] (inv) -- (sleep); \draw[ar] (sleep.west) -| node[near start, below]{next level} (per.south);
+\node[hm, right=10mm of sel] (h) {Human signals:\\approve, reject,\\dig here first,\\archive reply};
+\draw[ar, dashed] (h) -- (sel);
+\end{tikzpicture}}
+\caption{The research loop. Every finding sparks grounded questions; duplicates of anything asked before are dropped; the best $b$ are investigated as durable activities; every question is persisted; a durable timer separates levels. People approve, reject or redirect by signal at any time.}
+\label{fig:loop}
+\end{figure}
+
+\subsection{The Studio Builder system}
+The reference system (\cref{fig:arch}) has typed schemas for every value that crosses Temporal (Pydantic models with Temporal's Pydantic data converter, so the Temporal UI shows real field names), a live graph user interface, and panels for open questions, answered questions, outgoing research requests, failures and retries, checklist coverage and the run log.
+
+\label{sec:gate}\paragraph{Living-person gate.} Before any lookup, deterministic workflow code applies the rule of the production system's gate: research runs only if a death year is on record (and its precision is not ``after''), or the birth year is at least 110 years ago. An unknown date means presumed living, and that default is never flipped.
+
+\paragraph{Outreach is ask first.} A stub question that needs a human (a pension file, a town clerk, a museum collection) becomes a drafted letter that points to where the holder lists its real address and is signed ``[Your name]''. It waits for an \texttt{outreach\_decision} signal. Approving writes a text file; there is no mail transport in the code, and a test checks that.
+
+\paragraph{Evidence discipline.} Claims have tiers: \emph{documented} (a record), \emph{told} (the family says), \emph{lore}, \emph{possible} (a lead: an OCR or search-snippet match, shown with its quote) and \emph{inferred} (reasoning only, never published). The report is written only from documented and told claims; every sentence carries claim ids; a validator drops a sentence that cites a lead, states an interior state, makes a causal link no record makes, tells a family story outside ``Your family remembers that'', or uses a number no cited record holds. Disagreements are named as conflicts and never resolved, and leads from the same passage join the conflict (\cref{sec:wrongparents}).

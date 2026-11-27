@@ -1,9 +1,37 @@
 .venv/
 __pycache__/
 *.pyc
-data/
+.pytest_cache/
+# runtime data (the public benchmark data under bench/data/public is tracked)
+/data/
+studio/data/
 logs/
+*.db
+*.db-journal
+outbox/
+**/outbox/
+.env
+.env.*
+!.env.example
+# private: living people, raw dossiers, raw run logs
+eval/private/
+bench/data/private/
+bench/corpus/
+benchmark/runs/
+# results: only published, gated sets
 results/*
 !results/smoke-2026-11-26.jsonl
 !results/smoke-2026-11-26.scores.jsonl
-.env
+!results/v0/
+# LaTeX build files
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/whitepaper/*.aux
+paper/whitepaper/*.log
+paper/whitepaper/*.out

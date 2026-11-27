@@ -1,0 +1,74 @@
+[
+ {
+  "subject_id": "family-01",
+  "group": "family",
+  "split": "dev",
+  "circuit": "vital_records",
+  "gate": {
+   "allowed": true,
+   "basis": "death on record"
+  },
+  "records_by_tier": {
+   "T3": 7,
+   "T1": 121,
+   "T2": 3,
+   "T0": 5
+  },
+  "records_with_url": 85,
+  "withheld": "Family dossier subject: name, dates, places, record titles and URLs are not released (bench/DATASHEET.md)."
+ },
+ {
+  "subject_id": "family-02",
+  "group": "family",
+  "split": "dev",
+  "circuit": "vital_records",
+  "gate": {
+   "allowed": true,
+   "basis": "death on record"
+  },
+  "records_by_tier": {
+   "T1": 96,
+   "T0": 26,
+   "T2": 8,
+   "T3": 15
+  },
+  "records_with_url": 55,
+  "withheld": "Family dossier subject: name, dates, places, record titles and URLs are not released (bench/DATASHEET.md)."
+ },
+ {
+  "subject_id": "family-03",
+  "group": "family",
+  "split": "dev",
+  "circuit": "vital_records",
+  "gate": {
+   "allowed": true,
+   "basis": "death on record"
+  },
+  "records_by_tier": {
+   "T1": 76,
+   "T2": 5,
+   "T0": 74,
+   "T3": 3
+  },
+  "records_with_url": 110,
+  "withheld": "Family dossier subject: name, dates, places, record titles and URLs are not released (bench/DATASHEET.md)."
+ },
+ {
+  "subject_id": "family-04",
+  "group": "family",
+  "split": "dev",
+  "circuit": "vital_records",
+  "gate": {
+   "allowed": true,
+   "basis": "death on record"
+  },
+  "records_by_tier": {
+   "T1": 74,
+   "T0": 3,
+   "T2": 1,
+   "T3": 6
+  },
+  "records_with_url": 60,
+  "withheld": "Family dossier subject: name, dates, places, record titles and URLs are not released (bench/DATASHEET.md)."
+ }
+]

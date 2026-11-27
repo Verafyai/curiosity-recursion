@@ -1,0 +1,39 @@
+\section{\bench}
+\label{sec:bench}
+
+\subsection{Subjects, records and tiers}
+Version 0 is built by a script (\texttt{bench/convert\_kin.py}) from two evaluation sets of the production system. The first holds 4 family dossier subjects built from the author's research (born 1834 to 1921, died 1921 to 2006) with 523 expected records. The second holds 35 public historical figures who died before 1990, 7 each in five groups (Jewish, academic, immigrant, military, control), researched by separate agents from Wikipedia, Wikidata and the archives themselves, not by the code builder, with 148 records. A further 15 public figures are in a holdout file that we have sealed unread; its hash is in the preregistration and it is scored once, at the end. Every subject passed the living-person gate, and the build log records each decision. \Cref{tab:data} gives the counts. Tiers come from a host rule and are marked unconfirmed until a person checks each record. Version 1 adds the author's remaining dossiers and 100 to 200 public figures chosen by a fixed hash, by people who do not tune the system. The remaining family dossiers are used in a separate corpus-replication benchmark (\cref{sec:corpus}); record tiers in v0 are as assigned by the conversion script and were not re-checked by hand.
+
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{@{}lr@{\qquad}lr@{\qquad}lr@{}}
+\toprule
+Subjects & 39 & Records (hidden) & 671 & Split dev / test & 27 / 12 \\
+Family dossiers & 4 & T0 online indexed & 156 & Born before 1850 & 9 \\
+Public figures & 35 & T1 full text only & 467 & Born 1850 to 1899 & 18 \\
+Sealed holdout (unread) & 15 & T2 gated & 17 & Born 1900 to 1949 & 12 \\
+Removed by living gate & 0 & T3 offline only & 31 & Private items (counts only) & 32 \\
+\bottomrule
+\end{tabular}
+\caption{\bench v0 (from \texttt{bench/data/stats.json}). Tiers are by host rule and not yet confirmed by a person. Family dossiers include some period-context sources that a reviewer will remove from the denominator.}
+\label{tab:data}
+\end{table*}
+
+\paragraph{Hidden-record protocol.} The subject card holds only seed facts: name, years and places. Every record is hidden and scored; the production system's Wikipedia and Wikidata ids are withheld from the card because they would hand over ground truth. A subject-level test split of 30\%, chosen by a fixed hash, is never looked at while rules, templates, prompts or circuits change. Every agent runs with the evaluation fixtures switched off, since they hold ground truth.
+
+\subsection{Agents at equal budget}
+All agents get the same sources, tools, rate limits and budgets. The budget $B$ counts tool calls (checklist steps plus investigations), with tokens, dollars and wall-clock time also logged; $B\in\{25,50,100,200\}$. \textbf{B0} is a single-pass model agent: one search-and-answer pass. \textbf{B1} is ReAct \citep{yao2023react} with the same tools, run until it stops or spends $B$. \textbf{B2} is the human-nudged reference: the author's real transcripts, scored for records reached and nudges per verified record; it is not run at equal budget. \textbf{B3} is checklist-only circuits (level 0). \textbf{B4} is the same CR code in a plain asyncio loop with in-process retries and no persistence. \textbf{B5} is the full system. An optional \textbf{B6} is a commercial deep-research agent \citep{openai2025deepresearch}, only where its terms allow, with the date and cost reported. Configurations that use a model or faults run with 3 seeds.
+
+\subsection{Metrics}
+\emph{Hidden-record recall@$B$} is the number of found and verified hidden records over the number of hidden records, overall and by tier (T2 and T3 count identification). We report the \emph{recall-versus-budget curve} and its area. \emph{Claim precision} is verified documented claims over documented claims asserted; \emph{lead precision} is reported separately, since leads may be wrong but must be labelled. The \emph{wrong-person rate} counts claims or records attributed to the subject that belong to someone else, and the \emph{hallucination rate} counts records or citations that do not exist or do not contain the claimed text (target 0 for documented claims). The \emph{novel-source discovery rate} counts distinct hosts or archives holding hidden records that the agent found and that are not in the circuit checklist or seed catalogue. \emph{Lead-chain depth to hit} is the depth of the node that first found each record (checklist hits are depth 0). We also report time to first hit, cost per verified record, completion under faults, the \emph{duplicate-work ratio} (activities re-executed after a crash over activities completed), question diversity and the grounded share (100\% required for CR), human interventions per run, and \emph{nudge coverage}: the share of the human's coded nudges (\cref{tab:nudge}) whose intent the agent generated on its own.
+
+\subsection{Faults, adjudication and statistics}
+\paragraph{Fault injection (H2).} Worker kills by SIGKILL at exponential intervals, with a restart after a delay; flaky archives that fail the first $k$ attempts of a lookup with probability $p\in\{0,0.1,0.3,0.5\}$, plus the real permanent refusals; multi-day level pauses and outreach waits of 3 to 21 days run on Temporal's time-skipping test server; and simulated archives that answer a drafted request by signal after a delay, with a record, with ``no record'', or never. Each run records whether it completed, its stop reason, history size, repeated activities and final recall.
+
+\paragraph{Adjudication.} Two independent raters, at least one an experienced genealogist who did not build the system, label every item blind to the agent: correct and same person; correct record, wrong person; real source that does not support the claim; source does not exist; or cannot determine. We require Cohen's kappa \citep{cohen1960kappa} of at least 0.7 before scoring; a third rater resolves disagreements. Model judges may be a secondary rater with their agreement reported, never the only one. Automatic URL and identifier matches are candidates until adjudicated.
+
+\paragraph{Statistics.} Per-subject paired comparisons: Wilcoxon signed-rank for recall and cost, exact McNemar for completion, bootstrap 95\% confidence intervals (10{,}000 resamples) for every headline number, Holm correction across comparisons, and effect sizes. Every table caption states the number of subjects and seeds. The hypotheses, budgets, margins and tests are preregistered (\texttt{bench/PREREGISTRATION.md}).
+
+\paragraph{Hypotheses (preregistered).} \textbf{H1}: at equal $B$, B5 has higher recall@$B$ than B0, B1 and B3; falsified if B5 is not better than B3 at $B\in\{50,100,200\}$; H1b, the gain is largest in T1 and T3 and smallest in T0. \textbf{H2}: under faults, B5 completes more runs and repeats less work than B4; falsified if completion does not differ at $p=0.3$ with kills. \textbf{H3}: with memory on, a repeat or similar-subject run reaches the first run's recall with fewer tool calls; falsified if cost does not fall. \textbf{H4}: B5's documented-claim precision is not lower than B0's by more than 2 points, and its fabricated-record rate is 0. \textbf{H5}: B5's nudge coverage is above B3's.
+
+\paragraph{Ablations.} Breadth $b\in\{1,3,5,8\}$; depth $d_{\max}\in\{1,2,3,4\}$; node budget $N\in\{10,30,50,80\}$; memory on or off, and its scope (same subject, similar subjects); generator rule-based, grounded model, or hybrid; circuits on or off; ``Are you sure?'' nodes on or off (effect on wrong-person rate); novelty scoring and dedupe on or off; Temporal versus the plain loop (H2). Breadth, depth, budgets, memory, generator, circuits, verification nodes and dedupe are fields of the run request in the reference code. Novelty scoring has no separate weight in the rule generator yet, and memory shared across similar subjects is not implemented yet; both ablations wait on that work.

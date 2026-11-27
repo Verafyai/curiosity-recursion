@@ -1,0 +1,24 @@
+\section{Analysis: what the human supervisor was doing}
+\label{sec:analysis}
+
+Read back, the nudges are not random. The supervisor was running a loop with four parts: \emph{memory} (what has been asked, what is pending, which archive has not replied), \emph{judgement about what is missing} (there is a unit, so where are the regimental books?), \emph{scepticism} (is this the same man?), and \emph{patience} (wait for the letter, then follow up). A chat window loses the memory when the context fills, cannot wait, leaves no record of what it checked, and has no notion of ``asked before''. A plain script has the memory only until it crashes. \Cref{tab:fmm} maps each failure mode to the mechanism that addresses it and the metric that tests it.
+
+\begin{table*}[t]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Failure mode & Mechanism & Metric \\
+\midrule
+F1 no follow-up on small archives & Outreach drafts as workflow state, durable timers, reply signals & Follow-up completion; T3 identification recall \\
+F2 no ingest or archive & Every finding persisted per level; citations with item ids and page & Records persisted / found; page-located citations \\
+F3 not curious on new leads & Recursive expansion conditioned on each node's finding & Lead-chain depth to hit; recall at depth $\ge 2$ \\
+F4 no brainstorm from record & Grounded generator over the evidence state $R$ & Share of hits found by question nodes vs.\ checklist \\
+F5 needs reminders & Loop runs to a stopping rule, not to a reply & Nudge coverage; human interventions per run \\
+F6 no new sources & ``Where else?'' nodes; tier bonus & Novel-source discovery rate \\
+F7 black box & Question graph, event history, checklist coverage & Coverage report completeness; replay success \\
+F8 lost state, cannot wait & Temporal workflow & Completion under faults; duplicate-work ratio \\
+\bottomrule
+\end{tabularx}
+\caption{Failure modes, the mechanism in the system for each, and the metric in \bench that tests it.}
+\label{tab:fmm}
+\end{table*}

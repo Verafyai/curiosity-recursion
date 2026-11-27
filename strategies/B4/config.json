@@ -1,0 +1,16 @@
+{
+  "agent": "B4",
+  "kind": "cr-asyncio",
+  "note": "same loop as B5 in a plain asyncio process with no durable state (bench/baselines/cr_plain_loop.py); H2 only",
+  "depth": 3,
+  "breadth": 3,
+  "max_nodes": 80,
+  "max_run_minutes": 180,
+  "generator": "rules",
+  "use_memory": true,
+  "use_circuits": true,
+  "verify_nodes": true,
+  "dedupe": true,
+  "budget": "max_tool_calls = B (benchmark budget)",
+  "exclusion_filter": "cr/sources/exclusion.py (on for every strategy)"
+}

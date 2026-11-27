@@ -153,3 +153,60 @@ async def chronam(q: str, years: tuple[int, int] | None, rows: int = 6) -> list[
             "text": (desc[0] if isinstance(desc, list) and desc else str(desc))[:4000],
         })
     return out
+
+
+# ---- Optional raw tool log (corpus-replication eval) ------------------------
+# When CR_TOOL_LOG is set, every public lookup appends {fn, args, result} to that JSONL file, so an
+# evaluator can see exactly what text each agent was shown. Off by default; no effect on results.
+def _cap(x, depth: int = 0):
+    """Bounded copy for the tool log: at most 400 items per list and 6,000 characters per string, so
+    every line stays valid JSON (an earlier version cut the serialized line and lost whole results)."""
+    if isinstance(x, str):
+        return x[:6000]
+    if isinstance(x, list):
+        return [_cap(v, depth + 1) for v in x[:400]]
+    if isinstance(x, dict):
+        return {k: _cap(v, depth + 1) for k, v in x.items()} if depth < 6 else str(x)[:2000]
+    return x
+
+
+def _install_tool_log() -> None:
+    import functools
+    import json as _json
+    import os as _os
+    import time as _time
+    from cr.sources import exclusion as _ex
+    path = _os.environ.get("CR_TOOL_LOG")
+    g = globals()
+    for _name in ("wikidata_search", "wikidata_entities", "ia_title_search", "ia_fulltext", "ia_inside", "chronam"):
+        _fn = g.get(_name)
+        if _fn is None:
+            continue
+
+        def _wrap(fn=_fn, name=_name):
+            @functools.wraps(fn)
+            async def inner(*a, **k):
+                err, res = None, None
+                try:
+                    if _ex.check_query(name, a, k):
+                        res = {} if name == "wikidata_entities" else []
+                    else:
+                        res = _ex.filter_result(name, a, await fn(*a, **k))
+                    return res
+                except Exception as e:  # noqa: BLE001
+                    err = f"{type(e).__name__}: {e}"[:300]
+                    raise
+                finally:
+                    if path:
+                        try:
+                            with open(path, "a") as fh:
+                                fh.write(_json.dumps({"t": _time.time(), "pid": _os.getpid(), "fn": name, "args": [str(x)[:300] for x in a],
+                                                      "kwargs": {kk: str(v)[:300] for kk, v in k.items()}, "error": err,
+                                                      "result": _cap(res)}, default=str) + "\n")
+                        except Exception:  # noqa: BLE001
+                            pass
+            return inner
+        g[_name] = _wrap()
+
+
+_install_tool_log()

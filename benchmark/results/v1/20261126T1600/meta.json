@@ -1,0 +1,16 @@
+{
+ "commit": "0633ba7 ; B5-llm and RPC reruns at 282eb99",
+ "scorer": "v1.1",
+ "runs_per_cell": 3,
+ "budget": 100,
+ "conditions": [
+  "B0",
+  "B1",
+  "B3",
+  "B5",
+  "B5-fix",
+  "B5-llm",
+  "B5-max"
+ ],
+ "run_date": "2026-11-26"
+}

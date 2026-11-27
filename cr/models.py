@@ -59,6 +59,10 @@ class Person(BaseModel):
     death_year: Optional[int] = None
     death_year_precision: YearPrecision = "exact"
     death_place: Optional[str] = None
+    death_on_record: bool = Field(
+        default=False,
+        description="Gate attestation: a death is on record but its date is withheld from the agent (corpus eval).",
+    )
     family_notes: Optional[str] = Field(
         default=None,
         description="What the family says. Becomes 'told' tier, never 'documented'.",
@@ -84,7 +88,7 @@ class ResearchRequest(BaseModel):
     mode: Literal["brainstorm", "checklist"] = "brainstorm"
     depth: int = Field(default=2, ge=1, le=4, description="Follow-up levels under each first question")
     breadth: int = Field(default=3, ge=1, le=8, description="Brainstorm questions per node")
-    max_nodes: int = Field(default=30, ge=1, le=80, description="Total question nodes in the graph")
+    max_nodes: int = Field(default=30, ge=1, le=400, description="Total question nodes in the graph")
     max_run_minutes: int = Field(default=20, ge=1, le=60 * 24 * 30, description="Stop brainstorming after this long")
     level_pause_seconds: int = Field(default=3, ge=0, description="Durable timer between graph levels")
     outreach: Literal["ask_first", "automate"] = Field(
@@ -95,7 +99,7 @@ class ResearchRequest(BaseModel):
     require_approval: bool = True
     approval_timeout_hours: int = 72
     # ---- Curiosity Recursion switches (defaults = the full system; the benchmark ablates them)
-    generator: Literal["rules", "llm", "hybrid"] = Field(default="rules", description="Question generator g")
+    generator: Literal["rules", "llm", "hybrid", "rules2"] = Field(default="rules", description="Question generator g (rules2: post hoc fixed rules, see cr/generators/rules.py)")
     use_memory: bool = Field(default=True, description="Re-ask and dedupe against questions earlier runs asked (memory M)")
     use_circuits: bool = Field(default=True, description="Run the circuit checklist as level 0")
     verify_nodes: bool = Field(default=True, description="Spawn 'Are you sure?' verification questions")

@@ -1,0 +1,55 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Main comparison (H1, H4)}
+\Cref{tab:main} reports $B=100$ on \RESULT{n-subjects-test} test subjects.
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Agent at $B=100$ & Recall@100 [95\% CI] & T1 recall & T3 identification & Claim precision & Wrong person \\
+\midrule
+B0 single pass & \RESULT{H1-recall-B0-B100} & \RESULT{H1b-T1-B0} & \RESULT{H1b-T3-B0} & \RESULT{H4-prec-B0} & \RESULT{wp-B0} \\
+B1 ReAct & \RESULT{H1-recall-B1-B100} & \RESULT{H1b-T1-B1} & \RESULT{H1b-T3-B1} & \RESULT{H4-prec-B1} & \RESULT{wp-B1} \\
+B3 checklist only & \RESULT{H1-recall-B3-B100} & \RESULT{H1b-T1-B3} & \RESULT{H1b-T3-B3} & \RESULT{H4-prec-B3} & \RESULT{wp-B3} \\
+B5 full system & \RESULT{H1-recall-B5-B100} & \RESULT{H1b-T1-B5} & \RESULT{H1b-T3-B5} & \RESULT{H4-prec-B5} & \RESULT{wp-B5} \\
+\bottomrule
+\end{tabular}
+\caption{Main results at $B=100$ on the \bench test split, 3 seeds where a model is used; the subject count is in the text. Wilcoxon with Holm correction, bootstrap CIs.}
+\label{tab:main}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\newcommand{\cell}[4]{\begin{minipage}[t]{0.24\textwidth}\centering\resizebox{\linewidth}{!}{\RESULTFIG{#1}{#2}}\captionof{figure}{#3}\label{#4}\end{minipage}}
+\cell{fig5-recall-budget}{Recall@$B$, B0 to B5, $B\in\{25,50,100\}$, 95\% CI bands.}{Recall versus budget.}{fig:budget}\hfill
+\cell{fig6-recall-tier}{Recall by tier T0 to T3 per agent, $B=100$.}{Recall by darkness tier.}{fig:tier}\hfill
+\cell{fig7-completion-faults}{Completion vs.\ failure rate $p$, with and without kills, B5 vs.\ B4.}{Completion under faults.}{fig:faults}\hfill
+\cell{fig8-depth-to-hit}{Depth of the node that first found each hidden record (B5).}{Lead-chain depth to hit.}{fig:depth}
+\end{figure*}
+
+\subsection{Durability (H2), memory (H3) and nudging (H5)}
+
+Under kills and $p=0.3$, B5 completed \RESULT{H2-complete-B5} of runs and B4 \RESULT{H2-complete-B4} (McNemar $p=$\,\RESULT{H2-mcnemar-p}); the duplicate-work ratio was \RESULT{H2-dup-B5} for B5 and \RESULT{H2-dup-B4} for B4. With memory on, cost to reach the first run's recall fell from \RESULT{H3-cost-off} to \RESULT{H3-cost-on} tool calls. Nudge coverage was \RESULT{H5-coverage-B5} for B5 and \RESULT{H5-coverage-B3} for B3 (coder kappa \RESULT{H5-kappa}). \Cref{tab:nudge,tab:cost,tab:ablate} are in the appendix.
+
+\subsection{Pilot: what exists today}
+\label{sec:pilot}
+These are from local runs on 26 November 2026 on the Temporal dev server, computed by \texttt{eval/pilot\_stats.py} from the reference system's store and from its durability log. They are a pilot on 2 subjects, not a benchmark.
+\begin{itemize}
+\item \textbf{Runs.} 9 runs: 2 blocked by the living-person gate before any lookup (a test person born 1950), 6 approved through the API, 1 left awaiting approval. 7 runs built graphs: 5 for Erastus W.\ Burnham on the Civil War circuit and 2 for Mary Devine (1830 to 1911) on the crossing circuit, 132 question nodes in all (14, 31, 20, 16, 25, 12 and 14).
+\item \textbf{Memory.} Every run after the first for a subject re-asked the earlier runs' top-level questions first (3 per run, ids \textit{r1} to \textit{r3}) and deduplicated new ideas against them.
+\item \textbf{Outreach.} 6 drafted requests (the National Archives; the Connecticut State Library, State Archives; and four to a town or county clerk in Glasgow). 2 were approved and written to a local folder; none was sent.
+\item \textbf{Durability.} The worker was killed with SIGKILL 5 times during runs. While it was down, Temporal held the runs with 74, 128, 87, 194 and 158 history events and lookups pending. After each restart the run continued from the same nodes. In the two histories checked (303 and 209 events), no activity was scheduled again after it had completed; in-flight lookups were retried after their 90\,s start-to-close timeout. Simulated flaky archives produced visible ``attempt 1 failed (simulated 503), retried by Temporal'' entries, up to 6 attempts on one node.
+\item \textbf{A careful single pass misses most records.} The production system's single-pass search, measured on 2 November 2026 on two golden cases, had recall of 41.7\% (10 of 24) and 30.4\% (7 of 23), with precision 100\% and no wrong-person records. That is a different system and subject set, so it motivates the problem and is not a \bench baseline.
+\end{itemize}
+
+\subsection{Case studies}
+\label{sec:cases}
+\paragraph{Erastus W.\ Burnham, Civil War circuit.} The 12th Connecticut chain is in \cref{sec:worked}. Other live leads: ``Erastus Williams Burnham'' in four full-text book hits, and a book giving ``born April 28, 1834'', which matches the fixture. Fixtures list soldier entries for both the 1st Connecticut Heavy Artillery and the 12th Connecticut Infantry, an identity question left open.
+
+\label{sec:wrongparents}
+\paragraph{Error analysis: two wrong-parents leads.} In an early run the generator asked ``Who were his parents, Amos and Martha (Billings) Burnham?''\ from a line that actually read ``Lois E.\ Burnham, daughter of Amos and Martha (Billings)'', a different person. The fix required the subject's own given name just before ``son of''. A later run then produced ``Phineas and Abigail (Huntley)'' from a line that does name ``(VI) Erastus W.\ Burnham, son of Phineas and Abigail (Huntley) Burnham''. Its follow-up search for ``Phineas Burnham'' returned full-string matches about other people (a comic book, a 1958 periodical, an alumni magazine). The fix was not enough. When the evidence layer was added, it extracted every lead from the same passage and compared lead dates with documented ones: the passage continues ``was born April 15, 1810, and died October 20, 1854''. The documented record has 1834 to 1921. The report now names two conflicts (birth and death) and pulls the parents lead into both, with the note that the passage may describe a different man of the same name. Another book names an ``Erastus Williams Burnham, (son of Erastus W.'', which is consistent with an older Erastus, but that reading is itself a lead. This case motivates four design choices: grounding each question in a quoted finding, ``Are you sure?''\ nodes, the wrong-person metric, and treating name-string matches as leads that a conflict check can overturn.
+
+\paragraph{Mary Devine and the gate.} The crossing circuit has no keyless source for passenger lists or naturalisation, so the loop drafted requests to a town or county clerk in Glasgow (T3 identification, ask first). A test person born in 1950 was blocked before any lookup.
+
+\paragraph{Corpus cases.} On the corpus benchmark (\cref{sec:corpus}), Bristol, whose dossier is mostly reachable, is where the preregistered CR came closest to ReAct; Homer and John, whose dossiers are almost entirely unreachable with these tools, are where every strategy scored zero; Burnham is where the namesake father produced CR's false family links.

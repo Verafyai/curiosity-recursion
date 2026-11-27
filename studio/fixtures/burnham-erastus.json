@@ -1,0 +1,73 @@
+{
+  "id": "burnham-erastus",
+  "version": 1,
+  "title": "Erastus W. Burnham",
+  "approved": { "by": "pending Rex (spec §12.1)", "at": null },
+  "subject": {
+    "typed": { "fullName": "Erastus W. Burnham", "birthYear": 1834, "birthYearPrecision": "exact", "bornPlace": "South Windsor, Connecticut" },
+    "deceased": []
+  },
+  "people": [
+    { "id": "erastus", "names": ["Erastus W. Burnham", "Erastus Williams Burnham", "E. W. Burnham", "Erastus Burnham"], "role": "subject", "born": "28 April 1834", "deceased": { "basis": "born-over-100-years-ago", "bornBy": 1834 } },
+    { "id": "mary", "names": ["Mary G. Devine", "Mary Graham Devine", "Mary Devine Burnham", "Mary G. Burnham"], "role": "wife (married 1855)", "born": "before 1840 (married 1855)", "deceased": { "basis": "born-over-100-years-ago", "bornBy": 1840 } },
+    { "id": "fa-burnham", "names": ["F. A. Burnham", "Fred Burnham"], "role": "son", "born": "after 1855", "deceased": { "basis": "family-mark", "note": "markedDeceased in fixtures/erastus.json (the demo seed)" } }
+  ],
+  "withheld": [],
+  "expected": [
+    {
+      "id": "b01", "person": "erastus", "type": "birth", "value": "Born 28 April 1834", "match": ["1834"], "year": 1834,
+      "source": { "title": "Wood Memorial Library and Museum, person record: Burnham, Erastus W.", "url": "https://woodmemorial.pastperfectonline.com/byperson?keyword=Burnham%2C+Erastus+W." },
+      "alsoAt": [{ "title": "Find a Grave memorial 15309965, Erastus Williams Burnham, Center Cemetery, South Windsor", "url": "https://www.findagrave.com/memorial/15309965/erastus-williams-burnham" }],
+      "confidence": "documented"
+    },
+    {
+      "id": "b02", "person": "erastus", "type": "death", "value": "Died 11 April 1921, South Windsor", "match": ["1921"], "year": 1921,
+      "source": { "title": "Wood Memorial Library and Museum, person record: Burnham, Erastus W.", "url": "https://woodmemorial.pastperfectonline.com/byperson?keyword=Burnham%2C+Erastus+W." },
+      "alsoAt": [{ "title": "Find a Grave memorial 15309965, Erastus Williams Burnham, Center Cemetery, South Windsor", "url": "https://www.findagrave.com/memorial/15309965/erastus-williams-burnham" }],
+      "confidence": "documented"
+    },
+    {
+      "id": "b03", "person": "erastus", "type": "marriage", "value": "Married Mary Graham Devine, May 1855, Holyoke, Massachusetts", "match": ["devine", "1855"], "year": 1855,
+      "source": { "title": "Wood Memorial Library and Museum, person record: Burnham, Erastus W.", "url": "https://woodmemorial.pastperfectonline.com/byperson?keyword=Burnham%2C+Erastus+W." },
+      "confidence": "documented", "note": "The museum record gives 15 May 1855; the 1921 Hartford Courant obituary gives 16 May. Either matches (year and name)."
+    },
+    {
+      "id": "b04", "person": "erastus", "type": "occupation", "value": "Crew, whaleship Hannibal of New London, 1851 voyage, age 18, residence South Windsor", "match": ["hannibal", "whal"], "year": 1851,
+      "source": { "title": "whalinghistory.org crew list, Hannibal 1851-1854 (voyage AV06134)", "url": "https://whalinghistory.org/?s=AV06134" },
+      "confidence": "documented"
+    },
+    {
+      "id": "b05", "person": "erastus", "type": "military", "value": "Private, Company A, 12th Connecticut Volunteer Infantry, enlisted 28 December 1861, residence Hartford", "match": ["12th", "twelfth", "dec. 28"], "year": 1861,
+      "source": { "title": "Record of Service of Connecticut Men in the Army and Navy (1889), 12th C.V.", "url": "https://archive.org/details/twelfthregimentc00conn", "page": "6" },
+      "alsoAt": [{ "title": "NPS Soldiers and Sailors Database: Burnham, Erastus W., 12th Regiment, Connecticut Infantry, Co. A", "url": "https://www.nps.gov/subjects/civilwar/search-soldiers-detail.htm?soldierId=E1F63989-DC7A-DF11-BF36-B8AC6F5D926A" }],
+      "confidence": "documented"
+    },
+    {
+      "id": "b06", "person": "erastus", "type": "military", "value": "Discharged for disability, 29 July 1862", "match": ["disc", "july 29", "1862"], "year": 1862,
+      "source": { "title": "Record of Service of Connecticut Men in the Army and Navy (1889), 12th C.V.", "url": "https://archive.org/details/twelfthregimentc00conn", "page": "6" },
+      "confidence": "documented"
+    },
+    {
+      "id": "b07", "person": "erastus", "type": "military", "value": "Private, Company A, 1st Connecticut Heavy Artillery, enlisted 5 January 1864", "match": ["heavy artillery", "h. a", "jan. 5"], "year": 1864,
+      "source": { "title": "Record of Service of Connecticut Men (1889), 1st C.V.H.A., bound in Taylor and Hatfield (1893)", "url": "https://archive.org/details/05689856.3173.emory.edu", "page": "9" },
+      "alsoAt": [{ "title": "NPS Soldiers and Sailors Database: Burnham, Erastus W., 1st Regiment, Connecticut Heavy Artillery, Co. A", "url": "https://www.nps.gov/subjects/civilwar/search-soldiers-detail.htm?soldierId=E0F63989-DC7A-DF11-BF36-B8AC6F5D926A" }],
+      "confidence": "documented"
+    },
+    {
+      "id": "b08", "person": "erastus", "type": "military", "value": "Mustered out 25 September 1865", "match": ["m. o", "mustered", "sep. 25", "1865"], "year": 1865,
+      "source": { "title": "Record of Service of Connecticut Men (1889), 1st C.V.H.A., bound in Taylor and Hatfield (1893)", "url": "https://archive.org/details/05689856.3173.emory.edu", "page": "9" },
+      "confidence": "documented"
+    },
+    {
+      "id": "b09", "person": "erastus", "type": "residence", "value": "Residence South Windsor, 1864", "match": ["windsor"], "year": 1864,
+      "source": { "title": "Record of Service of Connecticut Men (1889), 1st C.V.H.A., bound in Taylor and Hatfield (1893)", "url": "https://archive.org/details/05689856.3173.emory.edu", "page": "9" },
+      "confidence": "documented"
+    }
+  ],
+  "leftOut": [
+    { "record": "Hartford Courant, 28 April 1916 p. 18 and 12 April 1921 p. 19 (fixtures/erastus.json)", "why": "Public domain, but the only copies are behind a login (ProQuest). Every expectation needs an open source URL." },
+    { "record": "Family letters and photographs in the Wood Memorial collection (Book of Daniel research)", "why": "Family-held and catalogue material, not public records the platform searches." }
+  ],
+  "recordedPasses": [],
+  "sources": ["lib/seed/erastus.ts (fixtures/erastus.json)", "Book of Daniel research: knowledge notes for Erastus Williams Burnham (museum person record, Record of Service, NPS, whaling crew list)"]
+}

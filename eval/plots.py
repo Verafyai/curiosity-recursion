@@ -134,6 +134,69 @@ def faults(lines: Path, outdir: Path):
     fig.tight_layout(); fig.savefig(outdir / "fig7-completion-faults.pdf")
 
 
+LABEL = {"B0": "B0 single pass", "B1": "B1 ReAct", "B3": "B3 checklist", "B5": "B5 CR (prereg)", "B5-max": "B5-max (post hoc)"}
+
+
+def results_v0(rundir: Path, outdir: Path):
+    """Figures 5 to 8 from a v0 run directory (analyze_v0.py output). Automatic candidate recall, not adjudicated."""
+    res = json.loads((rundir / "results.json").read_text())
+    rows = [json.loads(l) for l in (rundir / "h1.scores.jsonl").read_text().splitlines() if l.strip()]
+    rows = [r for r in rows if r["completed"]]
+    outdir.mkdir(parents=True, exist_ok=True)
+    agents = [a for a in LABEL if any(r["agent"] == a for r in rows)]
+
+    def per_subject(agent, b):
+        d = defaultdict(list)
+        for r in rows:
+            if r["agent"] == agent and r["budget"] == b:
+                d[r["subject_id"]].append(r["candidate_recall"])
+        return [sum(v) / len(v) for v in d.values()]
+    fig, ax = plt.subplots(figsize=(3.3, 2.4))
+    for agent in agents:
+        bs = [b for b in sorted({r["budget"] for r in rows if r["agent"] == agent}) if len(per_subject(agent, b)) >= 10]
+        if not bs:
+            continue
+        m, lo, hi = zip(*[bootstrap_ci(per_subject(agent, b)) for b in bs])
+        if len(bs) == 1:
+            ax.errorbar(bs, m, yerr=[[m[0] - lo[0]], [hi[0] - m[0]]], marker="o", ms=3, capsize=2, label=LABEL[agent])
+        else:
+            ax.plot(bs, m, marker="o", ms=3, label=LABEL[agent])
+            ax.fill_between(bs, lo, hi, alpha=0.12)
+    ax.set_xscale("log", base=2); ax.set_xticks([25, 50, 100], ["25", "50", "100"])
+    ax.set_xlabel("budget B (tool calls)"); ax.set_ylabel("candidate recall@B (macro)"); ax.legend(frameon=False, fontsize=6)
+    fig.tight_layout(); fig.savefig(outdir / "fig5-recall-budget.pdf")
+    fig, ax = plt.subplots(figsize=(3.3, 2.4))
+    h1 = res["h1"]
+    ags = [a for a in agents if f"{a}@100" in h1]
+    for k, agent in enumerate(ags):
+        bt = h1[f"{agent}@100"]["all"]["by_tier"]
+        vals = [bt[t]["recall"] or 0 for t in ("T0", "T1", "T2", "T3")]
+        ax.bar([i + k * 0.8 / len(ags) for i in range(4)], vals, width=0.8 / len(ags), label=LABEL[agent])
+    ax.set_xticks([i + 0.4 - 0.4 / len(ags) for i in range(4)], ["T0", "T1", "T2*", "T3*"])
+    ax.set_ylabel("micro candidate recall@100"); ax.legend(frameon=False, fontsize=6)
+    ax.set_title("* no public URL: not matchable automatically", fontsize=6)
+    fig.tight_layout(); fig.savefig(outdir / "fig6-recall-tier.pdf")
+    fig, ax = plt.subplots(figsize=(3.3, 2.4))
+    for agent, mk in (("B5", "o"), ("B4", "s")):
+        for kon, ls in ((True, "-"), (False, ":")):
+            rs = [r for r in res.get("h2_runs", []) if r["agent"] == agent and r["kills_on"] == kon]
+            ps = sorted({r["p"] for r in rs})
+            if not ps:
+                continue
+            ax.plot(ps, [sum(r["completed"] for r in rs if r["p"] == p) / len([r for r in rs if r["p"] == p]) for p in ps],
+                    marker=mk, ls=ls, label=f"{agent} {'kills' if kon else 'no kills'}")
+    ax.set_ylim(-0.05, 1.05); ax.set_xlabel("archive failure probability p"); ax.set_ylabel("completion rate"); ax.legend(frameon=False, fontsize=6)
+    fig.tight_layout(); fig.savefig(outdir / "fig7-completion-faults.pdf")
+    fig, ax = plt.subplots(figsize=(3.3, 2.2))
+    for agent, col in (("B5", "#555555"), ("B5-max", "#e08a66")):
+        depths = h1.get(f"{agent}@100", {}).get("hit_depths", [])
+        if depths:
+            ax.hist(depths, bins=range(0, max(depths) + 2), align="left", color=col, alpha=0.7, label=LABEL[agent])
+    ax.set_xlabel("depth of the node that first found the record"); ax.set_ylabel("hidden records (B=100)"); ax.legend(frameon=False, fontsize=6)
+    fig.tight_layout(); fig.savefig(outdir / "fig8-depth-to-hit.pdf")
+    print("wrote figures 5 to 8 to", outdir)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -141,10 +204,13 @@ if __name__ == "__main__":
     g.add_argument("--out", type=Path, required=True); g.add_argument("--highlight", default="r3,r3.1,r3.2")
     r = sp.add_parser("results"); r.add_argument("scores", type=Path); r.add_argument("--out", type=Path, default=Path("paper/figures"))
     f = sp.add_parser("faults"); f.add_argument("lines", type=Path); f.add_argument("--out", type=Path, default=Path("paper/figures"))
+    v = sp.add_parser("v0"); v.add_argument("rundir", type=Path); v.add_argument("--out", type=Path, default=Path("paper/figures"))
     a = ap.parse_args()
     if a.cmd == "graph":
         graph(a.db, a.run, a.out, tuple(a.highlight.split(",")))
     elif a.cmd == "results":
         results(a.scores, a.out)
+    elif a.cmd == "v0":
+        results_v0(a.rundir, a.out)
     else:
         faults(a.lines, a.out)

@@ -1,0 +1,13 @@
+{
+ "scorer_version": "v1.1",
+ "method": "An AI research assistant working for the author (not a human rater) read every decision where the model judge and the scorer disagreed in the final audit sample (12 of 80) against the exact evidence window the scorer matched. Decisions where judge and scorer agreed (68) were not re-read.",
+ "disagreements": 12,
+ "judge_right_scorer_false_positive": 8,
+ "scorer_right_judge_wrong": 4,
+ "scorer_false_negatives_found": 0,
+ "hand_adjudicated_agreement_with_scorer": "72/80",
+ "hand_adjudicated_precision_of_scorer_credit": "32/40",
+ "hand_adjudicated_misses_among_scorer_zero": "0/40",
+ "false_positive_patterns": ["content words present without the fact (Co-creator of DirectX from letters about DirectX: 4)", "a role word near the name but a different role (co-director vs president or stockholder: 2)", "an institution named but not the count or firm the fact states (2)"],
+ "scorer_v1_0_bugs_fixed_before_this_audit": ["audit showed the judge the first item with the same URL, not the matched window", "an initial (P St John) plus a second family name satisfied relation facts", "items published before the subject was born (an 1864 Homer D. St. John) counted", "a namesake father with another birth year (Erastus W. Burnham, b. 1810) counted", "loc.gov URLs echo the agent's own query terms, which were matched as evidence", "a bare year anywhere in a 60-word window satisfied date facts"]
+}

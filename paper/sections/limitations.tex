@@ -1,0 +1,26 @@
+\section{Limitations and ethics}
+\label{sec:limits}
+
+\paragraph{Limitations.}
+\begin{itemize}
+\item The preregistered configuration uses the rule-based generator (templates in the appendix). The grounded model generator was measured only as an ablation (B5-llm), with mixed results: best CR variant on the record-level benchmark, below the rule generator on the corpus.
+\item Corpus scores are automatic. A model audit and a second, item-by-item reading of every disagreement by an AI assistant put the scorer's precision near four in five credited facts, so absolute scores are upper bounds; the scorer was revised once (v1.0 to v1.1) after its first audit, uniformly for every strategy.
+\item The corpus benchmark has six people, all from one family's research, and no held-out dossier: B5-fix was repaired while looking at Burnham. Its edge over ReAct is not a test.
+\item The rule generator is deterministic, so its three runs per person differ only through live sources; their sd understates real variability.
+\item In the pilot, most record-level facts come from curated evaluation fixtures, labelled stub. Live sources add leads, not facts. Every benchmark run switches the fixtures off.
+\item A ``strong'' name match means the full name string appears in OCR text, not that it is the same person. In a comma-separated roster the name order must be read from the page.
+\item Chronicling America queries are slow (about 30\,s); Internet Archive lending books refuse inside-book search (HTTP 403); catalogue title search returns books that share only a surname or a regiment number. From some cloud addresses Wikidata answers every call with HTTP 429.
+\item No continue-as-new yet; time-skipping tests simulate days, not real archives.
+\item Small $n$. The author built the system and much of the ground truth; independent raters and a sealed holdout are the mitigation. The benchmark skews toward the United States and New England and English-language records. Tiers are assigned by a host rule until a person confirms them.
+\end{itemize}
+
+\paragraph{Deviations from the preregistration.} (1) B0, B1 and the model generator used one xAI model (\texttt{grok-4.20-0309-non-reasoning}) instead of the preregistered provider. (2) B5-max (wider limits), B5-fix (repaired rules) and B5-llm on the corpus are post hoc and labelled so. (3) H2 ran as a pilot: four subjects, capped seeds and failure rates. (4) Scoring is automatic candidate matching; claim precision and the wrong-person rate need two human raters and are not measured (\NM). (5) The record-level H1 runs predate the exclusion filter; a retrospective check of every cited item, lead and final answer found no blocked host and no copied dossier text. (6) The corpus-replication benchmark, its exclusion filter and its scorer were designed after the preregistration. (7) Five corpus runs that failed on Temporal client timeouts were rerun with the same seeds; the failed attempts are kept in the run directory. (8) H1 ran at $B\in\{25,50,100\}$, not 200, with one seed at 25 and 50; B3 ran at 25 and 100 only. Two B1 runs (one at $B=25$, one at $B=50$) ended on a model API read timeout and are excluded, so those cells have 38 subjects.
+
+\paragraph{Ethics.}
+\begin{itemize}
+\item \emph{Living people.} No living person is a benchmark subject, figure, example or case study. The gate runs in workflow code before any lookup, and an unknown date means living. Living relatives named in a deceased person's records (for example an interviewee) are redacted in anything released; six family dossiers whose subjects are deceased are released as atomic facts with citations and identifiers only, never book or page contents; facts about living relatives stay in a private set that is scored locally and published only as aggregates.
+\item \emph{Family privacy.} Private items (interviews, photo boxes) are released only as counts and tiers; the author's transcripts are used with his consent.
+\item \emph{Archive terms and consent.} No scraping where terms forbid it (Find a Grave is links only), no captcha or paywall bypass, polite rate limits, a contact address in the user agent. Nothing is sent: real outreach needs approval per message, and the benchmark's archives are simulated.
+\item \emph{Sensitive records.} Religious, adoption, institutional, enslavement and Indigenous records carry community rules; the system defers to them.
+\item \emph{Misidentification harm.} A wrong-person attribution can rewrite a family's story, so leads are labelled and conflicts named.
+\end{itemize}

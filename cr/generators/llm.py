@@ -56,7 +56,29 @@ async def _anthropic(body: dict) -> dict:
     return r.json()
 
 
-call_model: ModelCall = _anthropic  # tests replace this with a fake
+async def _xai(body: dict) -> dict:
+    """Same contract as _anthropic, served by xAI's OpenAI-compatible API (CR_LLM_API=xai).
+
+    Used for the 26 Nov 2026 benchmark run because no Anthropic key was configured. The billed
+    cost (cost_in_usd_ticks, 1 tick = 1e-10 USD) is added to CR_SPEND_FILE so runs share one cap.
+    """
+    key = os.environ["XAI_API_KEY"]
+    msgs = [{"role": "system", "content": body.get("system", "")}, *body["messages"]]
+    model = os.environ.get("CR_LLM_MODEL", "grok-4.20-0309-non-reasoning")
+    async with httpx.AsyncClient(timeout=120) as c:
+        r = await c.post("https://api.x.ai/v1/chat/completions", json={"model": model, "max_tokens": body.get("max_tokens", 1500),
+                         "messages": msgs, "temperature": 1.0}, headers={"Authorization": f"Bearer {key}"})
+    r.raise_for_status()
+    d = r.json()
+    u = d.get("usage", {})
+    if os.environ.get("CR_SPEND_FILE") and "cost_in_usd_ticks" in u:
+        from bench.baselines.llm_agents import _spend
+        _spend(u["cost_in_usd_ticks"] / 1e10)
+    return {"content": [{"type": "text", "text": d["choices"][0]["message"].get("content") or ""}],
+            "usage": {"input_tokens": u.get("prompt_tokens", 0), "output_tokens": u.get("completion_tokens", 0)}}
+
+
+call_model: ModelCall = _xai if (os.environ.get("CR_LLM_API") == "xai" and os.environ.get("XAI_API_KEY")) else _anthropic  # tests replace this with a fake
 
 
 def sparks(inp: BrainstormInput) -> dict[str, str]:
@@ -111,6 +133,10 @@ async def generate(inp: BrainstormInput) -> tuple[list[Question], int, int] | No
     req = inp.request
     if not os.environ.get("ANTHROPIC_API_KEY") and call_model is _anthropic:
         return None
+    if os.environ.get("CR_SPEND_FILE"):
+        from bench.baselines.llm_agents import _cap, _spend
+        if _spend() >= _cap():
+            return None
     if inp.llm_tokens_used >= req.llm_token_budget:
         return None
     spark_text = sparks(inp)
@@ -131,7 +157,7 @@ async def generate(inp: BrainstormInput) -> tuple[list[Question], int, int] | No
         "handlers": HANDLERS,
         "ask_for": f"Up to {max(inp.top_n * 2, 4)} new questions.",
     }
-    body = {"model": os.environ.get("CR_LLM_MODEL", "claude-sonnet-5-5"), "max_tokens": 1500, "system": SYSTEM,
+    body = {"model": os.environ.get("CR_LLM_MODEL", "claude-sonnet-5-5" if call_model is _anthropic else "grok-4.20-0309-non-reasoning"), "max_tokens": 1500, "system": SYSTEM,
             "messages": [{"role": "user", "content": json.dumps(user, ensure_ascii=False)}]}
     try:
         resp = await call_model(body)

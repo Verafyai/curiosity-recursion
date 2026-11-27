@@ -25,8 +25,10 @@ def _renumber(inp: BrainstormInput, picked: list[Question]) -> list[Question]:
 
 
 async def generate(inp: BrainstormInput) -> BrainstormOutput:
-    base = rules.brainstorm(inp)
     mode = inp.request.generator
+    if mode == "rules2":  # post hoc fixed rules (corpus-replication diagnosis); never used by the preregistered B5
+        return rules.brainstorm(inp, v2=True)
+    base = rules.brainstorm(inp)
     if mode == "rules":
         return base
     got = await llm.generate(inp)

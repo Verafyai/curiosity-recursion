@@ -32,7 +32,11 @@ async def _retry(fn, arg, wid: str, counter: dict):
         env.info = dataclasses.replace(env.info, attempt=attempt, workflow_id=wid)
         counter["executions"] += 1
         try:
-            return await env.run(fn, arg)
+            res = await env.run(fn, arg)
+            if os.environ.get("CR_B4_TRACE"):  # one line per completed activity, for the duplicate-work ratio
+                with open(os.environ["CR_B4_TRACE"], "a") as f:
+                    f.write(fn.__name__ + "\n")
+            return res
         except ValueError:
             raise
         except Exception:

@@ -1,0 +1,6 @@
+fastapi==0.165.0
+httpx==0.29.0
+pydantic==2.14.4
+starlette==1.10.0
+temporalio==1.37.0
+uvicorn==0.54.0

@@ -20,7 +20,8 @@ def load_subjects(split: str | None = None, path: Path | None = None) -> list[di
 def request_for(subject: dict, budget: int, **over) -> ResearchRequest:
     i = subject["input"]
     p = Person(full_name=i["full_name"], name_variants=i.get("name_variants") or [], birth_year=i.get("birth_year"),
-               death_year=i.get("death_year"), birth_place=i.get("birth_place"), death_place=i.get("death_place"))
+               death_year=i.get("death_year"), birth_place=i.get("birth_place"), death_place=i.get("death_place"),
+               death_on_record=bool(i.get("death_on_record")))
     base = dict(person=p, circuit_id=subject["circuit"], depth=3, breadth=3, max_nodes=80, max_run_minutes=180,
                 level_pause_seconds=0, require_approval=False, simulate_flaky_archives=False, use_fixtures=False,
                 max_tool_calls=budget)
@@ -63,3 +64,37 @@ def result_from_report(rep: StudioReport, **meta) -> dict:
                       for q in rep.questions],
         "node_depth": depth,
     }
+
+
+async def wait_result(handle, timeout: float):
+    """Wait for a workflow result, riding out client-side RPC deadlines.
+
+    Found during the 26 Nov 2026 run: under load, the long poll behind handle.result() can raise
+    RPCError "context deadline exceeded" while the workflow is still running normally. That is a
+    harness failure, not an agent failure, so the harness polls again until the real timeout.
+    """
+    import asyncio
+    import time as _t
+    from temporalio.service import RPCError
+    end = _t.time() + timeout
+    while True:
+        try:
+            return await asyncio.wait_for(handle.result(), timeout=max(1.0, end - _t.time()))
+        except RPCError as e:
+            if "deadline" not in str(e).lower() or _t.time() >= end:
+                raise
+            await asyncio.sleep(2)
+
+
+async def rpc_retry(fn, tries: int = 6):
+    """Call an async Temporal client method, retrying RPC timeouts (same harness bug as above)."""
+    import asyncio
+    from temporalio.service import RPCError
+    for i in range(tries):
+        try:
+            return await fn()
+        except RPCError as e:
+            msg = str(e).lower()
+            if i == tries - 1 or not ("deadline" in msg or "timeout" in msg or "unavailable" in msg):
+                raise
+            await asyncio.sleep(3 * (i + 1))

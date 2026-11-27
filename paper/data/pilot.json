@@ -1,0 +1,198 @@
+{
+  "runs": [
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-103100",
+      "name": "Erastus W. Burnham",
+      "circuit": "civil_war_veteran",
+      "status": "approved",
+      "nodes": 14,
+      "by_status": {
+        "answered": 7,
+        "no_lead": 5,
+        "stub": 2
+      },
+      "max_depth": 2,
+      "reused_from_memory": 0,
+      "reviewer_questions": 0,
+      "retried_nodes": 5,
+      "max_attempts": 6
+    },
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-104003",
+      "name": "Erastus W. Burnham",
+      "circuit": "civil_war_veteran",
+      "status": "approved",
+      "nodes": 31,
+      "by_status": {
+        "answered": 15,
+        "no_lead": 13,
+        "pending": 3
+      },
+      "max_depth": 3,
+      "reused_from_memory": 3,
+      "reviewer_questions": 1,
+      "retried_nodes": 8,
+      "max_attempts": 3
+    },
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-104557",
+      "name": "Erastus W. Burnham",
+      "circuit": "civil_war_veteran",
+      "status": "approved",
+      "nodes": 20,
+      "by_status": {
+        "no_lead": 9,
+        "answered": 11
+      },
+      "max_depth": 2,
+      "reused_from_memory": 3,
+      "reviewer_questions": 1,
+      "retried_nodes": 4,
+      "max_attempts": 3
+    },
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-105940",
+      "name": "Erastus W. Burnham",
+      "circuit": "civil_war_veteran",
+      "status": "awaiting_approval",
+      "nodes": 16,
+      "by_status": {
+        "no_lead": 9,
+        "answered": 7
+      },
+      "max_depth": 2,
+      "reused_from_memory": 3,
+      "reviewer_questions": 0,
+      "retried_nodes": 5,
+      "max_attempts": 3
+    },
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-110934",
+      "name": "Erastus W. Burnham",
+      "circuit": "civil_war_veteran",
+      "status": "approved",
+      "nodes": 25,
+      "by_status": {
+        "no_lead": 10,
+        "answered": 15
+      },
+      "max_depth": 2,
+      "reused_from_memory": 3,
+      "reviewer_questions": 2,
+      "retried_nodes": 14,
+      "max_attempts": 4
+    },
+    {
+      "workflow_id": "studio-jane-example-1126-103100",
+      "name": "Jane Example",
+      "circuit": "vital_records",
+      "status": "blocked_living",
+      "nodes": 0,
+      "by_status": {},
+      "max_depth": 0,
+      "reused_from_memory": 0,
+      "reviewer_questions": 0,
+      "retried_nodes": 0,
+      "max_attempts": 0
+    },
+    {
+      "workflow_id": "studio-jane-example-1126-110934",
+      "name": "Jane Example",
+      "circuit": "vital_records",
+      "status": "blocked_living",
+      "nodes": 0,
+      "by_status": {},
+      "max_depth": 0,
+      "reused_from_memory": 0,
+      "reviewer_questions": 0,
+      "retried_nodes": 0,
+      "max_attempts": 0
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-103129",
+      "name": "Mary Devine",
+      "circuit": "the_crossing",
+      "status": "approved",
+      "nodes": 12,
+      "by_status": {
+        "answered": 6,
+        "no_lead": 4,
+        "stub": 2
+      },
+      "max_depth": 2,
+      "reused_from_memory": 0,
+      "reviewer_questions": 0,
+      "retried_nodes": 6,
+      "max_attempts": 6
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-111931",
+      "name": "Mary Devine",
+      "circuit": "the_crossing",
+      "status": "approved",
+      "nodes": 14,
+      "by_status": {
+        "no_lead": 7,
+        "stub": 2,
+        "answered": 5
+      },
+      "max_depth": 2,
+      "reused_from_memory": 3,
+      "reviewer_questions": 0,
+      "retried_nodes": 5,
+      "max_attempts": 4
+    }
+  ],
+  "outreach": [
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-103100",
+      "id": "req-q4",
+      "status": "approved",
+      "to": "National Archives and Records Administration (NARA), Washington, DC"
+    },
+    {
+      "workflow_id": "studio-erastus-w-burnham-1126-103100",
+      "id": "req-q5",
+      "status": "awaiting_approval",
+      "to": "Connecticut State Library, State Archives (Hartford)"
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-103129",
+      "id": "req-q5",
+      "status": "awaiting_approval",
+      "to": "Town or county clerk, Glasgow"
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-103129",
+      "id": "req-q4",
+      "status": "awaiting_approval",
+      "to": "Town or county clerk, Glasgow"
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-111931",
+      "id": "req-q5",
+      "status": "awaiting_approval",
+      "to": "Town or county clerk, Glasgow"
+    },
+    {
+      "workflow_id": "studio-mary-devine-1126-111931",
+      "id": "req-q4",
+      "status": "approved",
+      "to": "Town or county clerk, Glasgow"
+    }
+  ],
+  "totals": {
+    "runs": 9,
+    "nodes": 132,
+    "runs_by_status": {
+      "approved": 6,
+      "awaiting_approval": 1,
+      "blocked_living": 2
+    },
+    "outreach_drafts": 6,
+    "outreach_by_status": {
+      "approved": 2,
+      "awaiting_approval": 4
+    }
+  }
+}

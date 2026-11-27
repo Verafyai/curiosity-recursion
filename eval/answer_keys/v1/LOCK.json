@@ -1,0 +1,146 @@
+{
+  "version": "v1",
+  "frozen": "2026-11-26",
+  "rules": "freeze.py gate+tier v1",
+  "people": {
+    "burnham": {
+      "subject": "Erasthus William Burnham Jr",
+      "era": "civil_war",
+      "gate": "1834-1921",
+      "gate_basis": "death fact burnham-F005: Died 11 April 1921 aged 86 (1921-04-11); source: The Watershed History Collective (formerly Wood Memorial Library & Museum), South Windsor, Connecticut, person record \"Burnham, Erastus W.\" (Erastus W. Burnham ",
+      "death_fact_ids": [
+        "burnham-F005",
+        "burnham-F075",
+        "burnham-F115",
+        "burnham-F155",
+        "burnham-F164",
+        "burnham-F193",
+        "burnham-F220"
+      ],
+      "facts_total": 226,
+      "facts_public": 223,
+      "facts_private": 3,
+      "holdout": 76,
+      "best_tier_counts": {
+        "web_open": 112,
+        "outreach": 22,
+        "none": 3,
+        "book": 56,
+        "web_gated": 33
+      },
+      "sha256_public": "2750397ec0d728b0faa9319f2afd4a43993156ad19cdf6ac161902b7ba8452e0",
+      "sha256_private": "c88c87b23ed543642550861af6f9d156b1d5ff0142edeace93bca3b2eaf61007"
+    },
+    "homer": {
+      "subject": "Homer Doble St. John",
+      "era": "wwi",
+      "gate": "1900-1972",
+      "gate_basis": "death fact homer-F027: Died 10 September 1972 (aged 72) (1972-09-10); source: \"Homer St. John\" (obituary), Mountain Democrat (Placerville, Calif.), 14 September 1972, p. 37, via NewspaperArchive (supplied by El Dorado County Library). htt",
+      "death_fact_ids": [
+        "homer-F027",
+        "homer-F060",
+        "homer-F090"
+      ],
+      "facts_total": 109,
+      "facts_public": 100,
+      "facts_private": 9,
+      "holdout": 36,
+      "best_tier_counts": {
+        "outreach": 43,
+        "web_open": 51,
+        "web_gated": 11,
+        "none": 4
+      },
+      "sha256_public": "97246745c0a641986a5a3256f511b7e945bf459bcb2dd46259393fd993d8af8d",
+      "sha256_private": "0e912f2d5aaa4ba82dc95299feac9446711705132aaa12f5bc115df6f70f1aad"
+    },
+    "john": {
+      "subject": "John St. John",
+      "era": "wwii",
+      "gate": "1921-2006 (death on record)",
+      "gate_basis": "death fact john-F004: Died 28 October 2006 (2006-10-28); source: U.S. Department of Veterans Affairs, National Cemetery Administration, Nationwide Gravesite Locator, \"St John, John H\", US Army, born 07/02/1921, died 10/28/200",
+      "death_fact_ids": [
+        "john-F004",
+        "john-F095"
+      ],
+      "facts_total": 102,
+      "facts_public": 99,
+      "facts_private": 3,
+      "holdout": 24,
+      "best_tier_counts": {
+        "outreach": 77,
+        "web_open": 19,
+        "book": 2,
+        "web_gated": 2,
+        "none": 2
+      },
+      "sha256_public": "e1fadcf36c92e7480f6c5440b8e6ea233b283636616e595e23a15d2e905ad9df",
+      "sha256_private": "5f0c43a2e32cd8c31551ebc4f14e11d6b6a05d7483c7aefd0d6e149e074f1dff"
+    },
+    "kingsley": {
+      "subject": "Kingsley Arnold Perry",
+      "era": "civilian",
+      "gate": "1907-1962",
+      "gate_basis": "death fact kingsley-F003: Died 18 April 1962 aged 55 (1962-04-18); source: Find a Grave, \"Kingsley A. Perry (1907\u20131962)\", memorial 153935949, Middletown Cemetery, Grafton, Vermont (search snippet). https://www.findagrave.com/memorial/1",
+      "death_fact_ids": [
+        "kingsley-F003",
+        "kingsley-F070",
+        "kingsley-F074",
+        "kingsley-F104",
+        "kingsley-F133",
+        "kingsley-F207"
+      ],
+      "facts_total": 232,
+      "facts_public": 222,
+      "facts_private": 10,
+      "holdout": 63,
+      "best_tier_counts": {
+        "web_open": 58,
+        "book": 129,
+        "outreach": 45
+      },
+      "sha256_public": "7176dc8c25ac6cd9f89a5626c8ce76570c469bd084d74919dad1c7600bc0ec1f",
+      "sha256_private": "a0ccd012cb36217fd7ba70b01abd3cc184220f12fe0ca7925116d766a27e58af"
+    },
+    "bristol": {
+      "subject": "Edgar Hiel Bristol",
+      "era": "civilian",
+      "gate": "1871-1944",
+      "gate_basis": "death fact bristol-F002: Died on 24 July 1944 at age 73 (1944-07-24); source: \"Edgar Hiel Bristol, Inventor, Manufacturer\", in Men of New England , vol. 4 (American Historical Company, c. 1945), pp. 89\u201391. https://archive.org/details/meno",
+      "death_fact_ids": [
+        "bristol-F002",
+        "bristol-F076"
+      ],
+      "facts_total": 87,
+      "facts_public": 64,
+      "facts_private": 23,
+      "holdout": 20,
+      "best_tier_counts": {
+        "book": 47,
+        "web_open": 33,
+        "outreach": 3,
+        "none": 4
+      },
+      "sha256_public": "53f9fde3972539560be3f4b18124c14fad94455db3785a9431ef24bb1fb03f79",
+      "sha256_private": "732872605cb9d02cb75ab5b64f0c53973c343a2e355f335e8a0275e42dc2b9e6"
+    },
+    "alex": {
+      "subject": "Alex St. John",
+      "era": "civilian",
+      "gate": "born 1967; deceased per Rex St. John (family attestation, 2026-11-26); the dossier has no death record",
+      "gate_basis": "deceased per Rex St. John (family attestation, 2026-11-26)",
+      "death_fact_ids": [],
+      "facts_total": 233,
+      "facts_public": 214,
+      "facts_private": 19,
+      "holdout": 64,
+      "best_tier_counts": {
+        "web_open": 109,
+        "outreach": 25,
+        "book": 99
+      },
+      "sha256_public": "95fd263256f3600ab33b91331bc6303765c755d5b2ed8fcab864ecbd794dbba8",
+      "sha256_private": "756aa73ea7399881597d4b47d3052cf0ada6c64b17712a1e773d862d9fdc2a37"
+    }
+  }
+}

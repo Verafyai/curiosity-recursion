@@ -1,0 +1,18 @@
+\section{Discussion: what we learned}
+\label{sec:discussion}
+
+\paragraph{Curiosity is the product.} The checklist alone answers the questions someone already thought to ask. The finds that mattered in the pilot came from questions the checklist did not contain: which books cover this regiment, does this book name him and on which page, who are the people this line calls his parents. Whether that holds at scale is H1, and on this benchmark it did not: a ReAct agent with the same tools and budget found more, and the rule generator stopped before its budget ran out (\cref{sec:corpus}). What CR kept was precision: the items it cited were more often about the right person.
+
+\paragraph{The record of what was checked is what makes it trustworthy.} A run leaves its question graph, the finding behind every question, every retry and every human decision. That turns ``did the agent check the synagogues?''\ from a question about a black box into a lookup.
+
+\paragraph{Leads must stay leads, and a second look must be able to overturn them.} The wrong-parents case (\cref{sec:wrongparents}) shows two things. A narrow rule fixed the first error and still let the second through. What caught the second was not a better pattern but keeping the whole quoted passage and checking it against documented facts. So we keep stubs labelled, keep quotes verbatim, and never let a name match decide a date or a family link.
+
+\paragraph{Where durability did not matter.} For a 10-minute run with a healthy network, durable execution adds a server, a worker and determinism rules to the code, and buys little. It matters when the work is long (timers in days, replies in weeks), when sources are flaky, when a person must approve or redirect mid-run, and when someone later needs to know exactly what happened. H2 measures how much; we expect the gap to grow with run length. \RESULT{H2-discussion-gap}
+
+\section{How this helps break out}
+\label{sec:breakout}
+A ``brick wall'' in genealogy is an ancestor whose parents are unknown; CR is meant to keep generating grounded questions at exactly that point, where a person would otherwise stop.
+
+\section{Next steps}
+\label{sec:future}
+First, reach: the corpus benchmark shows that tool access, not question generation, capped every strategy, so keyed newspaper, military and vital-record sources under the user's own credentials come before any change to the generator. Then: fix the rule generator's early stop and repeated calls in the preregistered configuration and test B5-fix on held-out dossiers; add continue-as-new and per-subtree child workflows for week-long runs; share question memory across families for the same unit, ship or town; real outreach with per-message consent and follow-ups at 21 and 60 days; handwriting recognition over family boxes; a larger, multi-country \bench.

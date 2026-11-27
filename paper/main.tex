@@ -1,0 +1,51 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[letterpaper,margin=0.75in,columnsep=0.3in]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,shapes.geometric}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{xspace}
+\usepackage[numbers,sort]{natbib}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,nameinlink]{cleveref}
+\setlist{itemsep=1pt,topsep=3pt}
+\captionsetup{font=small,labelfont=bf}
+\input{macros}
+% \camerareadytrue  % uncomment for camera ready: the build fails while any \RESULT remains
+
+\title{Curiosity Recursion: Durable, Grounded Question Graphs\\for Genealogical Dark Data}
+\author{Rex St.\ John\\Lineage / independent researcher\\\texttt{rex@verafy.ai}}
+\date{Paper version \paperversion, 26 November 2026. Code, benchmark and data: \url{https://github.com/Verafyai/curiosity-recursion} (release v\paperversion).}
+
+\begin{document}
+\twocolumn[\maketitle\vspace{-1em}\input{sections/abstract}\vspace{1em}]
+\input{sections/intro}
+\input{sections/related}
+\input{sections/problem}
+\input{sections/darkdata}
+\input{sections/analysis}
+\input{sections/loop}
+\input{sections/solution}
+\input{sections/bench}
+\input{sections/corpus}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\input{sections/appendix}
+\end{document}

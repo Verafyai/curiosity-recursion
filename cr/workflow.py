@@ -347,6 +347,25 @@ class CuriosityRecursionWorkflow:
                         self._replace(q)
                     lvl.verdict = "stop: " + self.p.stop_reason
                     break
+                if not nxt and req.generator == "rules2" and self._calls_left(req) > 0 and self._budget_left(req) > 0 \
+                        and not self._time_up(req):
+                    # v2 "keep going": the graph ran dry with budget left, so ask the root brainstorm again with
+                    # everything found so far; memory and dedupe keep it from repeating a question.
+                    bo2 = await workflow.execute_activity(
+                        brainstorm_questions,
+                        BrainstormInput(request=req, findings=self.findings, questions=self.prior_qs + self.p.questions,
+                                        round=level + 1, top_n=req.breadth, depth=1, llm_tokens_used=self.p.llm_tokens),
+                        start_to_close_timeout=timedelta(seconds=90), retry_policy=QUICK_RETRY, activity_id=f"brainstorm-keepgoing-{level}",
+                    )
+                    known = {x.key for x in self.p.questions}
+                    for i, q in enumerate(bo2.picked, 1):
+                        if q.key in known or self._budget_left(req) <= 0:
+                            continue
+                        q.id = f"k{level}.{i}"
+                        nxt.append(q)
+                        self.p.questions.append(q)
+                    if nxt:
+                        self._log(f"keep going: {len(nxt)} new root question(s) with {self._calls_left(req)} tool calls left")
                 if not nxt:
                     self.p.stop_reason = "No new questions: every lead has been followed to the depth you set."
                     lvl.verdict = "stop: " + self.p.stop_reason

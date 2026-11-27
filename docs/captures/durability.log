@@ -1,0 +1,16 @@
+killed worker at 10:32:14 AM PT
+offline True hist 74 pending [('node-q1', 1, 2)]
+restarted worker at 10:35:52 AM PT
+after restart: offline False status brainstorming nodes 14 done 12
+second kill (worker running both Erastus and Mary) at 10:36:56 AM PT
+while down: offline True history 128 pending [('node-q3.1', 2), ('node-q2.2', 6)]
+restarted at 10:38:05 AM PT
+third kill (deep Erastus run, mid-brainstorm) at 10:40:46 AM PT
+while down: offline True history 87 nodes 13 pending [('node-r2', 3), ('node-r3', 3)]
+restarted at 10:41:09 AM PT
+
+--- 26 Nov 2026, branded build (Claude session), fresh Temporal dev server, all times Pacific ---
+11:12:34 AM  kill -9 worker on studio-erastus-w-burnham-1126-110934: 194 history events held, 2 lookups pending (node-r3.3, node-q1.1)
+11:12:52 AM  worker restarted; both lookups retried after their 90 s start-to-close timeout; run completed (303 events, 1.74 MB history after 2 reviewer redirects)
+11:22:12 AM  kill -9 worker on studio-mary-devine-1126-111931: 158 history events held, 2 lookups pending; page showed "held by Temporal, worker down"
+11:22:24 AM  worker restarted; run completed and was approved; draft req-q4 exported to data/outbox-not-sent/ (not sent)

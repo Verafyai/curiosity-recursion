@@ -1,0 +1,40 @@
+{
+  "version": "darkkin-bench-v0",
+  "built": "2026-11-26",
+  "subjects": 39,
+  "by_source": {
+    "kin fixtures/evals/relatives.json": 4,
+    "kin fixtures/evals/heritage-real.json": 35
+  },
+  "by_split": {
+    "dev": 27,
+    "test": 12
+  },
+  "by_group": {
+    "family": 4,
+    "jewish": 7,
+    "academic": 7,
+    "immigrant": 7,
+    "military": 7,
+    "control": 7
+  },
+  "by_circuit": {
+    "vital_records": 32,
+    "the_crossing": 7
+  },
+  "by_birth_era": {
+    "pre-1850": 9,
+    "1900-1949": 12,
+    "1850-1899": 18
+  },
+  "records": 671,
+  "by_tier": {
+    "T3": 31,
+    "T1": 467,
+    "T2": 17,
+    "T0": 156
+  },
+  "private_records": 32,
+  "tier_rule": "T0: structured catalogue, API or encyclopedia host; T2: login, paywall or terms-restricted host; T3: no public URL (local, offline, unknown); T1: any other public page (full text or images only).",
+  "tiers_confirmed": 0
+}

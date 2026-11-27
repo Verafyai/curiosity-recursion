@@ -1,0 +1,23 @@
+\section{Problem}
+\label{sec:problem}
+
+\paragraph{Task.} Long-running, deep, agentic genealogical research on one deceased person: find records about them, deepen each lead, broaden to new kinds of sources, brainstorm and iterate, send and follow up direct research requests to archives over weeks, and ingest what comes back so that it can become a cited chapter or newsletter.
+
+\paragraph{Input.} A subject card: a name and variant spellings, birth and death years with their precision (exact, about, before, after), places, optional family notes, and an optional research question. \paragraph{Output.} A question graph with every question, why it was asked and what came back; documented claims, each with a source; leads, labelled as leads with their quoted text; named conflicts; drafted research requests awaiting approval; and a report written only from documented claims.
+
+\paragraph{Constraints.} (1) Deceased people only: a living-person gate runs before any lookup (\cref{sec:gate}). (2) Cite everything: every published sentence carries claim ids. (3) Ask before outreach: nothing is sent; an approved request is written to a file. (4) No scraping where terms forbid it, and no captcha or paywall bypass. (5) A name match is never an identification, and a surname alone never links two people.
+
+\subsection{Failure modes of plain agents}
+\label{sec:failures}
+
+These came from the 65-relative work. Redacted transcript examples are not included in this version.
+\begin{description}[leftmargin=1.2em,labelindent=0pt,font=\normalfont\bfseries]
+\item[F1] No follow-up on direct queries to small archives: nothing is sent, or a pending reply is forgotten.
+\item[F2] No download, index, ingest or archive of what it receives: the answer lives in a chat scroll, not a record store.
+\item[F3] Stops being curious: does not chase the new leads a finding opens.
+\item[F4] Does not brainstorm from its current record: new facts do not produce new questions.
+\item[F5] Needs constant reminders to keep going.
+\item[F6] Does not think of new sources: churches, synagogues, ship crew lists, school registers, regimental histories.
+\item[F7] Becomes a black box: no record of what it checked, so thoroughness can be neither trusted nor repeated.
+\item[F8] Loses state on a crash, a timeout or a context limit, and cannot wait days.
+\end{description}

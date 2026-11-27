@@ -17,6 +17,8 @@ RULE = ("Research runs only when a death is on record, or a birth at least 110 y
 
 
 def is_presumed_living(p: Person, current_year: int) -> bool:
+    if getattr(p, "death_on_record", False):
+        return False
     if p.death_year is not None and p.death_year_precision != "after":
         return False
     if p.birth_year is not None and current_year - p.birth_year >= MAX_PLAUSIBLE_AGE:
@@ -26,6 +28,8 @@ def is_presumed_living(p: Person, current_year: int) -> bool:
 
 def gate(p: Person, current_year: int) -> GateResult:
     if not is_presumed_living(p, current_year):
+        if getattr(p, "death_on_record", False) and p.death_year is None:
+            return GateResult(allowed=True, rule=RULE, reason="Death on record (date withheld from the agent), so research can run.")
         if p.death_year is not None and p.death_year_precision != "after":
             return GateResult(allowed=True, rule=RULE, reason=f"Death on record ({p.death_year}), so research can run.")
         return GateResult(allowed=True, rule=RULE,

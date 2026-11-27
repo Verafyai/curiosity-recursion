@@ -83,9 +83,86 @@ def checklist(req: ResearchRequest, findings: list[Finding]) -> list[Gap]:
     return gaps
 
 
-def brainstorm(inp: BrainstormInput) -> BrainstormOutput:
+YEAR = re.compile(r"\b(1[5-9]\d\d|20[0-2]\d)\b")
+
+
+def _in_life(p: Person, text: str, year: int | None = None) -> bool:
+    """v2 life-window check: a snippet whose years all fall outside the subject's life (plus 40 years
+    for obituaries, estates and family histories) is probably about someone else of the same name."""
+    lo = (p.birth_year or 0) - 1
+    hi = (p.death_year or ((p.birth_year or 0) + 100)) + 40
+    if year and p.birth_year and year < p.birth_year + 12:
+        return False  # printed before he could appear in it as an adult
+    ys = [int(y) for y in YEAR.findall(text or "")]
+    return not ys or any(lo <= y <= hi for y in ys)
+
+
+PARTICLES = {"st", "saint", "ste", "van", "von", "de", "del", "della", "la", "le", "du", "da", "di", "mac", "o"}
+
+
+def surname2(p: Person) -> str:
+    """v2: keep surname particles, so "Homer Doble St. John" has surname "St. John", not "John"."""
+    parts = p.full_name.split()
+    parts = [x for x in parts if x.lower().strip(".,") not in ("jr", "sr", "ii", "iii")]
+    if len(parts) >= 3 and parts[-2].lower().strip(".") in PARTICLES:
+        return " ".join(parts[-2:])
+    return parts[-1] if parts else ""
+
+
+def _forms(p: Person) -> list[str]:
+    """v2: the standard ways a record prints a name, built from the card alone: given plus surname,
+    given plus middle initial, initials, and Saint spelled out. Records rarely print a full middle name."""
+    s = surname2(p)
+    rest = p.full_name[: len(p.full_name) - len(s)].split() if s and p.full_name.endswith(s) else p.full_name.split()[:-1]
+    rest = [x for x in rest if x.lower().strip(".,") not in ("jr", "sr")]
+    if not rest or not s:
+        return []
+    g, mids = rest[0], rest[1:]
+    out = [f"{g} {s}"]
+    if mids:
+        out += [f"{g} {mids[0][0]}. {s}", f"{g[0]}. {mids[0][0]}. {s}"]
+    if s.lower().startswith("st. ") or s.lower().startswith("st "):
+        out.append(f"{g} Saint {s.split(None, 1)[1]}")
+    seen = {n.lower() for n in p.all_names()}
+    return [x for x in out if x.lower() not in seen]
+
+
+def _variants(p: Person, findings: list[Finding]) -> list[str]:
+    """v2: name forms seen in strong, in-life snippets ("Erastus W. Burnham", "E. W. Burnham")."""
+    g, s = given(p), surname2(p)
+    if not g or not s:
+        return []
+    out: list[str] = []
+    pat = re.compile(rf"\b({re.escape(g)}\s+[A-Z]\.?\s+(?:[A-Z]\.?\s+)?{re.escape(s)}|{g[0]}\.\s*[A-Z]\.\s*{re.escape(s)})\b")
+    for f in findings:
+        if f.about is not None:
+            continue
+        for c in f.citations:
+            sn = (c.snippet or "").replace("**", "")
+            if not sn or not _in_life(p, sn, c.year):
+                continue
+            for m in pat.finditer(sn):
+                v = re.sub(r"\s+", " ", m.group(1)).strip()
+                if v.lower() not in [x.lower() for x in out + p.all_names()]:
+                    out.append(v)
+    return out[:4]
+
+
+def _windows(p: Person) -> list[tuple[int, int]]:
+    """v2: newspaper windows over the adult life, 15 years each, inside Chronicling America's range."""
+    if not p.birth_year:
+        return []
+    a, z = p.birth_year + 15, min((p.death_year or p.birth_year + 85) + 1, 1963)
+    out = []
+    while a <= z:
+        out.append((a, min(a + 14, z)))
+        a += 15
+    return out
+
+
+def brainstorm(inp: BrainstormInput, v2: bool = False) -> BrainstormOutput:
     req, p = inp.request, inp.request.person
-    sname, gname = surname(p), given(p)
+    sname, gname = (surname2(p) if v2 else surname(p)), given(p)
     home_town, home_state = town_state(p.birth_place or p.death_place)
     asked = {q.key for q in inp.questions}
     qwords = req.question.lower()
@@ -111,6 +188,30 @@ def brainstorm(inp: BrainstormInput) -> BrainstormOutput:
             "because the checklist round is done and books often hold what indexes miss", "name->books",
             Plan(handler="ia_fulltext", query=f'"{nm}"'), 9 if nm == names[0] else 5, parent="checklist:level-0",
             bonus_words=("book", "mention"))
+    if v2 and node is None:
+        # "Keep going" openers: other spellings, the home town, every stretch of his adult life in newspapers,
+        # the obituary, and the town's own histories. Each is grounded in the subject card itself.
+        for vn in (_forms(p) + [v for v in _variants(p, inp.findings) if v not in _forms(p)])[:6]:
+            add(_key("fulltext", vn), f"Is he in books as \"{vn}\"?", f"because a snippet in his lifetime spells him \"{vn}\"",
+                "variant->books", Plan(handler="ia_fulltext", query=f'"{vn}"'), 8, parent="card:name")
+            add(_key("variant-news", vn), f"Do newspapers print \"{vn}\"?", f"because a snippet in his lifetime spells him \"{vn}\"",
+                "variant->newspapers", Plan(handler="chronam", query=f'"{vn}"', years=_years(p)), 7, parent="card:name")
+        if home_town:
+            add(_key("town-books", sname, home_town), f"Which books name a {sname} of {home_town}?",
+                f"because the card says he was born in {p.birth_place}", "place->books",
+                Plan(handler="ia_fulltext", query=f'"{sname}" "{home_town}"'), 7, parent="card:birth_place")
+            add(_key("town-history", home_town), f"Do the histories and vital records of {home_town} name him?",
+                f"because the card says he was born in {p.birth_place}", "place->town-history",
+                Plan(handler="ia_title", query=f'title:("{home_town}") AND title:(history OR genealogy OR genealogies OR vital OR records)'),
+                6, parent="card:birth_place")
+        for (a_, z_) in _windows(p):
+            add(_key("life-news", sname, str(a_)), f"Was {gname} {sname} in a newspaper between {a_} and {z_}?",
+                f"because the card puts his adult life across {a_} to {z_}", "life->newspapers",
+                Plan(handler="chronam", query=f'"{gname} {sname}"', years=(a_, z_)), 5, parent="card:years")
+        if p.death_year and p.death_year <= 1963:
+            add(_key("obit", sname, str(p.death_year)), f"Was there an obituary for him in {p.death_year}?",
+                f"because the card says he died in {p.death_year}", "death->obituary",
+                Plan(handler="chronam", query=f"{sname} {home_town}".strip(), years=(p.death_year, p.death_year + 1)), 6, parent="card:death_year")
 
     for text, ref, f, cit, claim in _texts(inp.findings):
         about = f.about  # None = the subject
@@ -119,6 +220,8 @@ def brainstorm(inp: BrainstormInput) -> BrainstormOutput:
         strong = cit is None or cit.name_match in (None, "strong") or (cit.snippet and match(target, cit.snippet) == "strong")
         if not strong:
             continue
+        if v2 and about is None and not _in_life(p, text, getattr(cit, "year", None) if cit else None):
+            continue  # v2: probably a namesake from another century
         short = text[:110]
         qid = f.step_id if f.step_id.startswith("q") else None
 
@@ -237,9 +340,14 @@ def brainstorm(inp: BrainstormInput) -> BrainstormOutput:
             rel += 2 if any(w in t for w in ("regiment", "volunteer", "artillery", "infantry", "rebellion")) else 0
             rel += 2 if home_town and home_town.lower() in t else 0
             rel += 1 if cit.name_match == "strong" else 0
-            add(_key("inside", (cit.title or cit.item_id)[:60], who), f"Does \"{(cit.title or cit.item_id)[:80]}\" name {who.split()[0]}, and on which page?",
+            if v2:
+                if f.about is None and not _in_life(p, (cit.snippet or "") + " " + (cit.title or ""), cit.year):
+                    continue
+                if node is not None and node.plan.handler == "ia_inside":
+                    continue  # the page came from inside this very book: searching it again repeats the same call
+            add(_key("inside", (cit.item_id if v2 else (cit.title or cit.item_id)[:60]), who), f"Does \"{(cit.title or cit.item_id)[:80]}\" name {who.split()[0]}, and on which page?",
                 f"because {f.step_id} turned up this book", "book->inside",
-                Plan(handler="ia_inside", item_id=cit.item_id, query=surname(Person(full_name=who))),
+                Plan(handler="ia_inside", item_id=cit.item_id, query=(surname2 if v2 else surname)(Person(full_name=who))),
                 4 + rel, parent=cit.url, parent_q=f.step_id if f.step_id.startswith("q") else None, about=f.about)
 
     # Wikidata candidates that matched the years: ask for parents there.
@@ -280,11 +388,17 @@ def brainstorm(inp: BrainstormInput) -> BrainstormOutput:
     ungrounded = [q for q in ideas if not grounded(q)]
     ideas = [q for q in ideas if grounded(q)]
     fresh, dupes, seen = [], 0, set(asked) if req.dedupe else set()
+    sig = lambda q: (q.plan.handler, q.plan.query, q.plan.item_id, tuple(q.plan.years or ()))  # noqa: E731
+    seen_plans = {sig(q) for q in inp.questions if q.plan} if v2 else set()
     for q in sorted(ideas, key=lambda q: (-q.score, q.id)):
         if req.dedupe and q.key in seen:
             dupes += 1
             continue
+        if v2 and q.plan.handler != "stub" and sig(q) in seen_plans:
+            dupes += 1  # v2: same call under a different key
+            continue
         seen.add(q.key)
+        seen_plans.add(sig(q))
         fresh.append(q)
     live = [q for q in fresh if q.plan.handler != "stub"]
     stubs = [q for q in fresh if q.plan.handler == "stub"]

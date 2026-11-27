@@ -1,0 +1,14 @@
+\section{Genealogical dark data}
+\label{sec:darkdata}
+
+We use \emph{dark data} for records that exist but are not visible to the systems that should find them \citep{heidorn2008dark,hand2020dark}. Genealogical records are dark in several ways at once. They are fragmented across many small holders: historical societies, town clerks, churches and synagogues, museums and veterans' archives. Many are digitised without an index, as page images or OCR text in scanned books and newspapers, so a catalogue name search misses them while full-text search, or handwriting recognition such as Transkribus \citep{kahle2017transkribus}, can find them. Some have no finding aid and can be reached only by a manual lookup or a letter. Families hold boxes of slides, photographs, books, letters and clippings. Other records sit behind logins, paywalls or captchas. All are noisy: variant spellings, transcription errors, two people with one name \citep{fellegi1969linkage,abramitzky2021linking,price2021censustree}; some are destroyed, so an absence must be recorded as an absence. Most important for this paper, many are found only by asking the right next question, and by following up on replies that arrive weeks later.
+
+\begin{center}
+
+\fbox{\parbox{0.93\linewidth}{\small
+\textbf{Darkness tiers} (per record).\quad
+\textbf{T0, online indexed:} reachable by a structured search or API (a catalogue record, an index entry, a Wikidata statement).\quad
+\textbf{T1, online full text only:} online only as OCR text or page images (digitised books, newspapers); finding it needs full-text search and page location.\quad
+\textbf{T2, online gated:} behind a login, OAuth, a paywall or a captcha. Scored as identification: the right holding is named and a correct request is drafted. Never fetched by bypass.\quad
+\textbf{T3, offline only:} an archive, church, synagogue, town clerk, museum or family box. Scored as identification plus a correct outreach draft: right holder, right record, right identifiers.}}
+\end{center}

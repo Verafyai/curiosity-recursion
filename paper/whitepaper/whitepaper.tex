@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue!50!black]{hyperref}
+\setlist{itemsep=2pt,topsep=4pt}
+\lstset{language=Python,basicstyle=\footnotesize\ttfamily,keywordstyle=\bfseries,commentstyle=\itshape\color{black!60},
+  frame=single,framerule=0.4pt,rulecolor=\color{black!30},xleftmargin=4pt,xrightmargin=4pt,columns=fullflexible,
+  showstringspaces=false,literate={-}{-}1}
+\newcommand{\TODO}[1]{\fcolorbox{orange!80!black}{orange!10}{\small\sffamily TODO (Rex): #1}}
+\newcommand{\resdef}[2]{\expandafter\gdef\csname res@#1\endcsname{#2}}
+\newcommand{\NM}{\textit{n.m.}}
+\newcommand{\RESULT}[1]{\ifcsname res@#1\endcsname\csname res@#1\endcsname\else\textbf{(not measured)}\fi}
+\IfFileExists{../results-values.tex}{\input{../results-values}}{}
+\title{Automating the Encouragement Loop:\\Durable Curiosity for Long-Running AI Research Agents}
+\author{Rex St.\ John\\Lineage / independent researcher\\\texttt{rex@verafy.ai}}
+\date{White paper, version 0.1.0, 26 November 2026. \url{https://github.com/Verafyai/curiosity-recursion}}
+\begin{document}
+\maketitle
+
+\section*{The problem: agents that need babysitting}
+I researched 65 of my own relatives with an AI assistant. It found real records, but it stopped early every time, and I kept typing the same things: ``go deeper'', ``are you sure that is the same man?'', ``did you check the churches? the ship he sailed on? the books about his regiment?'', ``did that archive ever reply?''. The nudging was the real work. I had become a full-time supervisor, and the definition of ``thorough'' lived in my head. When I came back later with relative 66, I had no way to know whether it would get the same care as relative 12.
+
+Genealogy is an extreme case of a common shape. The records are scattered, unindexed, behind logins, or held by small archives that answer letters weeks later. The work is long, the sources are flaky, and a person has to approve things along the way. Chat windows lose their memory, cannot wait three weeks, and leave no record of what they checked. Scripts lose their place when they crash.
+
+\section*{The pattern: a supervisor loop as a durable workflow}
+The fix is to write the supervisor down. The loop I was running by hand has six steps, and each one becomes code:
+\begin{enumerate}
+\item \textbf{Generate.} After every finding, ask new questions sparked by that finding, and require each question to quote the evidence it came from. ``He served in the 12th Connecticut: which books cover that regiment, does any of them name him, and on which page?''
+\item \textbf{Dedupe.} Drop anything already asked, in this run or any earlier run for the same person, using a canonical key per question.
+\item \textbf{Chase.} Investigate the best few, as retried, recorded steps.
+\item \textbf{Persist.} Store every question and answer, so the next run rechecks what this one asked.
+\item \textbf{Sleep.} Wait between levels with a durable timer: seconds in a demo, weeks for an archive's reply.
+\item \textbf{Ask a human.} Hold for approval; accept ``dig here first'' at any time; never send a letter without a yes.
+\end{enumerate}
+We call the first four \emph{Curiosity Recursion}, because each answer is fed back in as the spark for the next questions, down to a set depth. Baseline checklists per heritage group, \emph{circuits}, give every run the same floor (``did you check the synagogues?''\ becomes a checked line item). The whole loop runs as a Temporal workflow: workflow code decides, activities do the side effects, Temporal records every result, retries failures with backoff, keeps timers across restarts, takes signals from people, and keeps the full event history as an audit trail.
+
+\section*{What it looks like in code}
+This is the level loop from the reference implementation (\texttt{cr/workflow.py}), lightly trimmed. Everything that touches the network happens inside \texttt{\_work\_node}, as activities.
+\begin{lstlisting}
+level = 1
+while frontier:
+    for r in self.redirects:              # a person said "dig here first"
+        frontier.append(self._reviewer_q(r, len(self.p.questions) + 1))
+    self.redirects = []
+    nxt: list[Question] = []
+    # investigate every question in the level, in parallel; each one is a
+    # retried activity that then asks the generator for grounded follow-ups
+    await asyncio.gather(*[self._work_node(req, q, level, nxt) for q in frontier])
+    await self._persist(req, "brainstorming")      # every question, every level
+    if self._calls_left(req) <= 0:
+        self.p.stop_reason = f"Reached the {req.max_tool_calls} tool-call budget."
+        break
+    if not nxt:
+        self.p.stop_reason = "No new questions: every lead has been followed."
+        break
+    if self._time_up(req):
+        self.p.stop_reason = f"Reached the {req.max_run_minutes} minute limit."
+        break
+    level += 1
+    if req.level_pause_seconds:                    # survives restarts: minutes to weeks
+        await workflow.sleep(timedelta(seconds=req.level_pause_seconds))
+    frontier = nxt
+# then: compose the report from documented claims only, and wait for a human
+await workflow.wait_condition(lambda: self.decision is not None or bool(self.redirects),
+                              timeout=timedelta(hours=req.approval_timeout_hours))
+\end{lstlisting}
+
+\section*{What the pilot showed}
+These are from local runs on 26 November 2026, on two people (Erastus W.\ Burnham, 1834 to 1921, and Mary Devine, 1830 to 1911), on Temporal's open-source dev server. They are a pilot, not a benchmark.
+\begin{itemize}
+\item \textbf{Crashes did not lose work.} I killed the worker process with SIGKILL five times during runs. Temporal held the runs (74, 128, 87, 194 and 158 events of history, with lookups pending) and each continued from the same questions after a restart. In the two histories I checked, no lookup was run again after it had finished.
+\item \textbf{Flaky archives were retried, visibly.} Simulated 503 errors showed up on the graph as ``retrying 3/8'' and then recovered; one question took six attempts.
+\item \textbf{Memory worked.} Every later run for the same person re-asked the earlier runs' top questions first and skipped repeats.
+\item \textbf{People stayed in charge.} Nine runs: two blocked before any lookup because the person might be living, six approved, one still waiting. Six letters to archives were drafted; two were approved and written to a folder. None was sent.
+\item \textbf{It found real leads, and it caught its own mistake.} Search inside a scanned regimental history found ``Burnham, Erastus W.''\ on a roster page that no name index covers. A line naming his ``parents, Phineas and Abigail (Huntley)'' turned out, on a closer read of the same passage, to describe a man born in 1810 and died in 1854; the report flags it as a conflict instead of a fact.
+\end{itemize}
+\section*{What the benchmark showed}
+I then measured it, and the honest answer is that curiosity alone did not win.
+\begin{itemize}
+\item \textbf{Rebuilding my own dossiers.} Given only a name and a birth year, and with my own websites and repositories blocked so nothing could be copied back, each approach tried to rebuild six family dossiers I had built by hand. Curiosity Recursion as preregistered recovered \RESULT{corpus-overall-B5} of them on average, a ReAct agent \RESULT{corpus-overall-B1} and a single pass \RESULT{corpus-overall-B0}. A repaired version of its question rules reached \RESULT{corpus-overall-B5fix}, but I tuned that repair while looking at the results, so it is not a fair test. With six people, none of these gaps is statistically meaningful.
+\item \textbf{It was the most careful.} \RESULT{corpus-prec-B5} of what it cited was about the right person, against \RESULT{corpus-prec-B1} for ReAct.
+\item \textbf{The real limit is access.} Most of what is in my dossiers came from newspaper archives behind logins, military records, books and family interviews. None of the World War~I veteran's facts is reachable with the free tools the benchmark uses, and every approach scored zero on him.
+\item \textbf{The preregistered record benchmark agreed.} On 12 test subjects, it found \RESULT{H1-recall-B5-B100} of the hidden records, ReAct \RESULT{H1-recall-B1-B100}.
+\item \textbf{Durability held.} Under injected failures and repeated worker kills, both the durable and the plain version finished every run, but only the plain version lost and redid finished lookups.
+\end{itemize}
+The next step is reach, not cleverness: keyed access to newspapers, military and vital records under the user's own accounts.
+
+\section*{Adopting it in your domain}
+Anything with slow external systems and a human approval step has the same shape: claims processing (request records, wait, follow up, adjudicate), KYC and due diligence (generate questions from each document, chase registries, escalate), public-records requests (draft, approve, wait weeks, ingest the reply), scientific literature review (every paper sparks the next query; keep what was read). The recipe:
+\begin{enumerate}
+\item Make the questions first-class records with a spark, a plan and a status, and persist them.
+\item Require grounding: a new question must quote the evidence that sparked it.
+\item Put every side effect in an activity with an explicit retry policy, and treat 4xx as an answer, not a retry.
+\item Use durable timers for waiting and signals for people; never let the agent send without a yes.
+\item Keep a floor checklist per case type so thoroughness is repeatable, and show its coverage.
+\item Write the final output only from documented claims; keep leads labelled as leads.
+\end{enumerate}
+
+\section*{Download and run it}
+The reference implementation runs on a laptop with \texttt{temporal server start-dev}, needs no API key for the rule-based generator and the public sources it uses, and ships with a live graph UI, the benchmark harness, and tests (including a replay test and a test that no code path can send mail). Put in one name of someone who has died, and watch it ask questions. \TODO{public repository URL.}
+\end{document}

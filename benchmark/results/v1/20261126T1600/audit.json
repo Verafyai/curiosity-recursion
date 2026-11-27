@@ -1,0 +1,45 @@
+{
+ "alex": {
+  "n": 15,
+  "agree": 0.7333333333333333,
+  "scorer_yes_judge_no": 4,
+  "scorer_no_judge_yes": 0
+ },
+ "bristol": {
+  "n": 15,
+  "agree": 0.8,
+  "scorer_yes_judge_no": 1,
+  "scorer_no_judge_yes": 2
+ },
+ "burnham": {
+  "n": 15,
+  "agree": 0.8666666666666667,
+  "scorer_yes_judge_no": 2,
+  "scorer_no_judge_yes": 0
+ },
+ "homer": {
+  "n": 10,
+  "agree": 1.0,
+  "scorer_yes_judge_no": 0,
+  "scorer_no_judge_yes": 0
+ },
+ "john": {
+  "n": 10,
+  "agree": 1.0,
+  "scorer_yes_judge_no": 0,
+  "scorer_no_judge_yes": 0
+ },
+ "kingsley": {
+  "n": 15,
+  "agree": 0.8,
+  "scorer_yes_judge_no": 3,
+  "scorer_no_judge_yes": 0
+ },
+ "_overall": {
+  "n": 80,
+  "agree": 0.85,
+  "kappa": 0.7,
+  "precision_of_scorer_yes": 0.75,
+  "judge_yes_rate_on_scorer_no": 0.05
+ }
+}

@@ -1,0 +1,16 @@
+{
+  "agent": "B5-llm",
+  "kind": "cr-temporal",
+  "depth": 3,
+  "breadth": 3,
+  "max_nodes": 80,
+  "max_run_minutes": 180,
+  "generator": "llm",
+  "use_memory": true,
+  "use_circuits": true,
+  "verify_nodes": true,
+  "dedupe": true,
+  "mode": "brainstorm",
+  "budget": "max_tool_calls = B (benchmark budget)",
+  "exclusion_filter": "cr/sources/exclusion.py (on for every strategy)"
+}

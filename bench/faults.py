@@ -36,10 +36,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from temporalio.client import Client, WorkflowHandle  # noqa: E402
 from temporalio.contrib.pydantic import pydantic_data_converter  # noqa: E402
 
-from bench.common import ROOT, commit, load_subjects, now, request_for, result_from_report  # noqa: E402
+from bench.common import ROOT, rpc_retry, wait_result, commit, load_subjects, now, request_for, result_from_report  # noqa: E402
 from cr.models import OutreachDraft  # noqa: E402
 from cr.sources.mock_archive import plan_reply  # noqa: E402
 from cr.workflow import CuriosityRecursionWorkflow  # noqa: E402
+
+
+LOGDIR = ROOT / "results"
 
 
 class WorkerKiller:
@@ -48,7 +51,7 @@ class WorkerKiller:
         self.rng, self.proc, self.kills = random.Random(seed), None, []
 
     def start(self):
-        log = open(ROOT / "results" / f"worker-{self.tq}.log", "a")
+        log = open(LOGDIR / f"worker-{self.tq}.log", "a")
         self.proc = subprocess.Popen([sys.executable, str(ROOT / "worker.py")], env={**os.environ, **self.env, "CR_TASK_QUEUE": self.tq},
                                      stdout=log, stderr=subprocess.STDOUT, cwd=ROOT)
 
@@ -59,7 +62,7 @@ class WorkerKiller:
                 return
             except asyncio.TimeoutError:
                 pass
-            desc = await handle.describe()
+            desc = await rpc_retry(handle.describe)
             self.proc.send_signal(signal.SIGKILL)
             self.proc.wait()
             self.kills.append({"t": round(time.time(), 1), "history_events": desc.raw_description.workflow_execution_info.history_length,
@@ -98,7 +101,8 @@ async def delayed_replies(handle: WorkflowHandle, drafts: list[OutreachDraft], h
 async def run_b5(subject: dict, budget: int, a) -> dict:
     client = await Client.connect(os.environ.get("TEMPORAL_ADDRESS", "localhost:7233"), data_converter=pydantic_data_converter)
     tq = f"faults-{uuid.uuid4().hex[:6]}"
-    env = {"CR_DB": str(ROOT / "results" / f"memory-faults-{tq}.db"), "CR_FAULT_P": str(a.fault_p), "CR_FAULT_K": str(a.fault_k)}
+    env = {"CR_DB": str(Path(a.out).parent / f"memory-faults-{tq}.db"), "CR_FAULT_P": str(a.fault_p), "CR_FAULT_K": str(a.fault_k),
+           "CR_OUTBOX": str(Path(a.out).parent / "outbox-not-sent")}
     killer = WorkerKiller(tq, env, a.kill_every, a.restart_after, a.seed)
     killer.start()
     await asyncio.sleep(3)
@@ -111,10 +115,12 @@ async def run_b5(subject: dict, budget: int, a) -> dict:
     kt = asyncio.create_task(killer.loop(h, done)) if a.kill_every else None
     t0 = time.time()
     try:
-        rep = await asyncio.wait_for(h.result(), timeout=a.timeout)
+        rep = await wait_result(h, a.timeout)
         done.set()
         line = result_from_report(rep, **meta)
         desc = await h.describe()
+        prog = await rpc_retry(lambda: h.query("progress"))
+        line.update(tool_calls=prog.tool_calls if hasattr(prog, "tool_calls") else prog.get("tool_calls"))
         line.update(completed=True, wall_seconds=round(time.time() - t0, 1), kills=killer.kills,
                     history_events=desc.raw_description.workflow_execution_info.history_length,
                     repeated_activities=await repeated_activities(h))
@@ -137,24 +143,35 @@ def run_b4(subject: dict, budget: int, a) -> dict:
         "from bench.baselines import cr_plain_loop as c;"
         f"s=[x for x in load_subjects('all') if x['subject_id']=={subject['subject_id']!r}][0];"
         f"print(json.dumps(asyncio.run(c.run(s,{budget},{a.seed},{{'p':{a.fault_p},'k':{a.fault_k}}}))))")]
+    trace_dir = Path(a.out).parent / "b4-traces"
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    traces = []
+    tag = uuid.uuid4().hex[:6]
     while time.time() - t0 < a.timeout:
         attempts += 1
-        p = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+        tr = trace_dir / f"{subject['subject_id']}-s{a.seed}-p{a.fault_p}-{tag}-attempt{attempts}.txt"
+        traces.append(tr)
+        p = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True,
+                             env={**os.environ, "CR_B4_TRACE": str(tr), "CR_DB": str(trace_dir / f"mem-{tag}.db")})
         wait = rng.expovariate(1 / a.kill_every) if a.kill_every else a.timeout
         try:
             out, _ = p.communicate(timeout=wait)
             line = json.loads(out.strip().splitlines()[-1])
-            line.update(kills=kills, restarts=attempts - 1, wall_seconds=round(time.time() - t0, 1))
+            done = [len(t.read_text().splitlines()) if t.exists() else 0 for t in traces]
+            line.update(kills=kills, restarts=attempts - 1, wall_seconds=round(time.time() - t0, 1),
+                        faults={"p": a.fault_p, "k": a.fault_k, "kill_every_s": a.kill_every, "restart_after_s": a.restart_after},
+                        activities_completed_final=done[-1], activities_completed_lost=sum(done[:-1]))
             return line
         except subprocess.TimeoutExpired:
             p.kill()
             p.wait()
             kills.append({"t": round(time.time(), 1)})
             time.sleep(a.restart_after)
-    return {"run_id": f"faults-B4-{subject['subject_id']}", "agent": "B4", "subject_id": subject["subject_id"], "budget": budget,
+    done = [len(t.read_text().splitlines()) if t.exists() else 0 for t in traces]
+    return {"activities_completed_lost": sum(done), "run_id": f"faults-B4-{subject['subject_id']}-{tag}", "agent": "B4", "subject_id": subject["subject_id"], "budget": budget,
             "seed": a.seed, "commit": commit(), "started_at": now(), "completed": False, "stop_reason": "timed out under kills",
             "kills": kills, "restarts": attempts - 1, "wall_seconds": round(time.time() - t0, 1), "citations": [], "drafts": [], "questions": [],
-            "faults": {"p": a.fault_p, "k": a.fault_k, "kill_every_s": a.kill_every}}
+            "faults": {"p": a.fault_p, "k": a.fault_k, "kill_every_s": a.kill_every, "restart_after_s": a.restart_after}}
 
 
 async def main() -> int:
@@ -171,6 +188,9 @@ async def main() -> int:
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
     (ROOT / "results").mkdir(exist_ok=True)
+    global LOGDIR
+    LOGDIR = Path(a.out).parent
+    LOGDIR.mkdir(parents=True, exist_ok=True)
     subs = [s for s in load_subjects("all") if s["subject_id"] in set(a.subjects.split(","))]
     with a.out.open("a") as f:
         for s in subs:
