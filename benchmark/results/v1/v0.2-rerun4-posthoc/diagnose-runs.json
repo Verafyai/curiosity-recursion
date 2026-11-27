@@ -1,0 +1,1082 @@
+{
+ "B1-alex-b100-s1": {
+  "condition": "B1",
+  "person": "alex",
+  "calls": 14,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-alex-b100-s2": {
+  "condition": "B1",
+  "person": "alex",
+  "calls": 25,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 1,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-alex-b100-s3": {
+  "condition": "B1",
+  "person": "alex",
+  "calls": 21,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 3,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-bristol-b100-s1": {
+  "condition": "B1",
+  "person": "bristol",
+  "calls": 33,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 1,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-bristol-b100-s2": {
+  "condition": "B1",
+  "person": "bristol",
+  "calls": 25,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 3,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-bristol-b100-s3": {
+  "condition": "B1",
+  "person": "bristol",
+  "calls": 21,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-burnham-b100-s1": {
+  "condition": "B1",
+  "person": "burnham",
+  "calls": 21,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-burnham-b100-s2": {
+  "condition": "B1",
+  "person": "burnham",
+  "calls": 24,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 1,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-burnham-b100-s3": {
+  "condition": "B1",
+  "person": "burnham",
+  "calls": 22,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 1,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-homer-b100-s1": {
+  "condition": "B1",
+  "person": "homer",
+  "calls": 25,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-homer-b100-s2": {
+  "condition": "B1",
+  "person": "homer",
+  "calls": 25,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-homer-b100-s3": {
+  "condition": "B1",
+  "person": "homer",
+  "calls": 22,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-john-b100-s1": {
+  "condition": "B1",
+  "person": "john",
+  "calls": 15,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-john-b100-s2": {
+  "condition": "B1",
+  "person": "john",
+  "calls": 24,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 1,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-john-b100-s3": {
+  "condition": "B1",
+  "person": "john",
+  "calls": 24,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-kingsley-b100-s1": {
+  "condition": "B1",
+  "person": "kingsley",
+  "calls": 22,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 3,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-kingsley-b100-s2": {
+  "condition": "B1",
+  "person": "kingsley",
+  "calls": 20,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B1-kingsley-b100-s3": {
+  "condition": "B1",
+  "person": "kingsley",
+  "calls": 16,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-alex-b100-s1": {
+  "condition": "B5",
+  "person": "alex",
+  "calls": 19,
+  "exact_repeats": 9,
+  "repeats_excl_retries": 9,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-alex-b100-s2": {
+  "condition": "B5",
+  "person": "alex",
+  "calls": 19,
+  "exact_repeats": 9,
+  "repeats_excl_retries": 9,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-alex-b100-s3": {
+  "condition": "B5",
+  "person": "alex",
+  "calls": 19,
+  "exact_repeats": 9,
+  "repeats_excl_retries": 9,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-bristol-b100-s1": {
+  "condition": "B5",
+  "person": "bristol",
+  "calls": 17,
+  "exact_repeats": 7,
+  "repeats_excl_retries": 7,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-bristol-b100-s2": {
+  "condition": "B5",
+  "person": "bristol",
+  "calls": 18,
+  "exact_repeats": 8,
+  "repeats_excl_retries": 7,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-bristol-b100-s3": {
+  "condition": "B5",
+  "person": "bristol",
+  "calls": 18,
+  "exact_repeats": 8,
+  "repeats_excl_retries": 7,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-burnham-b100-s1": {
+  "condition": "B5",
+  "person": "burnham",
+  "calls": 15,
+  "exact_repeats": 6,
+  "repeats_excl_retries": 5,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-burnham-b100-s2": {
+  "condition": "B5",
+  "person": "burnham",
+  "calls": 14,
+  "exact_repeats": 5,
+  "repeats_excl_retries": 5,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-burnham-b100-s3": {
+  "condition": "B5",
+  "person": "burnham",
+  "calls": 14,
+  "exact_repeats": 5,
+  "repeats_excl_retries": 5,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-alex-b100-s1": {
+  "condition": "B5-fix",
+  "person": "alex",
+  "calls": 24,
+  "exact_repeats": 4,
+  "repeats_excl_retries": 4,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-alex-b100-s2": {
+  "condition": "B5-fix",
+  "person": "alex",
+  "calls": 25,
+  "exact_repeats": 5,
+  "repeats_excl_retries": 4,
+  "errors": 6,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-alex-b100-s3": {
+  "condition": "B5-fix",
+  "person": "alex",
+  "calls": 24,
+  "exact_repeats": 4,
+  "repeats_excl_retries": 4,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-bristol-b100-s1": {
+  "condition": "B5-fix",
+  "person": "bristol",
+  "calls": 59,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-bristol-b100-s2": {
+  "condition": "B5-fix",
+  "person": "bristol",
+  "calls": 58,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-bristol-b100-s3": {
+  "condition": "B5-fix",
+  "person": "bristol",
+  "calls": 58,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-burnham-b100-s1": {
+  "condition": "B5-fix",
+  "person": "burnham",
+  "calls": 67,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-burnham-b100-s2": {
+  "condition": "B5-fix",
+  "person": "burnham",
+  "calls": 66,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 3,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-burnham-b100-s3": {
+  "condition": "B5-fix",
+  "person": "burnham",
+  "calls": 67,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-homer-b100-s1": {
+  "condition": "B5-fix",
+  "person": "homer",
+  "calls": 37,
+  "exact_repeats": 6,
+  "repeats_excl_retries": 5,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-homer-b100-s2": {
+  "condition": "B5-fix",
+  "person": "homer",
+  "calls": 33,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-homer-b100-s3": {
+  "condition": "B5-fix",
+  "person": "homer",
+  "calls": 34,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-john-b100-s1": {
+  "condition": "B5-fix",
+  "person": "john",
+  "calls": 41,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-john-b100-s2": {
+  "condition": "B5-fix",
+  "person": "john",
+  "calls": 41,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-john-b100-s3": {
+  "condition": "B5-fix",
+  "person": "john",
+  "calls": 41,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-kingsley-b100-s1": {
+  "condition": "B5-fix",
+  "person": "kingsley",
+  "calls": 45,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 3,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-kingsley-b100-s2": {
+  "condition": "B5-fix",
+  "person": "kingsley",
+  "calls": 44,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-fix-kingsley-b100-s3": {
+  "condition": "B5-fix",
+  "person": "kingsley",
+  "calls": 45,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-homer-b100-s1": {
+  "condition": "B5",
+  "person": "homer",
+  "calls": 10,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 3,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-homer-b100-s2": {
+  "condition": "B5",
+  "person": "homer",
+  "calls": 10,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 3,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-homer-b100-s3": {
+  "condition": "B5",
+  "person": "homer",
+  "calls": 15,
+  "exact_repeats": 8,
+  "repeats_excl_retries": 3,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-john-b100-s1": {
+  "condition": "B5",
+  "person": "john",
+  "calls": 20,
+  "exact_repeats": 6,
+  "repeats_excl_retries": 6,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-john-b100-s2": {
+  "condition": "B5",
+  "person": "john",
+  "calls": 19,
+  "exact_repeats": 5,
+  "repeats_excl_retries": 5,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-john-b100-s3": {
+  "condition": "B5",
+  "person": "john",
+  "calls": 19,
+  "exact_repeats": 5,
+  "repeats_excl_retries": 5,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-kingsley-b100-s1": {
+  "condition": "B5",
+  "person": "kingsley",
+  "calls": 19,
+  "exact_repeats": 10,
+  "repeats_excl_retries": 9,
+  "errors": 1,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-kingsley-b100-s2": {
+  "condition": "B5",
+  "person": "kingsley",
+  "calls": 20,
+  "exact_repeats": 11,
+  "repeats_excl_retries": 10,
+  "errors": 2,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B5-kingsley-b100-s3": {
+  "condition": "B5",
+  "person": "kingsley",
+  "calls": 18,
+  "exact_repeats": 9,
+  "repeats_excl_retries": 9,
+  "errors": 0,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-alex-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 23,
+  "repeats_excl_retries": 23,
+  "errors": 17,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-alex-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 23,
+  "repeats_excl_retries": 23,
+  "errors": 17,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-alex-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 23,
+  "repeats_excl_retries": 23,
+  "errors": 17,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-bristol-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "bristol",
+  "calls": 101,
+  "exact_repeats": 12,
+  "repeats_excl_retries": 11,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-bristol-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 11,
+  "repeats_excl_retries": 11,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-bristol-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 11,
+  "repeats_excl_retries": 11,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-burnham-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "burnham",
+  "calls": 100,
+  "exact_repeats": 24,
+  "repeats_excl_retries": 12,
+  "errors": 19,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-burnham-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "burnham",
+  "calls": 100,
+  "exact_repeats": 24,
+  "repeats_excl_retries": 12,
+  "errors": 19,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-burnham-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "burnham",
+  "calls": 101,
+  "exact_repeats": 25,
+  "repeats_excl_retries": 12,
+  "errors": 20,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-homer-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "homer",
+  "calls": 106,
+  "exact_repeats": 41,
+  "repeats_excl_retries": 25,
+  "errors": 22,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-homer-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "homer",
+  "calls": 101,
+  "exact_repeats": 36,
+  "repeats_excl_retries": 21,
+  "errors": 20,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-homer-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "homer",
+  "calls": 106,
+  "exact_repeats": 41,
+  "repeats_excl_retries": 24,
+  "errors": 25,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-john-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "john",
+  "calls": 102,
+  "exact_repeats": 7,
+  "repeats_excl_retries": 5,
+  "errors": 12,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-john-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "john",
+  "calls": 101,
+  "exact_repeats": 6,
+  "repeats_excl_retries": 5,
+  "errors": 11,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-john-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "john",
+  "calls": 102,
+  "exact_repeats": 6,
+  "repeats_excl_retries": 4,
+  "errors": 12,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-kingsley-b100-s1": {
+  "condition": "B6-no-ledger",
+  "person": "kingsley",
+  "calls": 102,
+  "exact_repeats": 16,
+  "repeats_excl_retries": 10,
+  "errors": 18,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-kingsley-b100-s2": {
+  "condition": "B6-no-ledger",
+  "person": "kingsley",
+  "calls": 105,
+  "exact_repeats": 19,
+  "repeats_excl_retries": 10,
+  "errors": 21,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-ledger-kingsley-b100-s3": {
+  "condition": "B6-no-ledger",
+  "person": "kingsley",
+  "calls": 101,
+  "exact_repeats": 15,
+  "repeats_excl_retries": 11,
+  "errors": 17,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-alex-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 18,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-alex-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 18,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-alex-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 18,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-bristol-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-bristol-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-bristol-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-burnham-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "burnham",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-burnham-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "burnham",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 6,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-burnham-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "burnham",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-homer-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "homer",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 2,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-homer-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "homer",
+  "calls": 104,
+  "exact_repeats": 4,
+  "repeats_excl_retries": 0,
+  "errors": 8,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-homer-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "homer",
+  "calls": 108,
+  "exact_repeats": 8,
+  "repeats_excl_retries": 1,
+  "errors": 11,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-john-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "john",
+  "calls": 104,
+  "exact_repeats": 4,
+  "repeats_excl_retries": 1,
+  "errors": 14,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-john-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "john",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 13,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-john-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "john",
+  "calls": 102,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 1,
+  "errors": 13,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-kingsley-b100-s1": {
+  "condition": "B6-no-parallel",
+  "person": "kingsley",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 16,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-kingsley-b100-s2": {
+  "condition": "B6-no-parallel",
+  "person": "kingsley",
+  "calls": 102,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 0,
+  "errors": 17,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-no-parallel-kingsley-b100-s3": {
+  "condition": "B6-no-parallel",
+  "person": "kingsley",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-alex-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-alex-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-alex-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "alex",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-bristol-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "bristol",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 5,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-bristol-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "bristol",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 0,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-bristol-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "bristol",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 4,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-burnham-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "burnham",
+  "calls": 102,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 0,
+  "errors": 8,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-burnham-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "burnham",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-burnham-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "burnham",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-homer-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "homer",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 1,
+  "errors": 7,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-homer-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "homer",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 0,
+  "errors": 8,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-homer-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "homer",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 0,
+  "errors": 8,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-john-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "john",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 0,
+  "errors": 14,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-john-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "john",
+  "calls": 101,
+  "exact_repeats": 1,
+  "repeats_excl_retries": 0,
+  "errors": 12,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-john-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "john",
+  "calls": 102,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 0,
+  "errors": 13,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-kingsley-b100-s1": {
+  "condition": "B6-swarm",
+  "person": "kingsley",
+  "calls": 100,
+  "exact_repeats": 0,
+  "repeats_excl_retries": 0,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-kingsley-b100-s2": {
+  "condition": "B6-swarm",
+  "person": "kingsley",
+  "calls": 103,
+  "exact_repeats": 3,
+  "repeats_excl_retries": 0,
+  "errors": 18,
+  "http429": 0,
+  "wikidata_429": 0
+ },
+ "B6-swarm-kingsley-b100-s3": {
+  "condition": "B6-swarm",
+  "person": "kingsley",
+  "calls": 102,
+  "exact_repeats": 2,
+  "repeats_excl_retries": 2,
+  "errors": 15,
+  "http429": 0,
+  "wikidata_429": 0
+ }
+}
